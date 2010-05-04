@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6F1DB555-D2FF-4E2C-8F20-4A012D6F4581}</ProjectGuid>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Relax.Tests</RootNamespace>
+    <AssemblyName>Relax.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Machine.Specifications, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.GallioAdapter, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Machine.Specifications.GallioAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\lib\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="Symbiote.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Symbiote.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assimilation\when_assimilating_with_caching.cs" />
+    <Compile Include="Assimilation\when_assimilating_without_caching.cs" />
+    <Compile Include="Caching\with_caching_provider.cs" />
+    <Compile Include="Configuration\when_using_caching_with_time_limit.cs" />
+    <Compile Include="Configuration\when_providing_custom_configuration.cs" />
+    <Compile Include="Configuration\when_using_caching_with_expiration_date.cs" />
+    <Compile Include="Configuration\when_using_caching_with_no_expiration.cs" />
+    <Compile Include="Configuration\when_using_defaults.cs" />
+    <Compile Include="Configuration\with_couch_configuration.cs" />
+    <Compile Include="Configuration\with_couch_configurator.cs" />
+    <Compile Include="Document\Driver.cs" />
+    <Compile Include="Document\Person.cs" />
+    <Compile Include="Document\when_using_custom_complex_key.cs" />
+    <Compile Include="Document\when_using_custom_key.cs" />
+    <Compile Include="Document\with_custom_document_complex_key.cs" />
+    <Compile Include="Document\with_custom_document_simple_key.cs" />
+    <Compile Include="Mocks\with_mock_repository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\when_cleaning_up_views.cs" />
+    <Compile Include="Server\when_compacting_db.cs" />
+    <Compile Include="Server\when_compacting_view.cs" />
+    <Compile Include="Server\when_copying_from_any_database.cs" />
+    <Compile Include="Server\when_copying_from_local_database.cs" />
+    <Compile Include="Server\when_starting_replication_from_any_database.cs" />
+    <Compile Include="Server\when_starting_replication_from_local_database.cs" />
+    <Compile Include="Server\with_continuous_replication.cs" />
+    <Compile Include="Server\with_copy_replication.cs" />
+    <Compile Include="Server\with_db_compaction.cs" />
+    <Compile Include="Server\with_view_cleanup_command.cs" />
+    <Compile Include="Server\with_view_compaction.cs" />
+    <Compile Include="Server\with_couch_server.cs" />
+    <Compile Include="TestDocument.cs" />
+    <Compile Include="Server\when_checking_database_existence.cs" />
+    <Compile Include="Server\when_creating_database.cs" />
+    <Compile Include="Server\when_deleteing_database.cs" />
+    <Compile Include="Repository\when_deleting_document.cs" />
+    <Compile Include="Repository\when_getting_all_docuemnts.cs" />
+    <Compile Include="Repository\when_getting_all_docuemnts_with_paging.cs" />
+    <Compile Include="Repository\when_getting_a_document_by_key.cs" />
+    <Compile Include="Repository\when_getting_a_document_by_key_and_rev.cs" />
+    <Compile Include="Server\when_getting_list_of_databases.cs" />
+    <Compile Include="Repository\when_saving_a_document.cs" />
+    <Compile Include="Repository\when_saving_documents.cs" />
+    <Compile Include="Server\with_check_database_exists_command.cs" />
+    <Compile Include="Server\with_create_database_command.cs" />
+    <Compile Include="Server\with_create_delete_database_command.cs" />
+    <Compile Include="Repository\with_delete_document_command.cs" />
+    <Compile Include="Repository\with_document_repository.cs" />
+    <Compile Include="Repository\with_get_all_documents_command.cs" />
+    <Compile Include="Repository\with_get_all_documents_paged_command.cs" />
+    <Compile Include="Repository\with_get_document_by_key_and_rev_command.cs" />
+    <Compile Include="Repository\with_get_document_by_key_command.cs" />
+    <Compile Include="Server\with_list_databases_command.cs" />
+    <Compile Include="Repository\with_save_models_command.cs" />
+    <Compile Include="Repository\with_save_model_command.cs" />
+    <Compile Include="Repository\with_test_document.cs" />
+    <Compile Include="URI\when_bulk_inserting.cs" />
+    <Compile Include="URI\when_cleaning_up_view.cs" />
+    <Compile Include="URI\when_compacting_database.cs" />
+    <Compile Include="URI\when_compacting_view.cs" />
+    <Compile Include="URI\when_creating_baseline_uri.cs" />
+    <Compile Include="URI\when_getting_attachment_including_revision.cs" />
+    <Compile Include="URI\when_grouping.cs" />
+    <Compile Include="URI\when_grouping_with_level.cs" />
+    <Compile Include="URI\when_inclusive_end_in_view.cs" />
+    <Compile Include="URI\when_retrieving_by_key.cs" />
+    <Compile Include="URI\when_retrieving_by_key_and_revision.cs" />
+    <Compile Include="URI\when_retrieving_by_list_all.cs" />
+    <Compile Include="URI\when_retrieving_by_list_all_with_descending.cs" />
+    <Compile Include="URI\when_retrieving_by_list_all_with_descending_and_limit.cs" />
+    <Compile Include="URI\when_retrieving_by_list_all_with_descending_and_skip.cs" />
+    <Compile Include="URI\when_retrieving_by_named_list_with_descending_and_skip.cs" />
+    <Compile Include="URI\when_retrieving_by_range.cs" />
+    <Compile Include="URI\when_retrieving_by_view.cs" />
+    <Compile Include="URI\when_retrieving_changes_continuously.cs" />
+    <Compile Include="URI\when_retrieving_changes_continuously_including_documents.cs" />
+    <Compile Include="URI\when_retrieving_changes_via_longpolling.cs" />
+    <Compile Include="URI\when_retrieving_design_document.cs" />
+    <Compile Include="URI\when_setting_up_replication.cs" />
+    <Compile Include="URI\when_stale_records_are_ok.cs" />
+    <Compile Include="URI\when_turning_off_reduce.cs" />
+    <Compile Include="URI\when_using_attachments.cs" />
+    <Compile Include="URI\when_using_end_key_only.cs" />
+    <Compile Include="URI\when_using_start_key_only.cs" />
+    <Compile Include="URI\with_basic_uri.cs" />
+    <Compile Include="URI\with_basic_uri_without_db.cs" />
+    <Compile Include="ViewFilter\when_filtering_get_all.cs" />
+    <Compile Include="with_configuration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\src\Relax\Relax.csproj">
+      <Project>{3A8D40A3-96F9-4878-902E-7CBC3A82AEDD}</Project>
+      <Name>Relax</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
