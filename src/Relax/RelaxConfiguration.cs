@@ -5,7 +5,7 @@ using Symbiote.Core.Cache;
 
 namespace Relax
 {
-    public static class RelaxConfiguration
+    public class RelaxConfiguration
     {
         public static void Configure(Action<CouchConfigurator> configure)
         {
