@@ -4,8 +4,7 @@ using Newtonsoft.Json;
 
 namespace Relax.Impl
 {
-    public class BulkPersist<TModel>
-        where TModel : class
+    public class BulkPersist
     {
         [JsonProperty(PropertyName = "all_or_nothing")]
         public bool AllOrNothing { get; set; }
@@ -14,14 +13,14 @@ namespace Relax.Impl
         public bool NonAtomic { get; set; }
 
         [JsonProperty(PropertyName = "docs")]
-        public TModel[] Documents { get; set; }
+        public object[] Documents { get; set; }
 
-        public BulkPersist(IEnumerable<TModel> docs)
+        public BulkPersist(IEnumerable<object> docs)
         {
             Documents = docs.ToArray();
         }
 
-        public BulkPersist(bool allOrNothing, bool nonAtomic, IEnumerable<TModel> docs)
+        public BulkPersist(bool allOrNothing, bool nonAtomic, IEnumerable<object> docs)
         {
             AllOrNothing = allOrNothing;
             NonAtomic = nonAtomic;

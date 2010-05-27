@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices\CouchMembershipProvider.cs" />
     <Compile Include="BaseDocument.cs" />
     <Compile Include="ChangeRecord.cs" />
     <Compile Include="CouchDocument.cs" />
@@ -43,6 +44,7 @@
     <Compile Include="Impl\BaseCouchDbController.cs" />
     <Compile Include="Impl\BulkResponse.cs" />
     <Compile Include="Impl\CacheKeyBuilder.cs" />
+    <Compile Include="Impl\ChildDocumentContractResolver.cs" />
     <Compile Include="Impl\CouchCacheProvider.cs" />
     <Compile Include="Impl\CouchCommand.cs" />
     <Compile Include="Impl\CouchCommandFactory.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Impl\CachedDocumentRepository.cs" />
     <Compile Include="Impl\CouchDbServer.cs" />
     <Compile Include="Impl\CouchURI.cs" />
+    <Compile Include="Impl\DesignDocument.cs" />
     <Compile Include="Impl\DocumentRepository.cs" />
     <Compile Include="Impl\Feed.cs" />
     <Compile Include="Impl\ICacheKeyBuilder.cs" />
@@ -86,7 +89,9 @@
       <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

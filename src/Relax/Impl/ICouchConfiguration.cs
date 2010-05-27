@@ -16,7 +16,7 @@ namespace Relax.Impl
         TimeSpan CacheLimit { get; set; }
         string GetDatabaseNameForType<T>();
         bool Throw404Exceptions { get; set; }
-        bool ExcludeTypeSpecification { get; set; }
+        bool IncludeTypeSpecification { get; set; }
         void SetDatabaseNameForType<T>(string databaseName);
     }
 }

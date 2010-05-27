@@ -10,6 +10,22 @@ namespace Relax
         [JsonProperty("_attachments")]
         private JObject attachments { get; set; }
 
+        [JsonProperty(PropertyName = "_type")]
+        protected virtual string UnderlyingDocumentType
+        {
+            get
+            {
+                return GetType().Name;
+            }
+            set
+            {
+                //do nothing, this is effectively read only in the model
+            }
+        }
+
+        [JsonProperty("_relatedIds")]
+        protected virtual Dictionary<string, object[]> RelatedDocumentIds { get; set; }
+
         [JsonIgnore]
         public virtual IEnumerable<string> Attachments
         {
@@ -50,6 +66,7 @@ namespace Relax
         protected BaseDocument()
         {
             attachments = JObject.FromObject(new object());
+            RelatedDocumentIds = new Dictionary<string, object[]>();
         }
     }
 }

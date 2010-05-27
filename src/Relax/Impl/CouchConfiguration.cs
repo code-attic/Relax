@@ -32,7 +32,7 @@ namespace Relax.Impl
         public DateTime CacheExpiration { get; set; }
         public TimeSpan CacheLimit { get; set; }
         public bool Throw404Exceptions { get; set; }
-        public bool ExcludeTypeSpecification { get; set; }
+        public bool IncludeTypeSpecification { get; set; }
 
         public CouchConfiguration()
         {
@@ -41,6 +41,7 @@ namespace Relax.Impl
             Port = 5984;
             Preauthorize = false;
             TimeOut = 6000;
+            IncludeTypeSpecification = true;
         }
     }
 }

@@ -81,12 +81,14 @@
     <Compile Include="Configuration\with_couch_configurator.cs" />
     <Compile Include="Document\Driver.cs" />
     <Compile Include="Document\Person.cs" />
+    <Compile Include="Document\when_serializing_design_document.cs" />
     <Compile Include="Document\when_using_custom_complex_key.cs" />
     <Compile Include="Document\when_using_custom_key.cs" />
     <Compile Include="Document\with_custom_document_complex_key.cs" />
     <Compile Include="Document\with_custom_document_simple_key.cs" />
     <Compile Include="Mocks\with_mock_repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\when_serializing_document_graph.cs" />
     <Compile Include="Server\when_cleaning_up_views.cs" />
     <Compile Include="Server\when_compacting_db.cs" />
     <Compile Include="Server\when_compacting_view.cs" />
@@ -164,6 +166,7 @@
       <Name>Relax</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

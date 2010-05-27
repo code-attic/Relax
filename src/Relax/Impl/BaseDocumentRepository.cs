@@ -13,7 +13,7 @@ namespace Relax.Impl
     {
         protected ConcurrentDictionary<Type, ICouchCommand> _continuousUpdateCommands =
             new ConcurrentDictionary<Type, ICouchCommand>();
-
+        
         public void DeleteAttachment<TModel>(TModel model, string attachmentName)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision, IHaveAttachments
         {
@@ -27,7 +27,7 @@ namespace Relax.Impl
                 var command = _commandFactory.GetCommand();
                 var updatedJson = command.Delete(uri);
                 var updated = updatedJson.FromJson<SaveResponse>();
-                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.ExcludeTypeSpecification));
+                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.IncludeTypeSpecification));
                 model.RemoveAttachment(attachmentName);
             }
             catch (Exception ex)
@@ -253,7 +253,7 @@ namespace Relax.Impl
             try
             {
                 var keys = new KeyList() {keys = ids};
-                var jsonKeyList = keys.ToJson(_configuration.ExcludeTypeSpecification);
+                var jsonKeyList = keys.ToJson(_configuration.IncludeTypeSpecification);
                 var command = _commandFactory.GetCommand();
                 var json = command.Post(uri, jsonKeyList);
                 List<TModel> list = new List<TModel>();
@@ -310,11 +310,11 @@ namespace Relax.Impl
 
             try
             {
-                var body = model.ToJson(_configuration.ExcludeTypeSpecification);
+                var body = model.ToJson(_configuration.IncludeTypeSpecification);
                 var command = _commandFactory.GetCommand();
                 var updatedJSON = command.Put(uri, body);
                 var updated = updatedJSON.FromJson<SaveResponse>();
-                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.ExcludeTypeSpecification));
+                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.IncludeTypeSpecification));
             }
             catch (Exception ex)
             {
@@ -334,9 +334,9 @@ namespace Relax.Impl
             
             try
             {
-                var documentList = new BulkPersist<TModel>(true, false, list);
+                var documentList = new BulkPersist(true, false, list);
                 var command = _commandFactory.GetCommand();
-                var body = documentList.ToJson(_configuration.ExcludeTypeSpecification);
+                var body = documentList.ToJson(_configuration.IncludeTypeSpecification);
                 var updatedJson = command.Post(uri, body);
                 var updated = updatedJson.FromJson<SaveResponse[]>();
                 list
@@ -372,7 +372,7 @@ namespace Relax.Impl
                 var command = _commandFactory.GetCommand();
                 var updatedJson = command.SaveAttachment(uri, contentType, content);
                 var updated = updatedJson.FromJson<SaveResponse>();
-                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.ExcludeTypeSpecification));
+                model.UpdateRevFromJson(updated.Revision.ToJson(_configuration.IncludeTypeSpecification));
                 model.AddAttachment(attachmentName, contentType, content.Length);
             }
             catch (Exception ex)

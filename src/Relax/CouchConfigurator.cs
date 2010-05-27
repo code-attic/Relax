@@ -67,7 +67,7 @@ namespace Relax
 
         public CouchConfigurator ExcludeTypeSpecificationFromJson()
         {
-            _config.ExcludeTypeSpecification = true;
+            _config.IncludeTypeSpecification = false;
             return this;
         }
 
