@@ -337,6 +337,10 @@ namespace Relax.Impl
                 var documentList = new BulkPersist(true, false, list);
                 var command = _commandFactory.GetCommand();
                 var body = documentList.ToJson(_configuration.IncludeTypeSpecification);
+
+                // remote type tokens...
+                body = ScrubBulkPersistOfTypeTokens(body);
+
                 var updatedJson = command.Post(uri, body);
                 var updated = updatedJson.FromJson<SaveResponse[]>();
                 list
@@ -357,6 +361,28 @@ namespace Relax.Impl
                         ex);
                 throw;
             }
+        }
+
+        protected string ScrubBulkPersistOfTypeTokens(string body)
+        {
+            var jBlob = JObject.Parse(body);
+
+            var hasTypes = jBlob.Children().OfType<JProperty>().FirstOrDefault(x => x.Name == "$type") != null;
+            if (hasTypes)
+            {
+                var allOrNothing = jBlob["all_or_nothing"];
+                var nonAtomic = jBlob["non_atomic"];
+                var docs = jBlob["docs"]["$values"];
+
+                var newBlob = new JObject(
+                    new JProperty("all_or_nothing", allOrNothing),
+                    new JProperty("non_atomic", nonAtomic),
+                    new JProperty("docs", docs)
+                    );
+
+                body = newBlob.ToString();
+            }
+            return body;
         }
 
         public void SaveAttachment<TModel>(TModel model, string attachmentName, string contentType, byte[] content)

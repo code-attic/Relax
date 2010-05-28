@@ -10,7 +10,7 @@ namespace Relax
         [JsonProperty("_attachments")]
         private JObject attachments { get; set; }
 
-        [JsonProperty(PropertyName = "_type")]
+        [JsonProperty(PropertyName = "$doc_type")]
         protected virtual string UnderlyingDocumentType
         {
             get
@@ -23,7 +23,7 @@ namespace Relax
             }
         }
 
-        [JsonProperty("_relatedIds")]
+        [JsonProperty("$doc_relatedIds")]
         protected virtual Dictionary<string, object[]> RelatedDocumentIds { get; set; }
 
         [JsonIgnore]
