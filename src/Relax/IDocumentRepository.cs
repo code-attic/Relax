@@ -4,12 +4,40 @@ using Relax.Impl;
 
 namespace Relax
 {
-    public interface IDocumentRepository
-        : IDisposable
+    public interface IRecordRepository : IDisposable
     {
-        void DeleteDocument<TModel>(object id) 
+        void DeleteDocument<TModel>(object id);
+
+        void DeleteDocument<TModel>(object id, object rev);
+
+        void DeleteAttachment<TModel>(TModel model, string attachmentName);
+
+        IList<TModel> FromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query);
+
+        TModel Get<TModel>(object id, object revision);
+
+        TModel Get<TModel>(object id);
+
+        IList<TModel> GetAll<TModel>();
+
+        IList<TModel> GetAll<TModel>(int pageSize, int pageNumber);
+
+        IList<TModel> GetAllByKeys<TModel>(object[] ids);
+
+        void Save<TModel>(TModel model);
+
+        void SaveAll<TModel>(IEnumerable<TModel> list);
+
+        void HandleUpdates<TModel>(int since, Action<ChangeRecord> onUpdate, AsyncCallback updatesInterrupted);
+
+        void StopChangeStreaming<TModel>();
+    }
+
+    public interface IDocumentRepository : IDisposable
+    {
+        void DeleteDocument<TModel>(object id)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         void DeleteDocument<TModel>(object id, object rev)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
 
@@ -21,13 +49,13 @@ namespace Relax
 
         TModel Get<TModel>(object id, object revision)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         TModel Get<TModel>(object id)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         IList<TModel> GetAll<TModel>()
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         IList<TModel> GetAll<TModel>(int pageSize, int pageNumber)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
 
@@ -36,10 +64,10 @@ namespace Relax
 
         Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision, IHaveAttachments;
-        
+
         void Save<TModel>(TModel model)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         void SaveAll<TModel>(IEnumerable<TModel> list)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
 
@@ -48,7 +76,7 @@ namespace Relax
 
         void HandleUpdates<TModel>(int since, Action<ChangeRecord> onUpdate, AsyncCallback updatesInterrupted)
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        
+
         void StopChangeStreaming<TModel>()
             where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
     }

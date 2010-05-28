@@ -8,8 +8,21 @@ namespace Relax
     [JsonObject(MemberSerialization.OptOut)]
     public abstract class DefaultCouchDocument : BaseDocument, ICouchDocument<string, string>
     {
+        public virtual string _docId { get; set; }
+
         [JsonProperty(PropertyName = "_id")]
-        public virtual string DocumentId { get; set; }
+        public virtual string DocumentId
+        {
+            get 
+            { 
+                _docId = _docId ?? Guid.NewGuid().ToString();
+                return _docId;
+            }
+            set
+            {
+                _docId = value;
+            }
+        }
 
         [JsonProperty(PropertyName = "_rev")]
         public virtual string DocumentRevision { get; set; }
