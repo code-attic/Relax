@@ -1,6 +1,7 @@
 ﻿using Machine.Specifications;
 using Moq;
 using Relax.Impl;
+using Relax.Impl.Configuration;
 using StructureMap;
 using Symbiote.Core.Cache;
 using It = Machine.Specifications.It;

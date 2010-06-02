@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 using StructureMap;
 using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Serialization
 {
     public class ConventionContractResolverStrategy : IContractResolverStrategy
     {

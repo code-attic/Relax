@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Relax.Impl
+namespace Relax.Impl.Http
 {
     public interface IHttpAction
     {

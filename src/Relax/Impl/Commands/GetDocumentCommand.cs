@@ -1,6 +1,8 @@
 ﻿using System;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class GetDocumentCommand : BaseCouchCommand
     {
@@ -18,7 +20,7 @@ namespace Relax.Impl
                         "An exception occurred trying to retrieve a document of type {0} with id {1} at {3}. \r\n\t {4}",
                         typeof(TModel).FullName,
                         id,
-                        uri.ToString()
+                        Uri.ToString()
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -43,7 +45,7 @@ namespace Relax.Impl
                         typeof(TModel).FullName,
                         id,
                         rev,
-                        uri.ToString()
+                        Uri.ToString()
                     );
 
                 if (configuration.Throw404Exceptions)

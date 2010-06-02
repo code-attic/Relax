@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Serialization;
 
-namespace Relax.Impl
+namespace Relax.Impl.Serialization
 {
     public class ConventionContractResolver : DefaultContractResolver
     {

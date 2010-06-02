@@ -1,5 +1,6 @@
 ﻿using System;
 using Relax.Impl;
+using Relax.Impl.Configuration;
 
 namespace Relax
 {

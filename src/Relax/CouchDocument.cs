@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Relax.Impl;
+using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 
 namespace Relax

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Net;
+using Relax.Impl.Commands;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl
@@ -11,54 +15,19 @@ namespace Relax.Impl
         protected CouchCommandFactory _commandFactory;
         protected ConcurrentDictionary<string, bool> _databaseExists = new ConcurrentDictionary<string, bool>();
 
-        protected virtual CouchUri BaseURI<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision
-        {
-            var database = _configuration.GetDatabaseNameForType<TModel>();
-            var baseURI = _configuration.Preauthorize ?
-                                                          CouchUri.Build(
-                                                              _configuration.User,
-                                                              _configuration.Password,
-                                                              _configuration.Protocol,
-                                                              _configuration.Server,
-                                                              _configuration.Port)
-                              : CouchUri.Build(
-                                  _configuration.Protocol,
-                                  _configuration.Server,
-                                  _configuration.Port,
-                                  database);
-            EnsureDatabaseExists<TModel>(database, baseURI);
-            return baseURI;
-        }
-
-        protected virtual CouchUri BaseURI()
-        {
-            var baseURI = _configuration.Preauthorize ?
-                                                          CouchUri.Build(
-                                                              _configuration.User,
-                                                              _configuration.Password,
-                                                              _configuration.Protocol,
-                                                              _configuration.Server,
-                                                              _configuration.Port)
-                              : CouchUri.Build(
-                                  _configuration.Protocol,
-                                  _configuration.Server,
-                                  _configuration.Port);
-            return baseURI;
-        }
-
-        protected virtual void EnsureDatabaseExists<TModel>(string database, CouchUri baseURI)
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision
+        protected virtual void EnsureDatabaseExists<TModel>()
         {
             var dbCreated = false;
             var shouldCheckCouch = false;
+            ServerCommand command = null;
+            var database = _configuration.GetDatabaseNameForType<TModel>();
             try
             {
-                var command = _commandFactory.GetCommand();
                 shouldCheckCouch = !_databaseExists.TryGetValue(database, out dbCreated);
                 if (shouldCheckCouch && !dbCreated)
                 {
-                    command.Put(baseURI);
+                    command = _commandFactory.GetServerCommand();
+                    command.CreateDatabase<TModel>();
                     _databaseExists[database] = true;
                 }
             }
@@ -71,7 +40,7 @@ namespace Relax.Impl
                 else
                 {
                     "An exception occurred while trying to check for the existence of database {0} at uri {1}. \r\n\t {2}"
-                        .ToError<IDocumentRepository>(database, baseURI.ToString(), webEx);
+                        .ToError<IDocumentRepository>(database, command.Uri, webEx);
                     throw;
                 }
 
@@ -79,52 +48,25 @@ namespace Relax.Impl
             catch (Exception ex)
             {
                 "An exception occurred while trying to check for the existence of database {0} at uri {1}. \r\n\t {2}"
-                    .ToError<IDocumentRepository>(database, baseURI.ToString(), ex);
+                    .ToError<IDocumentRepository>(database, command.Uri, ex);
                 throw;
             }
         }
 
         public virtual void CreateDatabase<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision
         {
-            string database = "";
-            var uri = BaseURI<TModel>();
-            try
-            {
-                database = _configuration.GetDatabaseNameForType<TModel>();
-                var command = _commandFactory.GetCommand();
-                command.Put(uri);
+                var database = _configuration.GetDatabaseNameForType<TModel>();
+                var command = _commandFactory.GetServerCommand();
+                command.CreateDatabase<TModel>();
                 _databaseExists[database] = true;
-            }
-            catch (Exception ex)
-            {
-                "An exception occurred trying to create the database {0} at uri {1}. \r\n\t {2}"
-                    .ToError<IDocumentRepository>(database, uri.ToString(), ex);
-                throw;
-            }
         }
 
         public virtual bool DatabaseExists<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision
         {
-            var uri = BaseURI<TModel>();
-            var database = "";
-            var exists = false;
-            try
-            {
-                database = _configuration.GetDatabaseNameForType<TModel>();
-                var command = _commandFactory.GetCommand();
-                var response = command.Get(uri);
-                exists = !string.IsNullOrEmpty(response) && !response.StartsWith("{\"error\"");
-                _databaseExists[database] = exists;
-                return exists;
-            }
-            catch (Exception ex)
-            {
-                "An exception occurred checking for the existence of database {0} at {1}. \r\n\t {2}"
-                    .ToError<IDocumentRepository>(database, uri.ToString(), ex);
-                throw;
-            }
+            var command = _commandFactory.GetServerCommand();
+            var exists = command.DatabaseExists<TModel>();
+            _databaseExists[command.Uri.DatabaseName] = exists;
+            return exists;
         }
     }
 }

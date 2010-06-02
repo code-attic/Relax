@@ -1,6 +1,7 @@
 ﻿using System;
 using Relax;
 using Relax.Impl;
+using Relax.Impl.Model;
 
 namespace RelaxDemo
 {

@@ -1,7 +1,10 @@
 ﻿using System;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class GetDocumentsCommand : BaseCouchCommand
     {
@@ -21,7 +24,7 @@ namespace Relax.Impl
                         ex,
                         "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        uri.ToString()
+                        Uri.ToString()
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -48,7 +51,7 @@ namespace Relax.Impl
                 var couchEx = Exception(ex,
                         "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        uri.ToString()
+                        Uri.ToString()
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -75,7 +78,7 @@ namespace Relax.Impl
                 var couchEx = Exception(ex,
                         "An exception occurred trying to retrieve a list of documents of type {0} by keys at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        uri.ToString()
+                        Uri.ToString()
                     );
 
                 if (configuration.Throw404Exceptions)

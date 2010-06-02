@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
 
 namespace Relax.Impl.Commands
 {

@@ -1,4 +1,4 @@
-﻿namespace Relax.Impl
+﻿namespace Relax.Impl.Json
 {
     public class KeyList
     {

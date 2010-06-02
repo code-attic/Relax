@@ -5,6 +5,7 @@ using System.Text;
 using Machine.Specifications;
 using Newtonsoft.Json.Linq;
 using Relax.Impl;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.ViewFilter

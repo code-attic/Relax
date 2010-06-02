@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Relax.Impl;
+using Relax.Impl.Commands;
+using Relax.Impl.Model;
 
 namespace Relax
 {

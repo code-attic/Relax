@@ -2,13 +2,14 @@ using System;
 using System.Text;
 using Symbiote.Core.Extensions;
 
-
-namespace Relax.Impl
+namespace Relax.Impl.Http
 {
     public class CouchUri : ICloneable
     {
         private StringBuilder _builder = new StringBuilder();
         private bool _hasArguments = false;
+
+        public string DatabaseName { get; set; }
 
         public static CouchUri Build(string prefix, string server, int port, string database)
         {
@@ -310,6 +311,7 @@ namespace Relax.Impl
 
         public CouchUri(string prefix, string server, int port, string database)
         {
+            DatabaseName = database;
             _builder
                 .AppendFormat(@"{0}://{1}:{2}/{3}", prefix, server, port, database);
         }
@@ -333,6 +335,7 @@ namespace Relax.Impl
 
         public CouchUri(string user, string password, string prefix, string server, int port, string database)
         {
+            DatabaseName = database;
             _builder
                 .AppendFormat(@"{0}://{1}:{2}@{3}:{4}/{5}", 
                     user,

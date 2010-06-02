@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json.Linq;
 using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class CommandResult<TResult>
     {

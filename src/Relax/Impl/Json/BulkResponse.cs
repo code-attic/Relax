@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Json
 {
     public class BulkResponse
     {

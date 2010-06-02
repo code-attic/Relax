@@ -1,7 +1,6 @@
-﻿using Relax.Impl.Commands;
-using StructureMap;
+﻿using StructureMap;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class CouchCommandFactory 
     {
@@ -38,6 +37,11 @@ namespace Relax.Impl
         public SaveDocumentCommand GetSaveCommand()
         {
             return GetCommand<SaveDocumentCommand>();
+        }
+
+        public ServerCommand GetServerCommand()
+        {
+            return GetCommand<ServerCommand>();
         }
 
         public ChangeStreamCommand GetStreamCommand()

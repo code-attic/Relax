@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 
-namespace Relax.Impl
+namespace Relax.Impl.Serialization
 {
     internal class ChildDocumentWritingContractResolver : DefaultContractResolver
     {

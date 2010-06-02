@@ -1,7 +1,10 @@
 ﻿using System;
-using Symbiote.Core.Extensions;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Json;
+using Relax.Impl.Model;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class AttachmentCommand : BaseCouchCommand
     {
@@ -11,13 +14,13 @@ namespace Relax.Impl
             try
             {
                 CreateUri<TModel>()
-                    .Id(GetDocumentId(model))
+                    .Id(model.GetDocumentId())
                     .Attachment(attachmentName)
-                    .Revision(GetDocumentRevision(model));
+                    .Revision(model.GetDocumentRevision());
 
                 var result = Delete<SaveResponse>();
-                SetDocumentId(result.Json, model);
-                SetDocumentRevision(result.Json, model);
+                model.SetDocumentId(result.Json);
+                model.SetDocumentRevision(result.Json);
             
                 return result;
             }
@@ -27,9 +30,9 @@ namespace Relax.Impl
                     "An exception occurred trying to delete attachment {0} from document of type {1} with id {2} and rev {3} at {4}. \r\n\t {5}",
                     attachmentName,
                     typeof(TModel).FullName,
-                    GetDocumentId(model),
-                    GetDocumentRevision(model),
-                    uri.ToString());
+                    model.GetDocumentId(),
+                    model.GetDocumentRevision(),
+                    Uri.ToString());
             }
         }
 
@@ -42,7 +45,7 @@ namespace Relax.Impl
                     .Id(id)
                     .Attachment(attachmentName);
 
-                return action.GetAttachment(uri);
+                return action.GetAttachment(Uri);
             }
             catch (Exception ex)
             {
@@ -51,7 +54,7 @@ namespace Relax.Impl
                                 attachmentName,
                                 typeof (TModel).FullName,
                                 id.ToString(),
-                                uri.ToString());
+                                Uri.ToString());
             }
         }
 
@@ -61,13 +64,13 @@ namespace Relax.Impl
             try
             {
                 CreateUri<TModel>()
-                    .Id(GetDocumentId(model))
+                    .Id(model.GetDocumentId())
                     .Attachment(attachmentName)
-                    .Revision(GetDocumentRevision(model));
+                    .Revision(model.GetDocumentRevision());
 
-                var result = new CommandResult<SaveResponse>(action.SaveAttachment(uri, contentType, content));
-                SetDocumentId(result.Json, model);
-                SetDocumentRevision(result.Json, model);
+                var result = new CommandResult<SaveResponse>(action.SaveAttachment(Uri, contentType, content));
+                model.SetDocumentId(result.Json);
+                model.SetDocumentRevision(result.Json);
                 model.AddAttachment(attachmentName, contentType, content.LongLength);
                 return result;
             }
@@ -76,10 +79,10 @@ namespace Relax.Impl
                 throw Exception(ex,
                                 "An exception occurred trying to save an attachment {0} to a document of type {1} with id {2} and rev {3} at {4}. \r\n\t {5}",
                                 attachmentName,
-                                typeof (TModel).FullName,
-                                GetDocumentId(model),
-                                GetDocumentRevision(model),
-                                uri.ToString());
+                                typeof(TModel).FullName,
+                                model.GetDocumentId(),
+                                model.GetDocumentRevision(),
+                                Uri.ToString());
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Relax;
 using Relax.Impl;
+using Relax.Impl.Http;
 using Symbiote.Core.Extensions;
 using Symbiote.Daemon;
 

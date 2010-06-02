@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Model
 {
     public class DesignView
     {

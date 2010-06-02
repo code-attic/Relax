@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Relax.Impl;
+using Relax.Impl.Http;
 
 namespace Relax
 {

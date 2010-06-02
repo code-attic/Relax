@@ -1,6 +1,8 @@
 ﻿using System;
 using Machine.Specifications;
 using Relax.Impl;
+using Relax.Impl.Http;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.Repository

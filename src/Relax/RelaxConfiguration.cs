@@ -1,5 +1,10 @@
 ﻿using System;
 using Relax.Impl;
+using Relax.Impl.Cache;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Repository;
+using Relax.Impl.Serialization;
 using StructureMap;
 using Symbiote.Core;
 using Symbiote.Core.Cache;
@@ -22,7 +27,6 @@ namespace Relax
             {
                 c.For<ICouchConfiguration>().Use(configuration);
                 c.For<IHttpAction>().Use<HttpAction>();
-                c.For<ICouchCommandFactory>().Use<CouchCommandFactory>();
                 c.For<ICouchCacheProvider>().Use<CouchCacheProvider>();
                 c.For<ICacheKeyBuilder>().Use<CacheKeyBuilder>();
                 c.For<ICouchServer>().Use<CouchDbServer>();

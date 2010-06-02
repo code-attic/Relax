@@ -1,6 +1,6 @@
 ﻿using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Cache
 {
     public class CacheKeyBuilder : ICacheKeyBuilder
     {

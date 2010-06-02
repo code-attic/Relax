@@ -1,7 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Relax.Impl.Http;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]

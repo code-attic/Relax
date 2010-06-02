@@ -1,5 +1,7 @@
 ﻿using Machine.Specifications;
 using Relax.Impl;
+using Relax.Impl.Commands;
+using Relax.Impl.Http;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.Server

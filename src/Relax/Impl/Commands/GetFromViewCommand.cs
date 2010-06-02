@@ -1,6 +1,9 @@
 ﻿using System;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class GetFromViewCommand : BaseCouchCommand
     {
@@ -12,9 +15,9 @@ namespace Relax.Impl
                     .Design(designDocument)
                     .View(viewName);
 
-                var viewQuery = new ViewQuery(uri);
+                var viewQuery = new ViewQuery(Uri);
                 query(viewQuery);
-                uri.IncludeDocuments();
+                Uri.IncludeDocuments();
                 return Get<ViewResult<TModel>>();
             }
             catch (Exception ex)
@@ -25,7 +28,7 @@ namespace Relax.Impl
                         typeof(TModel).FullName,
                         designDocument,
                         viewName,
-                        uri.ToString()
+                        Uri.ToString()
                     );
             }
         }

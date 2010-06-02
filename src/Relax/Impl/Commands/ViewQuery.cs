@@ -1,4 +1,6 @@
-﻿namespace Relax.Impl
+﻿using Relax.Impl.Http;
+
+namespace Relax.Impl.Commands
 {
     public class ViewQuery
     {

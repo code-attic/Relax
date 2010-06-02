@@ -3,7 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Relax.Impl
+namespace Relax.Impl.Model
 {
     public abstract class BaseDocument : IHaveAttachments
     {

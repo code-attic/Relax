@@ -1,6 +1,8 @@
 ﻿using System;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class DeleteDocumentCommand : BaseCouchCommand
     {
@@ -11,7 +13,7 @@ namespace Relax.Impl
                 CreateUri<TModel>()
                     .IdAndRev(id, rev);
 
-                action.Delete(uri);
+                action.Delete(Uri);
             }
             catch (Exception ex)
             {
@@ -19,7 +21,7 @@ namespace Relax.Impl
                      "An exception occurred trying to delete a document of type {0} with id {1} at {2}. \r\n\t {3}",
                      typeof(TModel).FullName,
                      id,
-                     uri);
+                     Uri);
             }
         }
 
@@ -30,8 +32,8 @@ namespace Relax.Impl
 
             try
             {
-                id = GetDocumentId(model);
-                rev = GetDocumentRevision(model);
+                id = model.GetDocumentId();
+                rev = model.GetDocumentRevision();
 
                 DeleteDocument<TModel>(id, rev);
             }
@@ -45,7 +47,7 @@ namespace Relax.Impl
                      "An exception occurred trying to delete a document of type {0} with id {1} at {2}. \r\n\t {3}",
                      typeof(TModel).FullName, 
                      id, 
-                     uri);
+                     Uri);
             }
         }
 

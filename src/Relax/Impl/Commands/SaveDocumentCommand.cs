@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Commands
 {
     public class SaveDocumentCommand : BaseCouchCommand
     {
@@ -13,11 +16,11 @@ namespace Relax.Impl
             try
             {
                 CreateUri<TModel>()
-                    .Id(GetDocumentId(model));
+                    .Id(model.GetDocumentId());
 
                 var body = model.ToJson(configuration.IncludeTypeSpecification);
                 var result = Put<SaveResponse>(body);
-                SetDocumentRevision(result.Json, model);
+                model.SetDocumentRevision(result.Json);
                 return result;
             }
             catch (Exception ex)
@@ -26,7 +29,7 @@ namespace Relax.Impl
                     ex,
                     "An exception occurred trying to save a document of type {0} at {1}. \r\n\t {2}",
                     typeof(TModel).FullName,
-                    uri.ToString()
+                    Uri.ToString()
                     );
             }
         }
@@ -62,7 +65,7 @@ namespace Relax.Impl
                 throw Exception(
                         ex,
                         "An exception occurred trying to save a collection documents at {1}. \r\n\t {2}",
-                        uri.ToString()
+                        Uri.ToString()
                     );
             }
         }

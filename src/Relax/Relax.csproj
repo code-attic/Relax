@@ -44,6 +44,7 @@
     <Compile Include="Impl\Commands\GetDocumentsCommand.cs" />
     <Compile Include="Impl\Commands\GetFromViewCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentCommand.cs" />
+    <Compile Include="Impl\Commands\ServerCommand.cs" />
     <Compile Include="Impl\Model\DesignView.cs" />
     <Compile Include="Impl\Commands\GetDocumentCommand.cs" />
     <Compile Include="Impl\Json\KeyList.cs" />

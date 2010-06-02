@@ -2,11 +2,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+using Relax.Impl.Commands;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using Relax.Impl.Model;
 using StructureMap;
-using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Repository
 {
     public abstract class BaseDocumentRepository
         : BaseCouchDbController, IDocumentRepository

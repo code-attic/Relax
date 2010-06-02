@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Model
 {
     [Serializable]
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]

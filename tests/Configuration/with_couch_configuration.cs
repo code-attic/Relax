@@ -1,4 +1,5 @@
 ﻿using Relax.Impl;
+using Relax.Impl.Configuration;
 
 namespace Relax.Tests.Configuration
 {

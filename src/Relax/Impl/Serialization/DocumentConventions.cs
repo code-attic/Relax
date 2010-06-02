@@ -1,12 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-
-namespace Relax.Impl
+﻿namespace Relax.Impl.Serialization
 {
     public class DocumentConventions
     {

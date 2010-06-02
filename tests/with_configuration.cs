@@ -1,5 +1,7 @@
 ﻿using Machine.Specifications;
 using Relax.Impl;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
 using StructureMap;
 
 namespace Relax.Tests

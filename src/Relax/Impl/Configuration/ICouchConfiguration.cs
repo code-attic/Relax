@@ -1,6 +1,8 @@
 using System;
+using Relax.Impl.Http;
+using Relax.Impl.Serialization;
 
-namespace Relax.Impl
+namespace Relax.Impl.Configuration
 {
     public interface ICouchConfiguration
     {
@@ -19,5 +21,8 @@ namespace Relax.Impl
         bool Throw404Exceptions { get; set; }
         bool IncludeTypeSpecification { get; set; }
         void SetDatabaseNameForType<T>(string databaseName);
+        CouchUri NewUri();
+        CouchUri NewUri<TModel>();
+        CouchUri NewUri(string database);
     }
 }

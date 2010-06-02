@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Json
 {
     public class ViewResult<TModel>
     {

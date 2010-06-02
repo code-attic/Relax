@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Machine.Specifications;
 using Relax.Impl;
+using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.Document

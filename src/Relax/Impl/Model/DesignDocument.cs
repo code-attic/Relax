@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Relax.Impl
+namespace Relax.Impl.Model
 {
     public class DesignDocument : ComplexCouchDocument<DesignDocument, string, string>
     {

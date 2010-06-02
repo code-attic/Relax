@@ -2,10 +2,10 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using Relax.Impl.Configuration;
 using Symbiote.Core.Extensions;
 
-
-namespace Relax.Impl
+namespace Relax.Impl.Http
 {
     public class HttpAction : IHttpAction
     {

@@ -1,6 +1,9 @@
 ﻿using Machine.Specifications;
 using Moq;
 using Relax.Impl;
+using Relax.Impl.Commands;
+using Relax.Impl.Http;
+using Relax.Impl.Repository;
 
 namespace Relax.Tests.Repository
 {

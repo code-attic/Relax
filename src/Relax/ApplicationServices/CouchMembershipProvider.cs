@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Security;
 using Relax.Impl;
+using Relax.Impl.Model;
 
 namespace Relax.ApplicationServices
 {

@@ -1,4 +1,6 @@
 ﻿using Machine.Specifications;
+using Relax.Impl.Commands;
+using Relax.Impl.Http;
 using Relax.Tests.Repository;
 using Relax.Impl;
 using Symbiote.Core.Extensions;

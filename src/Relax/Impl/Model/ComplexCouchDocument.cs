@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Symbiote.Core.Extensions;
 
-namespace Relax.Impl
+namespace Relax.Impl.Model
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]

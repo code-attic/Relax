@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Relax.Impl.Cache;
+using Relax.Impl.Configuration;
 
-namespace Relax.Impl
+namespace Relax.Impl.Repository
 {
     public class CachedDocumentRepository
         : BaseDocumentRepository
