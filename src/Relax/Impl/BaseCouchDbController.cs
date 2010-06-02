@@ -8,7 +8,7 @@ namespace Relax.Impl
     public abstract class BaseCouchDbController
     {
         protected ICouchConfiguration _configuration;
-        protected ICouchCommandFactory _commandFactory;
+        protected CouchCommandFactory _commandFactory;
         protected ConcurrentDictionary<string, bool> _databaseExists = new ConcurrentDictionary<string, bool>();
 
         protected virtual CouchUri BaseURI<TModel>()

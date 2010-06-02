@@ -1,4 +1,4 @@
-﻿namespace Relax
+﻿namespace Relax.Impl
 {
     public interface IHaveAttachments
     {

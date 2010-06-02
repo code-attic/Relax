@@ -9,7 +9,7 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.ViewFilter
 {
-    public class Request : DefaultCouchDocument
+    public class Request : CouchDocument
     {
         public virtual string BusinessJustification { get; set; }
         public virtual decimal CapitalCostEstimate { get; set; }

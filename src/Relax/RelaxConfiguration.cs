@@ -1,6 +1,7 @@
 ﻿using System;
 using Relax.Impl;
 using StructureMap;
+using Symbiote.Core;
 using Symbiote.Core.Cache;
 
 namespace Relax
@@ -16,14 +17,16 @@ namespace Relax
 
         public static void Configure(ICouchConfiguration configuration)
         {
+            Assimilate.Core();
             ObjectFactory.Configure(c =>
             {
                 c.For<ICouchConfiguration>().Use(configuration);
-                c.For<ICouchCommand>().Use<CouchCommand>();
+                c.For<IHttpAction>().Use<HttpAction>();
                 c.For<ICouchCommandFactory>().Use<CouchCommandFactory>();
                 c.For<ICouchCacheProvider>().Use<CouchCacheProvider>();
                 c.For<ICacheKeyBuilder>().Use<CacheKeyBuilder>();
                 c.For<ICouchServer>().Use<CouchDbServer>();
+                c.For<DocumentConventions>().Use(configuration.Conventions);
                 if (configuration.Cache)
                 {
                     if (!ObjectFactory.Container.Model.HasDefaultImplementationFor<ICacheProvider>())

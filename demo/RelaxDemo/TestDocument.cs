@@ -1,10 +1,11 @@
 ﻿using System;
 using Relax;
+using Relax.Impl;
 
 namespace RelaxDemo
 {
     [Serializable]
-    public class TestDocument : CouchDocument<TestDocument, Guid, string>
+    public class TestDocument : ComplexCouchDocument<TestDocument, Guid, string>
     {
         public virtual string Message { get; set; }
         public virtual DateTime Time { get; set; }

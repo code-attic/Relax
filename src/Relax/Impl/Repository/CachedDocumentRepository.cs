@@ -9,8 +9,8 @@ namespace Relax.Impl
         protected IDocumentRepository _repository;
         protected ICacheKeyBuilder _builder;
 
-        public CachedDocumentRepository(ICouchConfiguration configuration, ICouchCommandFactory commandFactory, ICouchCacheProvider cacheProvider) 
-            : base(configuration, commandFactory)
+        public CachedDocumentRepository(ICouchConfiguration configuration, ICouchCacheProvider cacheProvider) 
+            : base(configuration)
         {
             _cache = cacheProvider;
         }
@@ -20,12 +20,6 @@ namespace Relax.Impl
         {
             _cache = cacheProvider;
         }
-
-        //public override void DeleteDatabase<TModel>()
-        //{
-        //    _cache.DeleteAll<TModel>();
-        //    base.DeleteDatabase<TModel>();
-        //}
 
         public override void DeleteDocument<TModel>(object id, object rev)
         {

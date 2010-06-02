@@ -90,6 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\when_filtering_type_tokens_out_of_bulk_insert.cs" />
     <Compile Include="Serialization\when_serializing_document_graph.cs" />
+    <Compile Include="Serialization\when_transforming_json.cs" />
     <Compile Include="Server\when_cleaning_up_views.cs" />
     <Compile Include="Server\when_compacting_db.cs" />
     <Compile Include="Server\when_compacting_view.cs" />

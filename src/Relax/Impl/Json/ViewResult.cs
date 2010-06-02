@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 namespace Relax.Impl
 {
     public class ViewResult<TModel>
-        where TModel : class, IHandleJsonDocumentId
     {
         [JsonProperty(PropertyName = "total_rows")]
         public int TotalRows { get; set; }

@@ -14,6 +14,7 @@ namespace Relax.Impl
         bool Cache { get; set; }
         DateTime CacheExpiration { get; set; }
         TimeSpan CacheLimit { get; set; }
+        DocumentConventions Conventions { get; set; }
         string GetDatabaseNameForType<T>();
         bool Throw404Exceptions { get; set; }
         bool IncludeTypeSpecification { get; set; }

@@ -83,6 +83,13 @@ namespace Relax
             return this;
         }
 
+        public CouchConfigurator WithConventions(string idProperty, string revisionProperty)
+        {
+            _config.Conventions.IdPropertyName = idProperty;
+            _config.Conventions.RevisionPropertyName = revisionProperty;
+            return this;
+        }
+
         public ICouchConfiguration GetConfiguration()
         {
             return _config;

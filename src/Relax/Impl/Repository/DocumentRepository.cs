@@ -3,8 +3,8 @@
     public class DocumentRepository
         : BaseDocumentRepository
     {
-        public DocumentRepository(ICouchConfiguration configuration, ICouchCommandFactory commandFactory) 
-            : base(configuration, commandFactory)
+        public DocumentRepository(ICouchConfiguration configuration) 
+            : base(configuration)
         {
         }
 

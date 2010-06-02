@@ -2,7 +2,7 @@
 
 namespace Relax.Impl
 {
-    public interface ICouchCommand
+    public interface IHttpAction
     {
         string GetResponse(CouchUri uri, string method, string body);
         Tuple<string, byte[]> GetAttachment(CouchUri uri);

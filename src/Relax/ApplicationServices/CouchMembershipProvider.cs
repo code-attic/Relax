@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Security;
@@ -7,36 +6,6 @@ using Relax.Impl;
 
 namespace Relax.ApplicationServices
 {
-    public class CouchMembershipDocument : DefaultCouchDocument
-    {
-        public MembershipUser User { get; set; }
-
-        public CouchMembershipDocument()
-        {
-        }
-
-        public CouchMembershipDocument(MembershipUser user)
-        {
-            User = user;
-        }
-    }
-
-    public class UserViews : DesignDocument
-    {
-        public UserViews()
-        {
-            DocumentId = @"design/users";
-
-            Views = new Dictionary<string, DesignView>()
-                        {
-                            {"by_name_and_password", new DesignView()
-                                {
-                                    Map = @"function(doc) { }"
-                                }},
-                        };
-        }
-    }
-
     public class CouchMembershipProvider : MembershipProvider
     {
         protected ICouchServer couch { get; set;}

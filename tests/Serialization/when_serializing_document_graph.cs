@@ -83,7 +83,7 @@ namespace Relax.Tests.Serialization
         }
     }
 
-    public class ClassA : DefaultCouchDocument
+    public class ClassA : CouchDocument
     {
         public ClassB B { get; set; }
         public List<ClassC> Cs { get; set; }
@@ -92,7 +92,7 @@ namespace Relax.Tests.Serialization
         public List<ClassF> Fs { get; set; }
     }
 
-    public class ClassD : DefaultCouchDocument
+    public class ClassD : CouchDocument
     {
         public string Message { get; set; }
 
@@ -109,11 +109,11 @@ namespace Relax.Tests.Serialization
         }
     }
 
-    public class ClassC : DefaultCouchDocument
+    public class ClassC : CouchDocument
     {
     }
 
-    public class ClassB : DefaultCouchDocument
+    public class ClassB : CouchDocument
     {
     }
 

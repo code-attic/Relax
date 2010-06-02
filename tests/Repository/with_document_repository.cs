@@ -8,7 +8,7 @@ namespace Relax.Tests.Repository
     {
         protected static IDocumentRepository repository;
         protected static CouchUri uri;
-        protected static Mock<ICouchCommand> commandMock;
+        protected static Mock<IHttpAction> commandMock;
         protected static CouchUri couchUri 
         {
             get
@@ -19,7 +19,7 @@ namespace Relax.Tests.Repository
         
         private Establish context = () =>
                                         {
-                                            commandMock = new Mock<ICouchCommand>();
+                                            commandMock = new Mock<IHttpAction>();
                                             repository = new DocumentRepository(configuration, new CouchCommandFactory());
                                         };
     }

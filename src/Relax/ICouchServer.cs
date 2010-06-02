@@ -7,24 +7,16 @@ namespace Relax
     public interface ICouchServer
         : IDisposable
     {
-        void CleanViews<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        void CreateDatabase<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        void CompactDatabase<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        void CompactView<TModel>(string testview)
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        void CopyDatabase<TModel>(CouchUri targetUri)
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
+        void CleanViews<TModel>();
+        void CreateDatabase<TModel>();
+        void CompactDatabase<TModel>();
+        void CompactView<TModel>(string testview);
+        void CopyDatabase<TModel>(CouchUri targetUri);
         void CopyDatabase(CouchUri sourceUri, CouchUri targetUri);
-        bool DatabaseExists<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
+        bool DatabaseExists<TModel>();
         IList<string> DatabaseList { get; }
-        void DeleteDatabase<TModel>()
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
-        void Replicate<TModel>(CouchUri targetUri)
-            where TModel : class, IHandleJsonDocumentId, IHandleJsonDocumentRevision;
+        void DeleteDatabase<TModel>();
+        void Replicate<TModel>(CouchUri targetUri);
         void Replicate(CouchUri sourceUri, CouchUri targetUri);
 
         IDocumentRepository Repository { get; }

@@ -7,7 +7,7 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Impl
 {
-    public class CouchCommand : ICouchCommand
+    public class HttpAction : IHttpAction
     {
         protected ICouchConfiguration _configuration;
         protected bool _pollForChanges = false;
@@ -155,9 +155,11 @@ namespace Relax.Impl
             return GetResponse(uri, "DELETE", "");
         }
 
-        public CouchCommand(ICouchConfiguration configuration)
+        public HttpAction(ICouchConfiguration configuration)
         {
             _configuration = configuration;
         }
     }
+
+
 }

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Relax.Impl
 {
-    public class DesignDocument : CouchDocument<DesignDocument, string, string>
+    public class DesignDocument : ComplexCouchDocument<DesignDocument, string, string>
     {
         [JsonProperty(PropertyName = "views")]
         public Dictionary<string, DesignView> Views { get; set; }
@@ -15,14 +15,5 @@ namespace Relax.Impl
         {
             Views = new Dictionary<string, DesignView>();
         }
-    }
-
-    public class DesignView
-    {
-        [JsonProperty(PropertyName = "map")]
-        public string Map { get; set; }
-
-        [JsonProperty(PropertyName = "reduce")]
-        public string Reduce { get; set; }
     }
 }

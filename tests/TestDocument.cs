@@ -1,8 +1,9 @@
 ﻿using System;
+using Relax.Impl;
 
 namespace Relax.Tests
 {
-    public class TestDocument : CouchDocument<TestDocument, Guid, string>
+    public class TestDocument : ComplexCouchDocument<TestDocument, Guid, string>
     {
         public virtual string Message { get; set; }
         public virtual DateTime CreatedOn { get; set; }

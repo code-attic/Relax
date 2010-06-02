@@ -161,10 +161,10 @@ namespace Relax.Impl
         }
 
 
-        public CouchDbServer(ICouchConfiguration configuration, ICouchCommandFactory commandFactory, IDocumentRepository repository)
+        public CouchDbServer(ICouchConfiguration configuration, IDocumentRepository repository)
         {
             _configuration = configuration;
-            _commandFactory = commandFactory;
+            _commandFactory = new CouchCommandFactory();
             _repository = repository;
         }
 

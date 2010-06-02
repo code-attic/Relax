@@ -12,7 +12,7 @@ namespace Relax.Tests.Server
     {
         protected static ICouchServer server;
         protected static CouchUri uri;
-        protected static Mock<ICouchCommand> commandMock;
+        protected static Mock<IHttpAction> commandMock;
         protected static CouchUri couchUri
         {
             get
@@ -23,7 +23,7 @@ namespace Relax.Tests.Server
 
         private Establish context = () =>
         {
-            commandMock = new Mock<ICouchCommand>();
+            commandMock = new Mock<IHttpAction>();
             server = new CouchDbServer(
                 configuration, 
                 new CouchCommandFactory(), 

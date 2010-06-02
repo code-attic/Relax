@@ -28,6 +28,7 @@ namespace Relax.Impl
         public string User { get; set; }
         public string Password { get; set; }
         public int TimeOut { get; set; }
+        public DocumentConventions Conventions { get; set; }
         public bool Cache { get; set; }
         public DateTime CacheExpiration { get; set; }
         public TimeSpan CacheLimit { get; set; }
@@ -42,6 +43,7 @@ namespace Relax.Impl
             Preauthorize = false;
             TimeOut = 6000;
             IncludeTypeSpecification = true;
+            Conventions = new DocumentConventions();
         }
     }
 }

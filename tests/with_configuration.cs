@@ -11,9 +11,9 @@ namespace Relax.Tests
                                         {
                                             configuration = new CouchConfiguration();
                                         };
-        protected static void WireUpCommandMock(ICouchCommand commandMock)
+        protected static void WireUpCommandMock(IHttpAction commandMock)
         {
-            ObjectFactory.Configure(x => x.For<ICouchCommand>().Use(commandMock));
+            ObjectFactory.Configure(x => x.For<IHttpAction>().Use(commandMock));
         }
     }
 }
