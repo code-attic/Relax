@@ -4,6 +4,7 @@ using Relax.Impl;
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Repository;
+using Symbiote.Core;
 
 namespace Relax.Tests.Repository
 {
@@ -23,7 +24,7 @@ namespace Relax.Tests.Repository
         private Establish context = () =>
                                         {
                                             commandMock = new Mock<IHttpAction>();
-                                            repository = new DocumentRepository(configuration, new CouchCommandFactory());
+                                            repository = new DocumentRepository(configuration);
                                         };
     }
 

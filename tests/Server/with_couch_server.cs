@@ -28,9 +28,8 @@ namespace Relax.Tests.Server
         {
             commandMock = new Mock<IHttpAction>();
             server = new CouchDbServer(
-                configuration, 
-                new CouchCommandFactory(), 
-                new DocumentRepository(configuration, new CouchCommandFactory()));
+                configuration,
+                new DocumentRepository(configuration));
         };
     }
 }

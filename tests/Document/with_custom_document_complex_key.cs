@@ -1,4 +1,5 @@
 ﻿using Machine.Specifications;
+using Symbiote.Core;
 
 namespace Relax.Tests.Document
 {
@@ -6,6 +7,10 @@ namespace Relax.Tests.Document
     {
         protected static Driver driver;
 
-        private Establish context = () => driver = new Driver(person);
+        private Establish context = () =>
+                                        {
+                                            Assimilate.Core();
+                                            driver = new Driver(person);
+                                        };
     }
 }

@@ -32,7 +32,8 @@ namespace Relax.Impl.Commands
                     typeof(TModel).FullName,
                     model.GetDocumentId(),
                     model.GetDocumentRevision(),
-                    Uri.ToString());
+                    Uri.ToString(),
+                    ex);
             }
         }
 
@@ -54,7 +55,8 @@ namespace Relax.Impl.Commands
                                 attachmentName,
                                 typeof (TModel).FullName,
                                 id.ToString(),
-                                Uri.ToString());
+                                Uri.ToString(),
+                                ex);
             }
         }
 
@@ -82,7 +84,8 @@ namespace Relax.Impl.Commands
                                 typeof(TModel).FullName,
                                 model.GetDocumentId(),
                                 model.GetDocumentRevision(),
-                                Uri.ToString());
+                                Uri.ToString(),
+                                ex);
             }
         }
 

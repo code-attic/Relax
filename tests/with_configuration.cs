@@ -3,6 +3,7 @@ using Relax.Impl;
 using Relax.Impl.Configuration;
 using Relax.Impl.Http;
 using StructureMap;
+using Symbiote.Core;
 
 namespace Relax.Tests
 {
@@ -11,6 +12,7 @@ namespace Relax.Tests
         protected static ICouchConfiguration configuration;
         private Establish context = () =>
                                         {
+                                            Assimilate.Core().Relax(x => x.UseDefaults());
                                             configuration = new CouchConfiguration();
                                         };
         protected static void WireUpCommandMock(IHttpAction commandMock)

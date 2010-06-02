@@ -29,7 +29,8 @@ namespace Relax.Impl.Commands
                     ex,
                     "An exception occurred trying to save a document of type {0} at {1}. \r\n\t {2}",
                     typeof(TModel).FullName,
-                    Uri.ToString()
+                    Uri.ToString(),
+                    ex
                     );
             }
         }
@@ -64,8 +65,9 @@ namespace Relax.Impl.Commands
             {
                 throw Exception(
                         ex,
-                        "An exception occurred trying to save a collection documents at {1}. \r\n\t {2}",
-                        Uri.ToString()
+                        "An exception occurred trying to save a collection documents at {0}. \r\n\t {1}",
+                        Uri.ToString(),
+                        ex
                     );
             }
         }

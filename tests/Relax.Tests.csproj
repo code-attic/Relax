@@ -86,11 +86,24 @@
     <Compile Include="Document\when_using_custom_key.cs" />
     <Compile Include="Document\with_custom_document_complex_key.cs" />
     <Compile Include="Document\with_custom_document_simple_key.cs" />
+    <Compile Include="Document\with_design_document.cs" />
     <Compile Include="Mocks\with_mock_repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\when_filtering_type_tokens_out_of_bulk_insert.cs" />
+    <Compile Include="Repository\with_from_view_command.cs" />
+    <Compile Include="Serialization\ClassA.cs" />
+    <Compile Include="Serialization\ClassB.cs" />
+    <Compile Include="Serialization\ClassC.cs" />
+    <Compile Include="Serialization\ClassD.cs" />
+    <Compile Include="Serialization\ClassE.cs" />
+    <Compile Include="Serialization\ClassF.cs" />
+    <Compile Include="Serialization\Test.cs" />
+    <Compile Include="Serialization\TestResolver.cs" />
+    <Compile Include="Serialization\with_bulk_insert.cs" />
+    <Compile Include="Serialization\when_serializing_bulk_insert.cs" />
     <Compile Include="Serialization\when_serializing_document_graph.cs" />
-    <Compile Include="Serialization\when_transforming_json.cs" />
+    <Compile Include="Serialization\with_assimilation.cs" />
+    <Compile Include="Serialization\when_trying_custom_serializer.cs" />
+    <Compile Include="Serialization\with_single_document.cs" />
     <Compile Include="Server\when_cleaning_up_views.cs" />
     <Compile Include="Server\when_compacting_db.cs" />
     <Compile Include="Server\when_compacting_view.cs" />
@@ -159,7 +172,9 @@
     <Compile Include="URI\when_using_start_key_only.cs" />
     <Compile Include="URI\with_basic_uri.cs" />
     <Compile Include="URI\with_basic_uri_without_db.cs" />
-    <Compile Include="ViewFilter\when_filtering_get_all.cs" />
+    <Compile Include="ViewFilter\when_filtering_design_documents_from_results.cs" />
+    <Compile Include="ViewFilter\Request.cs" />
+    <Compile Include="ViewFilter\with_test_json.cs" />
     <Compile Include="with_configuration.cs" />
   </ItemGroup>
   <ItemGroup>

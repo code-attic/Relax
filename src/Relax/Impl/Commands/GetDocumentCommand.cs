@@ -17,10 +17,11 @@ namespace Relax.Impl.Commands
             catch (Exception ex)
             {
                 var couchEx = Exception(ex,
-                        "An exception occurred trying to retrieve a document of type {0} with id {1} at {3}. \r\n\t {4}",
+                        "An exception occurred trying to retrieve a document of type {0} with id {1} at {2}. \r\n\t {3}",
                         typeof(TModel).FullName,
                         id,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -45,7 +46,8 @@ namespace Relax.Impl.Commands
                         typeof(TModel).FullName,
                         id,
                         rev,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
 
                 if (configuration.Throw404Exceptions)

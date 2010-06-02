@@ -40,11 +40,13 @@
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />
     <Compile Include="Impl\Commands\ChangeStreamCommand.cs" />
     <Compile Include="Impl\Commands\CommandResult.cs" />
+    <Compile Include="Impl\CouchUtility.cs" />
     <Compile Include="Impl\Commands\DeleteDocumentCommand.cs" />
     <Compile Include="Impl\Commands\GetDocumentsCommand.cs" />
     <Compile Include="Impl\Commands\GetFromViewCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentCommand.cs" />
     <Compile Include="Impl\Commands\ServerCommand.cs" />
+    <Compile Include="Impl\UtilityExtensions.cs" />
     <Compile Include="Impl\Model\DesignView.cs" />
     <Compile Include="Impl\Commands\GetDocumentCommand.cs" />
     <Compile Include="Impl\Json\KeyList.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="RelaxAssimilation.cs" />
     <Compile Include="RelaxConfiguration.cs" />
     <Compile Include="RelaxConfigurationException.cs" />
+    <Compile Include="RelaxException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

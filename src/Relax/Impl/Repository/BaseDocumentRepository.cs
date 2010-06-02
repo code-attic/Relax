@@ -97,7 +97,7 @@ namespace Relax.Impl.Repository
         public virtual void SaveAll<TModel>(IEnumerable<TModel> list)
         {
             var command = _commandFactory.GetSaveCommand();
-            var result = command.Save(list);
+            var result = command.SaveAll(list);
         }
 
        public void SaveAttachment<TModel>(TModel model, string attachmentName, string contentType, byte[] content)

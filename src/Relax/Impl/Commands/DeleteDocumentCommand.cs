@@ -21,7 +21,8 @@ namespace Relax.Impl.Commands
                      "An exception occurred trying to delete a document of type {0} with id {1} at {2}. \r\n\t {3}",
                      typeof(TModel).FullName,
                      id,
-                     Uri);
+                     Uri,
+                     ex);
             }
         }
 
@@ -46,8 +47,9 @@ namespace Relax.Impl.Commands
                 throw Exception(ex, 
                      "An exception occurred trying to delete a document of type {0} with id {1} at {2}. \r\n\t {3}",
                      typeof(TModel).FullName, 
-                     id, 
-                     Uri);
+                     id,
+                     Uri,
+                     ex);
             }
         }
 

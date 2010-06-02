@@ -24,7 +24,8 @@ namespace Relax.Impl.Commands
                         ex,
                         "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -51,7 +52,8 @@ namespace Relax.Impl.Commands
                 var couchEx = Exception(ex,
                         "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
 
                 if (configuration.Throw404Exceptions)
@@ -78,7 +80,8 @@ namespace Relax.Impl.Commands
                 var couchEx = Exception(ex,
                         "An exception occurred trying to retrieve a list of documents of type {0} by keys at {1}. \r\n\t {2}",
                         typeof(TModel).FullName,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
 
                 if (configuration.Throw404Exceptions)

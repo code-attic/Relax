@@ -15,6 +15,10 @@ namespace Relax.Impl.Json
         [JsonProperty(PropertyName = "docs")]
         public object[] Documents { get; set; }
 
+        public BulkPersist()
+        {
+        }
+
         public BulkPersist(IEnumerable<object> docs)
         {
             Documents = docs.ToArray();

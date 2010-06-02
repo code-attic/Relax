@@ -28,7 +28,8 @@ namespace Relax.Impl.Commands
                         typeof(TModel).FullName,
                         designDocument,
                         viewName,
-                        Uri.ToString()
+                        Uri.ToString(),
+                        ex
                     );
             }
         }

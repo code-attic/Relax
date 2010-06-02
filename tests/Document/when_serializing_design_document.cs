@@ -4,28 +4,10 @@ using System.Linq;
 using System.Text;
 using Machine.Specifications;
 using Relax.Impl;
-using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.Document
 {
-    public abstract class with_design_document
-    {
-        public static DesignDocument doc;
-
-        private Establish context = () =>
-                                        {
-                                            doc = new DesignDocument()
-                                                      {
-                                                          DocumentId = @"design/test",
-                                                          Views =
-                                                              {
-                                                                  {"one", new DesignView() { Map = @"function(doc) { emit(doc); }"}}
-                                                              }
-                                                      };
-                                        };
-    }
-
     public class when_serializing_design_document : with_design_document
     {
         protected static string json;

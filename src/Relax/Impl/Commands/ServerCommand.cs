@@ -79,7 +79,8 @@ namespace Relax.Impl.Commands
                     ex,
                     "An exception occurred checking for the existence of database {0} at {1}. \r\n\t {2}",
                     database,
-                    Uri
+                    Uri,
+                    ex
                     );
             }
         }
