@@ -81,6 +81,11 @@ namespace Relax.Impl
             Utility.EnsureDatabaseExists(database);
         }
 
+        public static object[] GetDocmentsFromGraph(this object instance)
+        {
+            return Utility.GetDocumentGraph(instance);
+        }
+
         public static CouchUri NewUri(this ICouchConfiguration configuration)
         {
             return Utility.NewUri();

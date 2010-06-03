@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net;
 using Relax.Impl.Commands;
 using Relax.Impl.Configuration;
@@ -8,6 +9,7 @@ using Relax.Impl.Json;
 using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 using Symbiote.Core.Reflection;
+using Symbiote.Core.Utility;
 
 namespace Relax.Impl
 {
@@ -39,7 +41,8 @@ namespace Relax.Impl
             }
             else
             {
-                return JsonExtensions.ToJson<object>(Reflector.ReadMember(instance, configuration.Conventions.RevisionPropertyName), false);
+                var documentRevision = Reflector.ReadMember(instance, configuration.Conventions.RevisionPropertyName).ToJson(false);
+                return string.IsNullOrEmpty(documentRevision) ? null : documentRevision;
             }
         }
 
@@ -184,10 +187,65 @@ namespace Relax.Impl
             return uri;
         }
 
+        public virtual object[] GetDocumentGraph(object model)
+        {
+            var watcher = new DocumentHierarchyWatcher();
+            var visitor = new HierarchyVisitor(IsDocument);
+            visitor.Subscribe(watcher);
+            visitor.Visit(model);
+            return watcher.Documents.ToArray();
+        }
+
+        public virtual bool IsDocument(object instance)
+        {
+            return instance.GetType().GetInterface("ICouchDocument`2") != null;
+        }
+
         public CouchUtility(ICouchConfiguration couchConfiguration)
         {
             configuration = couchConfiguration;
             commandFactory = new CouchCommandFactory();
+        }
+    }
+
+    public class DocumentHierarchyWatcher : IObserver<Tuple<object, string, object>>
+    {
+        public List<object> Documents { get; set; }
+        public bool Done { get; set; }
+
+        public void OnNext(Tuple<object, string, object> value)
+        {
+            var parent = value.Item1 as BaseDocument;
+            var child = value.Item3 as BaseDocument;
+            var property = value.Item2;
+            
+            if(parent != null)
+            {
+                var childIdArray = new object[] {};
+                var childIds = new List<object>() { child.GetDocumentId() };
+                if(parent.RelatedDocumentIds.TryGetValue(property, out childIdArray))
+                {
+                    childIds.AddRange(childIdArray);
+                }
+                parent.RelatedDocumentIds[property] = childIds.ToArray();
+                child.ParentId = parent.GetDocumentId();
+            }
+            Documents.Add(child);
+        }
+
+        public void OnError(Exception error)
+        {
+            
+        }
+
+        public void OnCompleted()
+        {
+            Done = true;
+        }
+
+        public DocumentHierarchyWatcher()
+        {
+            Documents = new List<object>();
         }
     }
 }

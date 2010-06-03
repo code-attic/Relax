@@ -16,12 +16,15 @@ namespace Relax.Impl.Commands
             try
             {
                 CreateUri<TModel>()
-                    .Id(model.GetDocumentId());
+                    .BulkInsert();
 
-                var body = model.ToJson(configuration.IncludeTypeSpecification);
-                var result = Put(body);
-                model.SetDocumentRevision(result.JsonObject["rev"].ToString());
-                return result;
+                //var body = model.ToJson(configuration.IncludeTypeSpecification);
+                //var result = Put(body);
+                //model.SetDocumentRevision(result.JsonObject["rev"].ToString());
+                //return result;
+
+                var documents = model.GetDocmentsFromGraph();
+                return SaveAll(documents);
             }
             catch (Exception ex)
             {
@@ -40,7 +43,8 @@ namespace Relax.Impl.Commands
             CreateUri<TModel>()
                 .BulkInsert();
 
-            return SaveAll(models.Cast<object>());
+            var documents = models.GetDocmentsFromGraph();
+            return SaveAll(documents);
         }
 
         public virtual CommandResult SaveAll(string database, IEnumerable<object> models)
@@ -48,7 +52,8 @@ namespace Relax.Impl.Commands
             CreateUri(database)
                 .BulkInsert();
 
-            return SaveAll(models);
+            var documents = models.GetDocmentsFromGraph();
+            return SaveAll(documents);
         }
 
         protected CommandResult SaveAll(IEnumerable<object> models)

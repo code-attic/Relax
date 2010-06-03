@@ -325,10 +325,10 @@ namespace Relax.Impl.Http
         public CouchUri(string user, string password, string prefix, string server, int port)
         {
             _builder
-                .AppendFormat(@"{0}://{1}:{2}@{3}:{4}", 
+                .AppendFormat(@"{0}://{1}:{2}@{3}:{4}",
+                    prefix,    
                     user,
                     password,
-                    prefix, 
                     server, 
                     port);
         }
@@ -337,10 +337,10 @@ namespace Relax.Impl.Http
         {
             DatabaseName = database;
             _builder
-                .AppendFormat(@"{0}://{1}:{2}@{3}:{4}/{5}", 
+                .AppendFormat(@"{0}://{1}:{2}@{3}:{4}/{5}",
+                    prefix,
                     user,
-                    password,
-                    prefix, 
+                    password, 
                     server, 
                     port, 
                     database);

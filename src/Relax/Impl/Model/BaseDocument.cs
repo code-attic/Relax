@@ -11,7 +11,7 @@ namespace Relax.Impl.Model
         private JObject attachments { get; set; }
 
         [JsonProperty(PropertyName = "$doc_type")]
-        protected virtual string UnderlyingDocumentType
+        internal virtual string UnderlyingDocumentType
         {
             get
             {
@@ -23,8 +23,11 @@ namespace Relax.Impl.Model
             }
         }
 
-        [JsonProperty("$doc_relatedIds")]
-        protected virtual Dictionary<string, object[]> RelatedDocumentIds { get; set; }
+        [JsonProperty("$doc_related_ids")]
+        internal virtual Dictionary<string, object[]> RelatedDocumentIds { get; set; }
+
+        [JsonProperty("$doc_parent_id")]
+        internal virtual object ParentId { get; set; }
 
         [JsonIgnore]
         public virtual IEnumerable<string> Attachments
