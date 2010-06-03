@@ -24,7 +24,7 @@ namespace Relax.Tests.Repository
         private Establish context = () =>
                                         {
                                             commandMock = new Mock<IHttpAction>();
-                                            repository = new DocumentRepository(configuration);
+                                            repository = new DocumentRepository();
                                         };
     }
 

@@ -36,44 +36,7 @@ namespace Relax.Impl.Configuration
         public TimeSpan CacheLimit { get; set; }
         public bool Throw404Exceptions { get; set; }
         public bool IncludeTypeSpecification { get; set; }
-
-        public virtual CouchUri NewUri()
-        {
-            var baseURI = Preauthorize
-                              ? CouchUri.Build(
-                                  User,
-                                  Password,
-                                  Protocol,
-                                  Server,
-                                  Port)
-                              : CouchUri.Build(
-                                  Protocol,
-                                  Server,
-                                  Port);
-            return baseURI;
-        }
-        public virtual CouchUri NewUri<TModel>()
-        {
-            var database = GetDatabaseNameForType<TModel>();
-            return NewUri(database);
-        }
-        public virtual CouchUri NewUri(string database)
-        {
-            return Preauthorize ?
-                                CouchUri.Build(
-                                    User,
-                                    Password,
-                                    Protocol,
-                                    Server,
-                                    Port,
-                                    database)
-                              : CouchUri.Build(
-                                  Protocol,
-                                  Server,
-                                  Port,
-                                  database);
-        }
-
+        
         public CouchConfiguration()
         {
             Protocol = "http";

@@ -22,7 +22,6 @@ namespace Relax
 
         public static void Configure(ICouchConfiguration configuration)
         {
-            Assimilate.Core();
             ObjectFactory.Configure(c =>
             {
                 c.For<ICouchConfiguration>().Use(configuration);

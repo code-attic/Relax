@@ -8,14 +8,14 @@ using Relax.Impl.Commands;
 
 namespace Relax.Impl.Cache
 {
-    class CouchCacheProvider : ICouchCacheProvider
+    public class CouchCacheProvider : ICouchCacheProvider
     {
         protected ICacheProvider _cache;
         protected ICacheKeyBuilder _keyBuilder;
         protected ConcurrentDictionary<string, ConcurrentStack<string>> _crossReferences
             = new ConcurrentDictionary<string, ConcurrentStack<string>>();
 
-        public void AddCrossReference(string key, string cacheKey)
+        public virtual void AddCrossReference(string key, string cacheKey)
         {
             ConcurrentStack<string> list = null;
             if (!_crossReferences.TryGetValue(key, out list))
@@ -26,7 +26,7 @@ namespace Relax.Impl.Cache
             list.Push(cacheKey);
         }
 
-        public void InvalidateItem<TModel>(string affectedKey)
+        public virtual void InvalidateItem<TModel>(string affectedKey)
         {
             ConcurrentStack<string> relatedKeys = null;
             if (_crossReferences.TryGetValue(affectedKey, out relatedKeys))
@@ -39,26 +39,26 @@ namespace Relax.Impl.Cache
             }
         }
 
-        public void Delete<TModel>(object key, Action<object> delete)
+        public virtual void Delete<TModel>(object key, Action<object> delete)
         {
             var cacheKey = _keyBuilder.GetKey<TModel>(key);
             InvalidateItem<TModel>(key.ToString());
             delete(key);
         }
 
-        public void Delete<TModel>(object key, object rev, Action<object, object> delete)
+        public virtual void Delete<TModel>(object key, object rev, Action<object, object> delete)
         {
             var cacheKey = _keyBuilder.GetKey<TModel>(key, rev);
             InvalidateItem<TModel>(key.ToString());
             delete(key, rev);
         }
 
-        public void DeleteAll<TModel>()
+        public virtual void DeleteAll<TModel>()
         {
             _crossReferences.Keys.ForEach(InvalidateItem<TModel>);
         }
 
-        public TModel Get<TModel>(object key, object rev, Func<object, object, TModel> retrieve)
+        public virtual TModel Get<TModel>(object key, object rev, Func<object, object, TModel> retrieve)
         {
             var cacheKey = _keyBuilder.GetKey<TModel>(key, rev);
             var result = _cache.Get<TModel>(cacheKey);
@@ -71,7 +71,7 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public TModel Get<TModel>(object key, Func<object, TModel> retrieve)
+        public virtual TModel Get<TModel>(object key, Func<object, TModel> retrieve)
         {
             var cacheKey = _keyBuilder.GetKey<TModel>(key);
             var result = _cache.Get<TModel>(cacheKey);
@@ -84,7 +84,7 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public IList<TModel> GetAll<TModel>(Func<IList<TModel>> retrieve)
+        public virtual IList<TModel> GetAll<TModel>(Func<IList<TModel>> retrieve)
         {
             var cacheKey = _keyBuilder.GetListKey<TModel>();
             var result = _cache.Get<IList<TModel>>(cacheKey);
@@ -97,7 +97,7 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public IList<TModel> GetAll<TModel>(int pageSize, int pageNumber, Func<int, int, IList<TModel>> retrieve)
+        public virtual IList<TModel> GetAll<TModel>(int pageSize, int pageNumber, Func<int, int, IList<TModel>> retrieve)
         {
             var cacheKey = _keyBuilder.GetListKey<TModel>(pageNumber, pageSize);
             var result = _cache.Get<IList<TModel>>(cacheKey);
@@ -110,14 +110,14 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public void Save<TModel>(TModel model, Action<TModel> save)
+        public virtual void Save<TModel>(TModel model, Action<TModel> save)
         {
             InvalidateItem<TModel>(model.GetDocumentId());
             save(model);
             CacheSavedModel(model);
         }
 
-        protected void CacheSavedModel<TModel>(TModel model)
+        protected virtual void CacheSavedModel<TModel>(TModel model)
         {
             var simpleKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId());
             var revKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId(), model.GetDocumentRevision());
@@ -125,7 +125,7 @@ namespace Relax.Impl.Cache
             _cache.Store(revKey, model);
         }
 
-        public void Save<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save)
+        public virtual void Save<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save)
         {
             list.ForEach(x => InvalidateItem<TModel>(x.GetDocumentId()));
             save(list);

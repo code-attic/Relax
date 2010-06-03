@@ -72,6 +72,20 @@
     <Compile Include="Assimilation\when_assimilating_with_caching.cs" />
     <Compile Include="Assimilation\when_assimilating_without_caching.cs" />
     <Compile Include="Caching\with_caching_provider.cs" />
+    <Compile Include="Commands\GetCommand\when_getting_all_documents.cs" />
+    <Compile Include="Commands\GetCommand\when_getting_all_documents_by_ids.cs" />
+    <Compile Include="Commands\GetCommand\when_getting_all_documents_paged.cs" />
+    <Compile Include="Commands\GetCommand\with_get_all_docs.cs" />
+    <Compile Include="Commands\GetCommand\with_get_all_docs_by_ids.cs" />
+    <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
+    <Compile Include="Commands\TestDoc.cs" />
+    <Compile Include="Commands\GetCommand\when_getting_doc_by_id.cs" />
+    <Compile Include="Commands\GetCommand\when_getting_doc_by_id_and_rev.cs" />
+    <Compile Include="Commands\with_command_factory.cs" />
+    <Compile Include="Commands\with_configuration.cs" />
+    <Compile Include="Commands\GetCommand\with_get_doc_by_id_and_rev_setup.cs" />
+    <Compile Include="Commands\GetCommand\with_get_doc_by_id_setup.cs" />
+    <Compile Include="Commands\with_mock_http_action.cs" />
     <Compile Include="Configuration\when_using_caching_with_time_limit.cs" />
     <Compile Include="Configuration\when_providing_custom_configuration.cs" />
     <Compile Include="Configuration\when_using_caching_with_expiration_date.cs" />
@@ -103,6 +117,7 @@
     <Compile Include="Serialization\when_serializing_document_graph.cs" />
     <Compile Include="Serialization\with_assimilation.cs" />
     <Compile Include="Serialization\when_trying_custom_serializer.cs" />
+    <Compile Include="Serialization\with_complex_document.cs" />
     <Compile Include="Serialization\with_single_document.cs" />
     <Compile Include="Server\when_cleaning_up_views.cs" />
     <Compile Include="Server\when_compacting_db.cs" />
@@ -183,7 +198,9 @@
       <Name>Relax</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\ServerCommand\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

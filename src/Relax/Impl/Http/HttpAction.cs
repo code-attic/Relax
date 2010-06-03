@@ -9,15 +9,15 @@ namespace Relax.Impl.Http
 {
     public class HttpAction : IHttpAction
     {
-        protected ICouchConfiguration _configuration;
+        protected ICouchConfiguration configuration { get; set; }
         protected bool _pollForChanges = false;
 
         public virtual string GetResponse(CouchUri uri, string method, string body)
         {
             var request = WebRequest.Create(uri.ToString());
             request.Method = method;
-            request.Timeout = _configuration.TimeOut;
-            //request.PreAuthenticate = _configuration.Preauthorize;
+            request.Timeout = configuration.TimeOut;
+            //request.PreAuthenticate = configuration.Preauthorize;
 
             if (!string.IsNullOrEmpty(body))
             {
@@ -49,7 +49,7 @@ namespace Relax.Impl.Http
             var request = WebRequest.Create(uri.ToString());
             request.Method = "GET";
             request.Timeout = int.MaxValue;
-            request.PreAuthenticate = _configuration.Preauthorize;
+            request.PreAuthenticate = configuration.Preauthorize;
             var result = "";
             _pollForChanges = true;
 
@@ -88,7 +88,7 @@ namespace Relax.Impl.Http
         {
             var request = WebRequest.Create(uri.ToString());
             request.Method = "GET";
-            request.Timeout = _configuration.TimeOut;
+            request.Timeout = configuration.TimeOut;
 
             var response = request.GetResponse();
             int bytesRead = 0;
@@ -157,7 +157,7 @@ namespace Relax.Impl.Http
 
         public HttpAction(ICouchConfiguration configuration)
         {
-            _configuration = configuration;
+            this.configuration = configuration;
         }
     }
 

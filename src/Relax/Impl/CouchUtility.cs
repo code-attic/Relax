@@ -1,4 +1,9 @@
-﻿using Relax.Impl.Configuration;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Net;
+using Relax.Impl.Commands;
+using Relax.Impl.Configuration;
+using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
@@ -9,6 +14,8 @@ namespace Relax.Impl
     public class CouchUtility
     {
         protected ICouchConfiguration configuration { get; set; }
+        protected CouchCommandFactory commandFactory { get; set; }
+        protected ConcurrentDictionary<string, bool> _databaseExists = new ConcurrentDictionary<string, bool>();
 
         public virtual string GetDocumentId(object instance)
         {
@@ -39,36 +46,148 @@ namespace Relax.Impl
         public virtual void SetDocumentId(string json, object instance)
         {
             var doc = instance as IHandleJsonDocumentId;
-            var response = json.FromJson<SaveResponse>();
             if (doc != null)
             {
-                doc.UpdateKeyFromJson(response.Id);
+                doc.UpdateKeyFromJson(json);
             }
             else
             {
                 var idType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.IdPropertyName);
-                Reflector.WriteMember(instance, configuration.Conventions.IdPropertyName, response.Id.FromJson(idType));
+                Reflector.WriteMember(instance, configuration.Conventions.IdPropertyName, json.FromJson(idType));
             }
         }
 
         public virtual void SetDocumentRevision(string json, object instance)
         {
             var doc = instance as IHandleJsonDocumentRevision;
-            var response = json.FromJson<SaveResponse>();
             if (doc != null)
             {
-                doc.UpdateRevFromJson(response.Id);
+                doc.UpdateRevFromJson(json);
             }
             else
             {
                 var idType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.RevisionPropertyName);
-                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, response.Id.FromJson(idType));
+                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, json.FromJson(idType));
             }
+        }
+        
+        public virtual void EnsureDatabaseExists<TModel>()
+        {
+            var database = configuration.GetDatabaseNameForType<TModel>();
+            EnsureDatabaseExists(database);
+        }
+
+        public virtual void CreateDatabase<TModel>()
+        {
+            var database = configuration.GetDatabaseNameForType<TModel>();
+            CreateDatabase(database);
+        }
+
+        public virtual bool DatabaseExists<TModel>()
+        {
+            var database = configuration.GetDatabaseNameForType<TModel>();
+            return DatabaseExists(database);
+        }
+
+        public virtual void EnsureDatabaseExists(string database)
+        {
+            if (string.IsNullOrEmpty(database))
+                return;
+
+            var dbCreated = false;
+            var shouldCheckCouch = false;
+            ServerCommand command = null;
+            try
+            {
+                shouldCheckCouch = !_databaseExists.TryGetValue(database, out dbCreated);
+                if (shouldCheckCouch && !dbCreated)
+                {
+                    command = commandFactory.GetServerCommand();
+                    command.CreateDatabase(database);
+                    _databaseExists[database] = true;
+                }
+            }
+            catch (WebException webEx)
+            {
+                if (webEx.Message.Contains("(412) Precondition Failed"))
+                {
+                    _databaseExists[database] = true;
+                }
+                else
+                {
+                    "An exception occurred while trying to check for the existence of database {0} at uri {1}. \r\n\t {2}"
+                        .ToError<IDocumentRepository>(database, command.Uri, webEx);
+                    throw;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                "An exception occurred while trying to check for the existence of database {0} at uri {1}. \r\n\t {2}"
+                    .ToError<IDocumentRepository>(database, command.Uri, ex);
+                throw;
+            }
+        }
+
+        public virtual void CreateDatabase(string database)
+        {
+            var command = commandFactory.GetServerCommand();
+            command.CreateDatabase(database);
+            _databaseExists[database] = true;
+        }
+
+        public virtual bool DatabaseExists(string database)
+        {
+            var command = commandFactory.GetServerCommand();
+            var exists = command.DatabaseExists(database);
+            _databaseExists[command.Uri.DatabaseName] = exists;
+            return exists;
+        }
+
+        public virtual CouchUri NewUri()
+        {
+            var uri = configuration.Preauthorize
+                              ? CouchUri.Build(
+                                  configuration.User,
+                                  configuration.Password,
+                                  configuration.Protocol,
+                                  configuration.Server,
+                                  configuration.Port)
+                              : CouchUri.Build(
+                                  configuration.Protocol,
+                                  configuration.Server,
+                                  configuration.Port);
+            uri.EnsureDatabaseExists();
+            return uri;
+        }
+        public virtual CouchUri NewUri<TModel>()
+        {
+            var database = configuration.GetDatabaseNameForType<TModel>();
+            return NewUri(database);
+        }
+        public virtual CouchUri NewUri(string database)
+        {
+            var uri = configuration.Preauthorize ?
+                                CouchUri.Build(
+                                    configuration.User,
+                                    configuration.Password,
+                                    configuration.Protocol,
+                                    configuration.Server,
+                                    configuration.Port,
+                                    database)
+                              : CouchUri.Build(
+                                  configuration.Protocol,
+                                  configuration.Server,
+                                  configuration.Port,
+                                  database);
+            uri.EnsureDatabaseExists();
+            return uri;
         }
 
         public CouchUtility(ICouchConfiguration couchConfiguration)
         {
             configuration = couchConfiguration;
+            commandFactory = new CouchCommandFactory();
         }
     }
 }

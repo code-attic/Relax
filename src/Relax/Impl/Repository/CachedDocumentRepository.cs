@@ -11,14 +11,7 @@ namespace Relax.Impl.Repository
         protected IDocumentRepository _repository;
         protected ICacheKeyBuilder _builder;
 
-        public CachedDocumentRepository(ICouchConfiguration configuration, ICouchCacheProvider cacheProvider) 
-            : base(configuration)
-        {
-            _cache = cacheProvider;
-        }
-
-        public CachedDocumentRepository(string configurationName, ICouchCacheProvider cacheProvider)
-            : base(configurationName)
+        public CachedDocumentRepository(ICouchCacheProvider cacheProvider)
         {
             _cache = cacheProvider;
         }

@@ -36,13 +36,14 @@
     <Compile Include="ApplicationServices\CouchMembershipDocument.cs" />
     <Compile Include="ApplicationServices\CouchMembershipProvider.cs" />
     <Compile Include="ApplicationServices\UserViews.cs" />
-    <Compile Include="Impl\Commands\AttachmentCommand.cs" />
+    <Compile Include="Impl\Commands\DeleteAttachmentCommand.cs" />
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />
     <Compile Include="Impl\Commands\ChangeStreamCommand.cs" />
     <Compile Include="Impl\Commands\CommandResult.cs" />
+    <Compile Include="Impl\Commands\GetAttachmentCommand.cs" />
+    <Compile Include="Impl\Commands\SaveAttachmentCommand.cs" />
     <Compile Include="Impl\CouchUtility.cs" />
     <Compile Include="Impl\Commands\DeleteDocumentCommand.cs" />
-    <Compile Include="Impl\Commands\GetDocumentsCommand.cs" />
     <Compile Include="Impl\Commands\GetFromViewCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentCommand.cs" />
     <Compile Include="Impl\Commands\ServerCommand.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="Impl\Model\IHandleJsonDocumentId.cs" />
     <Compile Include="Impl\Model\IHandleJsonDocumentRevision.cs" />
     <Compile Include="Impl\Model\IHaveAttachments.cs" />
-    <Compile Include="Impl\BaseCouchDbController.cs" />
     <Compile Include="Impl\Json\BulkResponse.cs" />
     <Compile Include="Impl\Cache\CacheKeyBuilder.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentWritingContractResolver.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Impl\Configuration\ICouchConfiguration.cs" />
     <Compile Include="Impl\Json\NewRevision.cs" />
     <Compile Include="Impl\Serialization\DocumentConventions.cs" />
-    <Compile Include="Impl\Commands\ReplicationCommand.cs" />
+    <Compile Include="Impl\Json\ReplicationCommand.cs" />
     <Compile Include="Impl\Commands\ViewQuery.cs" />
     <Compile Include="Impl\Model\JsonDocument.cs" />
     <Compile Include="Impl\Json\SaveResponse.cs" />

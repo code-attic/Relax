@@ -9,9 +9,19 @@ namespace Relax.Impl.Commands
             return ObjectFactory.GetInstance<TCommand>();
         }
 
-        public AttachmentCommand GetAttachmentCommand()
+        public DeleteAttachmentCommand GetDeleteAttachmentCommand()
         {
-            return GetCommand<AttachmentCommand>();
+            return GetCommand<DeleteAttachmentCommand>();
+        }
+
+        public GetAttachmentCommand GetGetAttachmentCommand()
+        {
+            return GetCommand<GetAttachmentCommand>();
+        }
+
+        public SaveAttachmentCommand GetSaveAttachmentCommand()
+        {
+            return GetCommand<SaveAttachmentCommand>();
         }
 
         public DeleteDocumentCommand GetDeleteCommand()
@@ -23,12 +33,7 @@ namespace Relax.Impl.Commands
         {
             return GetCommand<GetDocumentCommand>();
         }
-
-        public GetDocumentsCommand GetGetDocumentsCommand()
-        {
-            return GetCommand<GetDocumentsCommand>();
-        }
-
+        
         public GetFromViewCommand GetViewCommand()
         {
             return GetCommand<GetFromViewCommand>();

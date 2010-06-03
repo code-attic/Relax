@@ -1,4 +1,6 @@
-﻿using StructureMap;
+﻿using Relax.Impl.Configuration;
+using Relax.Impl.Http;
+using StructureMap;
 
 namespace Relax.Impl
 {
@@ -32,6 +34,66 @@ namespace Relax.Impl
         public static void SetDocumentRevision(this object instance, string json)
         {
             Utility.SetDocumentRevision(json, instance);
+        }
+
+        public static bool DoesDatabaseExist(this CouchUri uri)
+        {
+            return Utility.DatabaseExists(uri.DatabaseName);
+        }
+
+        public static bool DoesDatabaseExist<TModel>()
+        {
+            return Utility.DatabaseExists<TModel>();
+        }
+
+        public static bool DoesDatabaseExist(string database)
+        {
+            return Utility.DatabaseExists(database);
+        }
+
+        public static void CreateDatabase(this CouchUri uri)
+        {
+            Utility.CreateDatabase(uri.DatabaseName);
+        }
+
+        public static void CreateDatabase<TModel>()
+        {
+            Utility.CreateDatabase<TModel>();
+        }
+
+        public static void CreateDatabase(string database)
+        {
+            Utility.CreateDatabase(database);
+        }
+
+        public static void EnsureDatabaseExists(this CouchUri uri)
+        {
+            Utility.EnsureDatabaseExists(uri.DatabaseName);
+        }
+
+        public static void EnsureDatabaseExists<TModel>()
+        {
+            Utility.EnsureDatabaseExists<TModel>();
+        }
+
+        public static void EnsureDatabaseExists(string database)
+        {
+            Utility.EnsureDatabaseExists(database);
+        }
+
+        public static CouchUri NewUri(this ICouchConfiguration configuration)
+        {
+            return Utility.NewUri();
+        }
+
+        public static CouchUri NewUri<TModel>(this ICouchConfiguration configuration)
+        {
+            return Utility.NewUri<TModel>();
+        }
+
+        public static CouchUri NewUri(this ICouchConfiguration configuration, string database)
+        {
+            return Utility.NewUri(database);
         }
     }
 }

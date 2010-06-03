@@ -27,9 +27,7 @@ namespace Relax.Tests.Server
         private Establish context = () =>
         {
             commandMock = new Mock<IHttpAction>();
-            server = new CouchDbServer(
-                configuration,
-                new DocumentRepository(configuration));
+            server = new CouchDbServer(new DocumentRepository());
         };
     }
 }

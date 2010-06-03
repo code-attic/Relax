@@ -7,7 +7,7 @@ namespace Relax.Impl.Commands
 {
     public class GetFromViewCommand : BaseCouchCommand
     {
-        public CommandResult<ViewResult<TModel>> GetFromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query)
+        public CommandResult GetFromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace Relax.Impl.Commands
                 var viewQuery = new ViewQuery(Uri);
                 query(viewQuery);
                 Uri.IncludeDocuments();
-                return Get<ViewResult<TModel>>();
+                return Get();
             }
             catch (Exception ex)
             {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Relax.Impl.Configuration;
 using Relax.Impl.Http;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Commands
@@ -33,30 +35,48 @@ namespace Relax.Impl.Commands
 
         public void CopyDatabase<TModel>(CouchUri targetUri)
         {
-            CreateUri().Replicate();
-            var sourceUri = configuration.NewUri<TModel>();
-            var request = ReplicationCommand.Once(sourceUri, targetUri);
-            var body = request.ToJson(false);
-            Post(body);
+            try
+            {
+                CreateUri().Replicate();
+                var sourceUri = configuration.NewUri<TModel>();
+                var request = ReplicationCommand.Once(sourceUri, targetUri);
+                var body = request.ToJson(false);
+                Post(body);
+            }
+            catch (WebException ex)
+            {
+                //do nothing, it's a timeout
+                if (!ex.Message.Contains("timed out"))
+                    throw;
+            }
         }
 
         public void CopyDatabase(CouchUri sourceUri, CouchUri targetUri)
         {
-            CreateUri().Replicate();
-            var request = ReplicationCommand.Once(sourceUri, targetUri);
-            var body = request.ToJson(false);
-            Post(body);
+            try
+            {
+                CreateUri().Replicate();
+                var request = ReplicationCommand.Once(sourceUri, targetUri);
+                var body = request.ToJson(false);
+                Post(body);
+            }
+            catch (WebException ex)
+            {
+                //do nothing, it's a timeout
+                if (!ex.Message.Contains("timed out"))
+                    throw;
+            }
         }
 
         public void CreateDatabase<TModel>()
         {
-            CreateUri<TModel>();
-            Put();
+            var database = configuration.GetDatabaseNameForType<TModel>();
+            CreateDatabase(database);
         }
 
         public void CreateDatabase(string database)
         {
-            CreateUri(database);
+            Uri = new CouchUri(configuration.Protocol, configuration.Server, configuration.Port, database);
             Put();
         }
 
@@ -69,7 +89,7 @@ namespace Relax.Impl.Commands
         {
             try
             {
-                CreateUri(database);
+                Uri = new CouchUri(configuration.Protocol, configuration.Server, configuration.Port, database);
                 var response = action.Get(Uri);
                 return !string.IsNullOrEmpty(response) && !response.StartsWith("{\"error\"");
             }
@@ -88,8 +108,8 @@ namespace Relax.Impl.Commands
         public IList<string> GetDatabaseList()
         {
             CreateUri("_all_dbs");
-            var result = Get<string[]>();
-            return result.Result.ToList();
+            var result = Get();
+            return result.GetResultAs<string[]>().ToList();
         }
 
         public void DeleteDatabase<TModel>()

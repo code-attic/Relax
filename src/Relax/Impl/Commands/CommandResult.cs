@@ -5,15 +5,41 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Commands
 {
-    public class CommandResult<TResult>
+    public class CommandResult
     {
-        public TResult Result { get; set; }
         public string Json { get; set; }
+
+        public JObject JsonObject
+        {
+            get
+            {
+                if(!string.IsNullOrEmpty(Json))
+                {
+                    return JObject.Parse(Json);
+                }
+                return new JObject();
+            }
+        }
+
+        public TResult GetResultAs<TResult>()
+        {
+            if (string.IsNullOrEmpty(Json))
+                return default(TResult);
+
+            return Json.FromJson<TResult>();
+        }
+
+        public object GetResultAs(Type resultType)
+        {
+            if (string.IsNullOrEmpty(Json))
+                return null;
+
+            return Json.FromJson(resultType);
+        }
 
         public CommandResult(string json)
         {
             Json = FilterOutDesignDocuments(json);
-            Result = json.FromJson<TResult>();
         }
 
         public virtual string FilterOutDesignDocuments(string json)

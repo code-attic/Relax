@@ -5,67 +5,42 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Commands
 {
-    public abstract class BaseCouchCommand
+    public class BaseCouchCommand
     {
         public virtual CouchUri Uri { get; protected set; }
         protected virtual IHttpAction action { get; set; }
         protected ICouchConfiguration configuration { get; set; }
 
-        public virtual CommandResult<TResult> Get<TResult>()
+        public virtual CommandResult Get()
         {
-            return new CommandResult<TResult>(action.Get(Uri));
+            return new CommandResult(action.Get(Uri));
         }
 
-        public virtual CommandResult<TResult> Delete<TResult>()
+        public virtual CommandResult Delete()
         {
-            return new CommandResult<TResult>(action.Delete(Uri));
+            return new CommandResult(action.Delete(Uri));
         }
 
-        public virtual void Delete()
+        public virtual CommandResult Post()
         {
-            action.Delete(Uri);
+            return new CommandResult(action.Post(Uri));
         }
 
-        public virtual CommandResult<TResult> Post<TResult>()
+        public virtual CommandResult Post(string body)
         {
-            return new CommandResult<TResult>(action.Post(Uri));
+            return new CommandResult(action.Post(Uri, body));
+        }
+        
+        public virtual CommandResult Put()
+        {
+            return new CommandResult(action.Put(Uri));
         }
 
-        public virtual CommandResult<TResult> Post<TResult>(string body)
+        public virtual CommandResult Put(string body)
         {
-            return new CommandResult<TResult>(action.Post(Uri, body));
+            return new CommandResult(action.Put(Uri, body));
         }
-
-        public virtual void Post()
-        {
-            action.Post(Uri);
-        }
-
-        public virtual void Post(string body)
-        {
-            action.Post(Uri, body);
-        }
-
-        public virtual CommandResult<TResult> Put<TResult>()
-        {
-            return new CommandResult<TResult>(action.Put(Uri));
-        }
-
-        public virtual CommandResult<TResult> Put<TResult>(string body)
-        {
-            return new CommandResult<TResult>(action.Put(Uri, body));
-        }
-
-        public virtual void Put()
-        {
-            action.Put(Uri);
-        }
-
-        public virtual void Put(string body)
-        {
-            action.Put(Uri, body);
-        }
-
+        
         public virtual CouchUri CreateUri(string database)
         {
             Uri = configuration.NewUri(database);

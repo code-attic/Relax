@@ -11,7 +11,7 @@ namespace Relax.Impl.Commands
 {
     public class SaveDocumentCommand : BaseCouchCommand
     {
-        public CommandResult<SaveResponse> Save<TModel>(TModel model)
+        public virtual CommandResult Save<TModel>(TModel model)
         {
             try
             {
@@ -19,8 +19,8 @@ namespace Relax.Impl.Commands
                     .Id(model.GetDocumentId());
 
                 var body = model.ToJson(configuration.IncludeTypeSpecification);
-                var result = Put<SaveResponse>(body);
-                model.SetDocumentRevision(result.Json);
+                var result = Put(body);
+                model.SetDocumentRevision(result.JsonObject["rev"].ToString());
                 return result;
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace Relax.Impl.Commands
             }
         }
 
-        public CommandResult<SaveResponse[]> SaveAll<TModel>(IEnumerable<TModel> models)
+        public virtual CommandResult SaveAll<TModel>(IEnumerable<TModel> models)
         {
             CreateUri<TModel>()
                 .BulkInsert();
@@ -43,7 +43,7 @@ namespace Relax.Impl.Commands
             return SaveAll(models.Cast<object>());
         }
 
-        public CommandResult<SaveResponse[]> SaveAll(string database, IEnumerable<object> models)
+        public virtual CommandResult SaveAll(string database, IEnumerable<object> models)
         {
             CreateUri(database)
                 .BulkInsert();
@@ -51,7 +51,7 @@ namespace Relax.Impl.Commands
             return SaveAll(models);
         }
 
-        protected CommandResult<SaveResponse[]> SaveAll(IEnumerable<object> models)
+        protected CommandResult SaveAll(IEnumerable<object> models)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Relax.Impl.Commands
                 var body = list.ToJson(configuration.IncludeTypeSpecification);
                 body = ScrubBulkPersistOfTypeTokens(body);
 
-                return Post<SaveResponse[]>(body);
+                return Post(body);
             }
             catch (Exception ex)
             {

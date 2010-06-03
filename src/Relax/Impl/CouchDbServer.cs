@@ -8,83 +8,92 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Impl
 {
-    public class CouchDbServer
-        : BaseCouchDbController, ICouchServer
+    public class CouchDbServer : ICouchServer
     {
-        protected IDocumentRepository _repository;
+        protected IDocumentRepository repository { get; set; }
+        protected CouchCommandFactory commandFactory { get; set; }
 
         public void CleanViews<TModel>()
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.CleanViews<TModel>();
         }
 
         public void CompactDatabase<TModel>()
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.CompactDatabase<TModel>();
         }
 
         public void CompactView<TModel>(string testview)
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.CompactView<TModel>(testview);
         }
 
         public void CopyDatabase<TModel>(CouchUri targetUri)
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.CopyDatabase<TModel>(targetUri);
         }
 
         public void CopyDatabase(CouchUri sourceUri, CouchUri targetUri)
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.CopyDatabase(sourceUri, targetUri);
+        }
+
+        public void CreateDatabase<TModel>()
+        {
+            UtilityExtensions.CreateDatabase<TModel>();
         }
 
         public IList<string> DatabaseList
         {
             get
             {
-                var command = _commandFactory.GetServerCommand();
+                var command = commandFactory.GetServerCommand();
                 return command.GetDatabaseList();
             }
         }
 
+        public bool DatabaseExists<TModel>()
+        {
+            return UtilityExtensions.DoesDatabaseExist<TModel>();
+        }
+
         public virtual void DeleteDatabase<TModel>()
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.DeleteDatabase<TModel>();
         }
 
         public void Replicate<TModel>(CouchUri targetUri) 
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.Replicate<TModel>(targetUri);
         }
 
         public void Replicate(CouchUri sourceUri, CouchUri targetUri)
         {
-            var command = _commandFactory.GetServerCommand();
+            var command = commandFactory.GetServerCommand();
             command.Replicate(sourceUri, targetUri);
         }
 
-        public CouchDbServer(ICouchConfiguration configuration, IDocumentRepository repository)
+        public CouchDbServer(IDocumentRepository repository)
         {
-            _configuration = configuration;
-            _commandFactory = new CouchCommandFactory();
-            _repository = repository;
+            commandFactory = new CouchCommandFactory();
+            this.repository = repository;
         }
 
         public IDocumentRepository Repository
         {
-            get { return _repository; }
+            get { return repository; }
         }
 
         public void Dispose()
         {
-            _repository.Dispose();   
+            repository.Dispose();   
         }
     }
 }

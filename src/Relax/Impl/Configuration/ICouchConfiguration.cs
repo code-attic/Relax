@@ -21,8 +21,5 @@ namespace Relax.Impl.Configuration
         bool Throw404Exceptions { get; set; }
         bool IncludeTypeSpecification { get; set; }
         void SetDatabaseNameForType<T>(string databaseName);
-        CouchUri NewUri();
-        CouchUri NewUri<TModel>();
-        CouchUri NewUri(string database);
     }
 }
