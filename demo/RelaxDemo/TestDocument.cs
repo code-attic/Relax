@@ -6,19 +6,24 @@ using Relax.Impl.Model;
 namespace RelaxDemo
 {
     [Serializable]
-    public class TestDocument : ComplexCouchDocument<TestDocument, Guid, string>
+    public class TestDocument 
+        //: ComplexCouchDocument<TestDocument, Guid, string>
     {
+        public virtual Guid Id { get; set; }
+        public virtual string Rev { get; set; }
         public virtual string Message { get; set; }
         public virtual DateTime Time { get; set; }
 
         public TestDocument()
         {
-            _documentId = Guid.NewGuid();
+            //_documentId = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         public TestDocument(string message)
         {
-            _documentId = Guid.NewGuid();
+            //_documentId = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Message = message;
             Time = DateTime.Now;
         }

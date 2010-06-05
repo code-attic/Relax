@@ -64,7 +64,16 @@ namespace Relax.Impl.Commands
                 var body = list.ToJson(configuration.IncludeTypeSpecification);
                 body = ScrubBulkPersistOfTypeTokens(body);
 
-                return Post(body);
+                var result = Post(body);
+                var updates = result.GetResultAs<SaveResponse[]>();
+                models
+                    .ForEach(x =>
+                                 {
+                                     var update = updates.FirstOrDefault(u => u.GetDocumentId().Equals(x.GetDocumentId()));
+                                     if(update != null)
+                                         x.SetDocumentRevision(update.Revision);
+                                 });
+                return result;
             }
             catch (Exception ex)
             {

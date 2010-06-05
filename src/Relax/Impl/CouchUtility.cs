@@ -189,11 +189,13 @@ namespace Relax.Impl
 
         public virtual object[] GetDocumentGraph(object model)
         {
+            var original = (model as object[]) ?? new [] {model};
             var watcher = new DocumentHierarchyWatcher();
             var visitor = new HierarchyVisitor(IsDocument);
             visitor.Subscribe(watcher);
             visitor.Visit(model);
-            return watcher.Documents.ToArray();
+            var documentArray = watcher.Documents.ToArray();
+            return documentArray.Length == 0 ? original : documentArray;
         }
 
         public virtual bool IsDocument(object instance)
