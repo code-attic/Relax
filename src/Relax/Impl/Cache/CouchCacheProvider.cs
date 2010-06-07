@@ -110,6 +110,19 @@ namespace Relax.Impl.Cache
             return result;
         }
 
+        public IList<TModel> GetAll<TModel>(object startingWith, object endingWith, Func<object,object,IList<TModel>> retrieve)
+        {
+            var cacheKey = _keyBuilder.GetKey<TModel>(startingWith, endingWith);
+            var result = _cache.Get<IList<TModel>>(cacheKey);
+            if(result == null)
+            {
+                result = retrieve(startingWith, endingWith);
+                _cache.Store(cacheKey, result);
+                result.ForEach(x => AddCrossReference(x.GetDocumentId(), cacheKey));
+            }
+            return result;
+        }
+
         public virtual void Save<TModel>(TModel model, Action<TModel> save)
         {
             InvalidateItem<TModel>(model.GetDocumentId());

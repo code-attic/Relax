@@ -8,6 +8,7 @@ namespace Relax.Impl.Configuration
     {
         int Port { get; set; }
         bool Preauthorize { get; set; }
+        bool BreakDownDocumentGraphs { get; set; }
         int TimeOut { get; set; }
         string Protocol { get; set; }
         string Server { get; set; }

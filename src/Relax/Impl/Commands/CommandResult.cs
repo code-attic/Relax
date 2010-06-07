@@ -26,7 +26,8 @@ namespace Relax.Impl.Commands
             if (string.IsNullOrEmpty(Json))
                 return default(TResult);
 
-            return Json.FromJson<TResult>();
+            return FilterOnDocumentType(Json,typeof(TResult))
+                .FromJson<TResult>();
         }
 
         public object GetResultAs(Type resultType)
@@ -34,12 +35,39 @@ namespace Relax.Impl.Commands
             if (string.IsNullOrEmpty(Json))
                 return null;
 
-            return Json.FromJson(resultType);
+            return FilterOnDocumentType(Json, resultType)
+                .FromJson(resultType);
         }
 
         public CommandResult(string json)
         {
             Json = FilterOutDesignDocuments(json);
+        }
+
+        public virtual string FilterOnDocumentType(string json, Type expectedType)
+        {
+            if(json == null)
+            {
+                return "";
+            }
+
+            try
+            {
+                var jsonDoc = JObject.Parse(json);
+                if(jsonDoc["rows"] != null)
+                {
+                    if (jsonDoc["rows"] != null)
+                        jsonDoc["rows"]
+                            .Children()
+                            .Where(x => x["doc"]["$doc_type"].ToString() != expectedType.Name)
+                            .ForEach(x => x.Remove());
+                }
+                return jsonDoc.ToString();
+            }
+            catch (Exception ex)
+            {
+                return json;
+            }
         }
 
         public virtual string FilterOutDesignDocuments(string json)
@@ -53,9 +81,10 @@ namespace Relax.Impl.Commands
             {
                 var jsonDoc = JObject.Parse(json);
                 if(jsonDoc["rows"] != null)
-                    IEnumerableExtenders.ForEach<JToken>(jsonDoc["rows"]
-                                                             .Children()
-                                                             .Where(x => x["doc"]["_id"].ToString().StartsWith(@"""_design")), x => x.Remove());
+                    jsonDoc["rows"]
+                        .Children()
+                        .Where(x => x["doc"]["_id"].ToString().StartsWith(@"""_design"))
+                        .ForEach(x => x.Remove());
                 return jsonDoc.ToString();
             }
             catch (Exception e)

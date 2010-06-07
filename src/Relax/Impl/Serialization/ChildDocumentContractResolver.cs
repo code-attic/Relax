@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
+using Relax.Impl.Configuration;
 
 namespace Relax.Impl.Serialization
 {
@@ -9,12 +10,18 @@ namespace Relax.Impl.Serialization
         private const string ICOUCHDOC_TYPE = "ICouchDocument`2";
         private const string IENUMERABLE_TYPE = "IEnumerable`1";
 
+        private ICouchConfiguration configuration { get; set; }
+
         protected override IList<JsonProperty> CreateProperties(JsonObjectContract contract)
         {
             var basePropertyList = base.CreateProperties(contract);
-            return basePropertyList
-                .Where(ShouldIncludeProperty)
-                .ToList();
+            return 
+                !configuration.BreakDownDocumentGraphs ?
+                basePropertyList :
+                basePropertyList
+                    .Where(ShouldIncludeProperty)
+                    .ToList();
+            
         }
 
         protected bool ShouldIncludeProperty(JsonProperty property)
@@ -32,6 +39,17 @@ namespace Relax.Impl.Serialization
                 return true;
             }
             return false;
+        }
+
+        public ChildDocumentContractResolver(ICouchConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public ChildDocumentContractResolver(bool shareCache, ICouchConfiguration configuration)
+            : base(shareCache)
+        {
+            this.configuration = configuration;
         }
     }
 }

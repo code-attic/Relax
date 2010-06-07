@@ -24,6 +24,8 @@ namespace Relax.Impl.Cache
 
         IList<TModel> GetAll<TModel>(int pageNumber, int pageSize, Func<int, int, IList<TModel>> retrieve);
 
+        IList<TModel> GetAll<TModel>(object startingWith, object endingWith, Func<object,object,IList<TModel>> retrieve);
+
         void Save<TModel>(TModel model, Action<TModel> save);
 
         void Save<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save);

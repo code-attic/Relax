@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Relax.Impl.Configuration;
 
 namespace Relax.Impl.Serialization
 {
@@ -17,7 +18,7 @@ namespace Relax.Impl.Serialization
                 return base.ResolvePropertyName(propertyName);
         }
 
-        public ConventionSerializationContractResolver(DocumentConventions conventions)
+        public ConventionSerializationContractResolver(ICouchConfiguration configuration, DocumentConventions conventions) : base(configuration)
         {
             this.conventions = conventions;
         }

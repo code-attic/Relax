@@ -18,11 +18,6 @@ namespace Relax.Impl.Commands
                 CreateUri<TModel>()
                     .BulkInsert();
 
-                //var body = model.ToJson(configuration.IncludeTypeSpecification);
-                //var result = Put(body);
-                //model.SetDocumentRevision(result.JsonObject["rev"].ToString());
-                //return result;
-
                 var documents = model.GetDocmentsFromGraph();
                 return SaveAll(documents);
             }
@@ -89,23 +84,9 @@ namespace Relax.Impl.Commands
         public virtual string ScrubBulkPersistOfTypeTokens(string body)
         {
             var jBlob = JObject.Parse(body);
-
-            var hasTypes = jBlob.Children().OfType<JProperty>().FirstOrDefault(x => x.Name == "$type") != null;
-            if (hasTypes)
-            {
-                var allOrNothing = jBlob["all_or_nothing"];
-                var nonAtomic = jBlob["non_atomic"];
-                var docs = jBlob["docs"]["$values"];
-
-                var newBlob = new JObject(
-                    new JProperty("all_or_nothing", allOrNothing),
-                    new JProperty("non_atomic", nonAtomic),
-                    new JProperty("docs", docs)
-                    );
-
-                body = newBlob.ToString();
-            }
-            return body;
+            var docs = jBlob["docs"]["$values"];
+            jBlob.Property("docs").Value = docs;
+            return jBlob.ToString();
         }
 
         public SaveDocumentCommand(IHttpAction action, ICouchConfiguration configuration) : base(action, configuration)

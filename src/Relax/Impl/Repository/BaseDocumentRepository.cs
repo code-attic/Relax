@@ -17,8 +17,8 @@ namespace Relax.Impl.Repository
             new ConcurrentDictionary<Type, IHttpAction>();
 
         protected CouchCommandFactory commandFactory { get; set; }
-        
-        public void DeleteAttachment<TModel>(TModel model, string attachmentName)
+
+        public virtual void DeleteAttachment<TModel>(TModel model, string attachmentName)
             where TModel : IHaveAttachments
         {
             var command = commandFactory.GetDeleteAttachmentCommand();
@@ -40,7 +40,7 @@ namespace Relax.Impl.Repository
             deleteCommand.DeleteDocument<TModel>(id,rev);
         }
 
-        public IList<TModel> FromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query)
+        public virtual IList<TModel> FromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query)
         {
             var command = commandFactory.GetViewCommand();
             var response = command.GetFromView<TModel>(designDocument, viewName, query);
@@ -82,7 +82,14 @@ namespace Relax.Impl.Repository
             return result.GetResultAs<ViewResult<TModel>>().GetList().ToList();
         }
 
-        public Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)
+        public virtual IList<TModel> GetAllBetweenKeys<TModel>(object startingWith, object endingWith)
+        {
+            var command = commandFactory.GetGetDocumentCommand();
+            var result = command.GetDocuments<TModel>(startingWith, endingWith);
+            return result.GetResultAs<ViewResult<TModel>>().GetList().ToList();
+        }
+
+        public virtual Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)
             where TModel : IHaveAttachments
         {
             var command = commandFactory.GetGetAttachmentCommand();
@@ -102,7 +109,7 @@ namespace Relax.Impl.Repository
             var result = command.SaveAll(list);
         }
 
-       public void SaveAttachment<TModel>(TModel model, string attachmentName, string contentType, byte[] content)
+        public virtual void SaveAttachment<TModel>(TModel model, string attachmentName, string contentType, byte[] content)
             where TModel : IHaveAttachments
         {
            var command = commandFactory.GetSaveAttachmentCommand();

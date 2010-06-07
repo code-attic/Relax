@@ -23,6 +23,7 @@ namespace Relax.Impl.Configuration
             _databaseForType[typeof (T)] = databaseName.ToLower();
         }
 
+        public bool BreakDownDocumentGraphs { get; set; }
         public string Protocol { get; set; }
         public string Server { get; set; }
         public int Port { get; set; }

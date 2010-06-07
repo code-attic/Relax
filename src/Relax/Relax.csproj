@@ -50,6 +50,7 @@
     <Compile Include="Impl\DocumentHierarchyWatcher.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentContractResolver.cs" />
     <Compile Include="Impl\Serialization\ConventionDeserializationContractResolver.cs" />
+    <Compile Include="Impl\Serialization\ConventionDeserializerContractResolverStrategy.cs" />
     <Compile Include="Impl\UtilityExtensions.cs" />
     <Compile Include="Impl\Model\DesignView.cs" />
     <Compile Include="Impl\Commands\GetDocumentCommand.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="Impl\Cache\CacheKeyBuilder.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentResolverStrategy.cs" />
     <Compile Include="Impl\Serialization\ConventionSerializationContractResolver.cs" />
-    <Compile Include="Impl\Serialization\ConventionContractResolverStrategy.cs" />
+    <Compile Include="Impl\Serialization\ConventionSerializationContractResolverStrategy.cs" />
     <Compile Include="Impl\Cache\CouchCacheProvider.cs" />
     <Compile Include="Impl\Http\HttpAction.cs" />
     <Compile Include="Impl\Commands\CouchCommandFactory.cs" />

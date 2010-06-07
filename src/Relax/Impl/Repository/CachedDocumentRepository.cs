@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Relax.Impl.Cache;
 using Relax.Impl.Configuration;
@@ -44,6 +45,11 @@ namespace Relax.Impl.Repository
         public override IList<TModel> GetAll<TModel>(int pageSize, int pageNumber)
         {
             return _cache.GetAll(pageNumber, pageSize, base.GetAll<TModel>);
+        }
+
+        public override IList<TModel> GetAllBetweenKeys<TModel>(object startingWith, object endingWith)
+        {
+            return _cache.GetAll(startingWith, endingWith, base.GetAllBetweenKeys<TModel>);
         }
 
         public override void Save<TModel>(TModel model)

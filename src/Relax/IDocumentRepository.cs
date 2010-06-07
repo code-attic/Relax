@@ -27,6 +27,8 @@ namespace Relax
 
         IList<TModel> GetAllByKeys<TModel>(object[] ids);
 
+        IList<TModel> GetAllBetweenKeys<TModel>(object startingWith, object endingWith);
+
         Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)
             where TModel : IHaveAttachments;
 

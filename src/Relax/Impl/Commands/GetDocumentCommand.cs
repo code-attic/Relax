@@ -142,6 +142,34 @@ namespace Relax.Impl.Commands
             }
         }
         
+        public CommandResult GetDocuments<TModel>(object startingWith, object endingWith)
+        {
+            try
+            {
+                CreateUri<TModel>()
+                    .ListAll()
+                    .IncludeDocuments()
+                    .StartKey(startingWith)
+                    .EndKey(endingWith);
+
+                return Get();
+            }
+            catch (Exception ex)
+            {
+                var couchEx = Exception(ex,
+                        "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
+                        typeof(TModel).FullName,
+                        Uri.ToString(),
+                        ex
+                    );
+
+                if (configuration.Throw404Exceptions)
+                    throw couchEx;
+
+                return new CommandResult("");
+            }
+        }
+
         public GetDocumentCommand(IHttpAction action, ICouchConfiguration configuration) : base(action, configuration)
         {
         }

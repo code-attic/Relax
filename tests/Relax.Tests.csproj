@@ -78,6 +78,11 @@
     <Compile Include="Commands\GetCommand\with_get_all_docs.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_by_ids.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
+    <Compile Include="Commands\SaveCommand\when_scrubbing_bulk_persist_type_tokens.cs" />
+    <Compile Include="Commands\SaveCommand\with_document_list.cs" />
+    <Compile Include="Commands\SaveCommand\with_nested_document_list.cs" />
+    <Compile Include="Commands\SaveCommand\with_serialized_bulk_persist.cs" />
+    <Compile Include="Commands\SaveCommand\with_single_parent_document.cs" />
     <Compile Include="Commands\TestDoc.cs" />
     <Compile Include="Commands\GetCommand\when_getting_doc_by_id.cs" />
     <Compile Include="Commands\GetCommand\when_getting_doc_by_id_and_rev.cs" />

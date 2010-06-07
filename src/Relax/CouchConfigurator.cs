@@ -8,11 +8,12 @@ namespace Relax
     {
         private CouchConfiguration _config = new CouchConfiguration();
 
-        public CouchConfigurator UseDefaults()
+        public CouchConfigurator BreakDocumentGraphsIntoSeperateDocuments()
         {
+            _config.BreakDownDocumentGraphs = true;
             return this;
         }
-
+        
         public CouchConfigurator Cache()
         {
             _config.Cache = true;
@@ -34,15 +35,21 @@ namespace Relax
             return this;
         }
 
-        public CouchConfigurator Https()
+        public CouchConfigurator ExcludeTypeSpecificationFromJson()
         {
-            _config.Protocol = "https";
+            _config.IncludeTypeSpecification = false;
             return this;
         }
 
-        public CouchConfigurator UseForType<T>(string datbaseName)
+        public CouchConfigurator FailedGetShouldThrowException()
         {
-            _config.SetDatabaseNameForType<T>(datbaseName);
+            _config.Throw404Exceptions = true;
+            return this;
+        }
+
+        public CouchConfigurator Https()
+        {
+            _config.Protocol = "https";
             return this;
         }
 
@@ -60,15 +67,9 @@ namespace Relax
             return this;
         }
 
-        public CouchConfigurator FailedGetShouldThrowException()
+        public CouchConfigurator Server(string server)
         {
-            _config.Throw404Exceptions = true;
-            return this;
-        }
-
-        public CouchConfigurator ExcludeTypeSpecificationFromJson()
-        {
-            _config.IncludeTypeSpecification = false;
+            _config.Server = server;
             return this;
         }
 
@@ -78,9 +79,14 @@ namespace Relax
             return this;
         }
 
-        public CouchConfigurator Server(string server)
+        public CouchConfigurator UseDefaults()
         {
-            _config.Server = server;
+            return this;
+        }
+
+        public CouchConfigurator UseForType<T>(string datbaseName)
+        {
+            _config.SetDatabaseNameForType<T>(datbaseName);
             return this;
         }
 
