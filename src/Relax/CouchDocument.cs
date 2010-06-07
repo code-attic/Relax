@@ -10,6 +10,7 @@ namespace Relax
     [JsonObject(MemberSerialization.OptOut)]
     public abstract class CouchDocument : BaseDocument, ICouchDocument<string, string>
     {
+        [JsonIgnore]
         public virtual string _docId { get; set; }
 
         [JsonProperty(PropertyName = "_id")]

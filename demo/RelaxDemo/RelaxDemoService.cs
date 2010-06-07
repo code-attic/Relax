@@ -62,8 +62,7 @@ namespace RelaxDemo
             "Loading each document by id ..."
                 .ToInfo<RelaxDemoService>();
 
-            //list.ForEach(x => _retriever.GetById(x.DocumentId, x.DocumentRevision));
-            list.ForEach(x => _retriever.GetById(x.Id, x.Rev));
+            list.ForEach(x => _retriever.GetById(x.DocumentId, x.DocumentRevision));
 
             "... Done"
                 .ToInfo<RelaxDemoService>();
@@ -72,8 +71,7 @@ namespace RelaxDemo
             "Deleting all documents ..."
                 .ToInfo<RelaxDemoService>();
 
-            //list.ForEach(x => _couch.Repository.DeleteDocument<TestDocument>(x.DocumentId, x.DocumentRevision));
-            list.ForEach(x => _couch.Repository.DeleteDocument<TestDocument>(x.Id, x.Rev));
+            list.ForEach(x => _couch.Repository.DeleteDocument<TestDocument>(x.DocumentId, x.DocumentRevision));
 
             "... Done"
                 .ToInfo<RelaxDemoService>();
@@ -139,7 +137,7 @@ namespace RelaxDemo
 
             var bytes = UTF8Encoding.UTF8.GetBytes(fileContent);
 
-            //list.ForEach(x => _couch.Repository.SaveAttachment(x, "test.txt", @"text/plain", bytes));
+            list.ForEach(x => _couch.Repository.SaveAttachment(x, "test.txt", @"text/plain", bytes));
             
             "... Done"
                 .ToInfo<RelaxDemoService>();
@@ -148,9 +146,9 @@ namespace RelaxDemo
             "Retreive attachment frmo a document..."
                 .ToInfo<RelaxDemoService>();
 
-            //var attachment = _couch.Repository.GetAttachment<TestDocument>(list.First().DocumentId, "test.txt");
-            //"Attachment size: {0}"
-            //    .ToInfo<RelaxDemoService>(attachment.Item2.Length);
+            var attachment = _couch.Repository.GetAttachment<TestDocument>(list.First().DocumentId, "test.txt");
+            "Attachment size: {0}"
+                .ToInfo<RelaxDemoService>(attachment.Item2.Length);
 
             "... Done"
                 .ToInfo<RelaxDemoService>();

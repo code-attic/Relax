@@ -11,7 +11,7 @@ namespace Relax.Tests.Serialization
 
         private Because of = () =>
                                  {
-                                     var resolver = new ConventionContractResolver(new DocumentConventions());
+                                     var resolver = new ConventionDeserializationContractResolver(new DocumentConventions());
                                      var serializer = new JsonSerializer()
                                                           {
                                                               ContractResolver = resolver

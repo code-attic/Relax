@@ -2,7 +2,7 @@
 
 namespace Relax.Impl.Serialization
 {
-    public class ConventionContractResolver : DefaultContractResolver
+    public class ConventionDeserializationContractResolver : DefaultContractResolver
     {
         protected DocumentConventions conventions { get; set; }
 
@@ -16,7 +16,7 @@ namespace Relax.Impl.Serialization
                 return base.ResolvePropertyName(propertyName);
         }
 
-        public ConventionContractResolver(DocumentConventions conventions)
+        public ConventionDeserializationContractResolver(DocumentConventions conventions)
         {
             this.conventions = conventions;
         }

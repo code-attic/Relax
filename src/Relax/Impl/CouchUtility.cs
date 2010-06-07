@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net;
 using Relax.Impl.Commands;
 using Relax.Impl.Configuration;
@@ -69,8 +68,8 @@ namespace Relax.Impl
             }
             else
             {
-                var idType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.RevisionPropertyName);
-                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, json.FromJson(idType));
+                var revType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.RevisionPropertyName);
+                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, json.FromJson(revType) ?? json);
             }
         }
         
@@ -207,47 +206,6 @@ namespace Relax.Impl
         {
             configuration = couchConfiguration;
             commandFactory = new CouchCommandFactory();
-        }
-    }
-
-    public class DocumentHierarchyWatcher : IObserver<Tuple<object, string, object>>
-    {
-        public List<object> Documents { get; set; }
-        public bool Done { get; set; }
-
-        public void OnNext(Tuple<object, string, object> value)
-        {
-            var parent = value.Item1 as BaseDocument;
-            var child = value.Item3 as BaseDocument;
-            var property = value.Item2;
-            
-            if(parent != null)
-            {
-                var childIdArray = new object[] {};
-                var childIds = new List<object>() { child.GetDocumentId() };
-                if(parent.RelatedDocumentIds.TryGetValue(property, out childIdArray))
-                {
-                    childIds.AddRange(childIdArray);
-                }
-                parent.RelatedDocumentIds[property] = childIds.ToArray();
-                child.ParentId = parent.GetDocumentId();
-            }
-            Documents.Add(child);
-        }
-
-        public void OnError(Exception error)
-        {
-            
-        }
-
-        public void OnCompleted()
-        {
-            Done = true;
-        }
-
-        public DocumentHierarchyWatcher()
-        {
-            Documents = new List<object>();
         }
     }
 }

@@ -1,29 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
-using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Serialization
 {
-    public class ChildDocumentResolverStrategy : IContractResolverStrategy
-    {
-        public bool ResolverAppliesForSerialization(Type type)
-        {
-            return true;
-        }
-
-        public bool ResolverAppliesForDeserialization(Type type)
-        {
-            return false;
-        }
-
-        public IContractResolver Resolver
-        {
-            get { return new ChildDocumentContractResolver(); }
-        }
-    }
-
     public class ChildDocumentContractResolver : DefaultContractResolver
     {
         private const string ICOUCHDOC_TYPE = "ICouchDocument`2";
