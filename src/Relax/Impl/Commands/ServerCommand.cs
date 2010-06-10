@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Relax.Impl.Configuration;
+using Relax.Config;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
@@ -76,7 +76,9 @@ namespace Relax.Impl.Commands
 
         public void CreateDatabase(string database)
         {
-            Uri = new CouchUri(configuration.Protocol, configuration.Server, configuration.Port, database);
+            Uri = configuration.Preauthorize ?
+                new CouchUri(configuration.User, configuration.Password, configuration.Protocol, configuration.Server, configuration.Port, database) :
+                new CouchUri(configuration.Protocol, configuration.Server, configuration.Port, database);
             Put();
         }
 

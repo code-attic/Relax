@@ -1,5 +1,5 @@
 ﻿using System;
-using Relax.Impl.Configuration;
+using Relax.Config;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Symbiote.Core.Extensions;

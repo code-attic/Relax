@@ -7,7 +7,7 @@ namespace Relax.Impl.Http
         string GetResponse(CouchUri uri, string method, string body);
         Tuple<string, byte[]> GetAttachment(CouchUri uri);
         string SaveAttachment(CouchUri uri, string type, byte[] content);
-        void GetContinuousResponse(CouchUri uri, int since, Action<ChangeRecord> callback);
+        void GetContinuousResponse(CouchUri uri, int since, Action<string, ChangeRecord> callback);
         void StopContinousResponse();
         string Post(CouchUri uri);
         string Post(CouchUri uri, string body);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Relax.Impl.Commands;
-using Relax.Impl.Configuration;
 using Relax.Impl.Http;
 using Symbiote.Core.Extensions;
 

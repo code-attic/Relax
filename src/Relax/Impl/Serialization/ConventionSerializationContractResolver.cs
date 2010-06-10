@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Relax.Impl.Configuration;
+using Relax.Config;
 
 namespace Relax.Impl.Serialization
 {

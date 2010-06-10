@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using Relax.Impl.Configuration;
+using Relax.Config;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Http
@@ -42,7 +42,7 @@ namespace Relax.Impl.Http
             return result;
         }
 
-        public virtual void GetContinuousResponse(CouchUri uri, int since, Action<ChangeRecord> callback)
+        public virtual void GetContinuousResponse(CouchUri uri, int since, Action<string, ChangeRecord> callback)
         {
             var baseUri = uri.Clone() as CouchUri;
             uri = uri.Changes(Feed.Continuous, since);
@@ -67,7 +67,7 @@ namespace Relax.Impl.Http
                             var changeUri = baseUri.Clone() as CouchUri;
                             var change = result.FromJson<ChangeRecord>();
                             change.Document = GetResponse(changeUri.Id(change.Id), "GET", "");
-                            callback.BeginInvoke(change, null, null);
+                            callback.BeginInvoke(uri.DatabaseName, change, null, null);
                         }
                     }
                 }

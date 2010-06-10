@@ -1,5 +1,6 @@
 ﻿using Machine.Specifications;
 using Relax;
+using Relax.Config;
 
 namespace Relax.Tests.Configuration
 {

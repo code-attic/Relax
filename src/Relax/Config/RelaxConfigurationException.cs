@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Relax
+namespace Relax.Config
 {
     public class RelaxConfigurationException : Exception
     {

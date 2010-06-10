@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using Relax.Impl.Configuration;
+using Relax.Config;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Symbiote.Core.Extensions;

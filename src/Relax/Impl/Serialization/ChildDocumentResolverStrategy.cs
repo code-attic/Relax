@@ -1,6 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
-using Relax.Impl.Configuration;
+using Relax.Config;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Serialization

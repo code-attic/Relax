@@ -1,8 +1,7 @@
 using System;
-using Relax.Impl.Http;
 using Relax.Impl.Serialization;
 
-namespace Relax.Impl.Configuration
+namespace Relax.Config
 {
     public interface ICouchConfiguration
     {

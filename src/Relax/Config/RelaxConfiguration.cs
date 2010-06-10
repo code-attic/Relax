@@ -1,15 +1,13 @@
 ﻿using System;
 using Relax.Impl;
 using Relax.Impl.Cache;
-using Relax.Impl.Configuration;
 using Relax.Impl.Http;
 using Relax.Impl.Repository;
 using Relax.Impl.Serialization;
 using StructureMap;
-using Symbiote.Core;
 using Symbiote.Core.Cache;
 
-namespace Relax
+namespace Relax.Config
 {
     public class RelaxConfiguration
     {

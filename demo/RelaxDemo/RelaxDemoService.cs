@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace RelaxDemo
         private PagingDataLoader _pager;
         private BulkDataLoader _bulkLoader;
         private ChangeWatcher _watcher;
+        private LuceneSearchClient _queryClient;
 
         public void Start()
         {
@@ -109,6 +111,20 @@ namespace RelaxDemo
                     .ToInfo<RelaxDemoService>(i, docs.Count);
             }
 
+            // call search to test index service...
+            try
+            {
+                var ids = _queryClient.GetMatchesForQuery();
+                "Your query returned {0} results!"
+                    .ToInfo<RelaxDemoService>(ids.Length);
+            }
+            catch (Exception)
+            {
+                "Well your search crapped all over itself."
+                    .ToInfo<RelaxDemoService>();
+            }
+
+
             // create file
             "Creating a file ..."
                 .ToInfo<RelaxDemoService>();
@@ -158,7 +174,7 @@ namespace RelaxDemo
             "Copying database via one-time replication ..."
                 .ToInfo<RelaxDemoService>();
 
-            _couch.CopyDatabase<TestDocument>(CouchUri.Build("http", "localhost", 5984, "copytest"));
+            //_couch.CopyDatabase<TestDocument>(CouchUri.Build("http", "localhost", 5984, "copytest"));
         }
 
         public void Stop()
@@ -169,7 +185,7 @@ namespace RelaxDemo
             _databaseDeleter.Nuke();
         }
 
-        public RelaxDemoService(ICouchServer couch)
+        public RelaxDemoService(ICouchServer couch, LuceneSearchClient client)
         {
             _couch = couch;
             _databaseDeleter = new DatabaseDeleter(couch);
@@ -179,6 +195,7 @@ namespace RelaxDemo
             _pager = new PagingDataLoader(couch.Repository);
             _bulkLoader = new BulkDataLoader(couch.Repository);
             _watcher = new ChangeWatcher(couch.Repository);
+            _queryClient = client;
         }
     }
 }

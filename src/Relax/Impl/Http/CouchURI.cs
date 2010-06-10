@@ -1,5 +1,8 @@
 using System;
+using System.Net;
+using System.Security.Policy;
 using System.Text;
+using System.Web;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Http
@@ -324,6 +327,9 @@ namespace Relax.Impl.Http
 
         public CouchUri(string user, string password, string prefix, string server, int port)
         {
+            user = HttpUtility.UrlEncode(user);
+            password = HttpUtility.UrlEncode(password);
+
             _builder
                 .AppendFormat(@"{0}://{1}:{2}@{3}:{4}",
                     prefix,    
@@ -335,6 +341,9 @@ namespace Relax.Impl.Http
 
         public CouchUri(string user, string password, string prefix, string server, int port, string database)
         {
+            user = HttpUtility.UrlEncode(user);
+            password = HttpUtility.UrlEncode(password);
+
             DatabaseName = database;
             _builder
                 .AppendFormat(@"{0}://{1}:{2}@{3}:{4}/{5}",

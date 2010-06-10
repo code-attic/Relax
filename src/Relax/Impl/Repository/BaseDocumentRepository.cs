@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Relax.Impl.Commands;
-using Relax.Impl.Configuration;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Relax.Impl.Model;
@@ -13,8 +12,8 @@ namespace Relax.Impl.Repository
 {
     public abstract class BaseDocumentRepository : IDocumentRepository
     {
-        protected ConcurrentDictionary<Type, IHttpAction> _continuousUpdateCommands =
-            new ConcurrentDictionary<Type, IHttpAction>();
+        protected ConcurrentDictionary<string, IHttpAction> _continuousUpdateCommands =
+            new ConcurrentDictionary<string, IHttpAction>();
 
         protected CouchCommandFactory commandFactory { get; set; }
 
@@ -116,20 +115,31 @@ namespace Relax.Impl.Repository
            var result = command.SaveAttachment(model, attachmentName, contentType, content);
         }
 
-        public virtual void HandleUpdates<TModel>(int since, Action<ChangeRecord> onUpdate, AsyncCallback updatesInterrupted)
+        public virtual void HandleUpdates<TModel>(int since, Action<string, ChangeRecord> onUpdate, AsyncCallback updatesInterrupted)
+        {
+            var database = UtilityExtensions.GetDatabaseForType<TModel>();
+            HandleUpdates(database, since, onUpdate, updatesInterrupted);
+        }
+
+        public virtual void HandleUpdates(string database, int since, Action<string, ChangeRecord> onUpdate, AsyncCallback updatesInterrupted)
         {
             var command = commandFactory.GetStreamCommand();
-            _continuousUpdateCommands[typeof(TModel)] = command.BeginStreaming<TModel>(since, onUpdate, updatesInterrupted);
+            _continuousUpdateCommands[database] = command.BeginStreaming(database, since, onUpdate, updatesInterrupted);
         }
 
         public virtual void StopChangeStreaming<TModel>()
         {
+            var database = UtilityExtensions.GetDatabaseForType<TModel>();
+            StopChangeStreaming(database);
+        }
+
+        public virtual void StopChangeStreaming(string database)
+        {
             IHttpAction command;
-            var key = typeof (TModel);
-            if(_continuousUpdateCommands.TryGetValue(key, out command))
+            if (_continuousUpdateCommands.TryGetValue(database, out command))
             {
                 command.StopContinousResponse();
-                _continuousUpdateCommands.TryRemove(key, out command);
+                _continuousUpdateCommands.TryRemove(database, out command);
             }
         }
         

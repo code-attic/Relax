@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
-using Relax.Impl.Configuration;
+using Relax.Config;
 
 namespace Relax.Impl.Serialization
 {

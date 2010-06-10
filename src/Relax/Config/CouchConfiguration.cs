@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Relax.Impl.Http;
 using Relax.Impl.Serialization;
 
-namespace Relax.Impl.Configuration
+namespace Relax.Config
 {
     public class CouchConfiguration : ICouchConfiguration
     {

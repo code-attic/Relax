@@ -66,6 +66,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Symbiote.Log4Net.dll</HintPath>
     </Reference>
+    <Reference Include="Symbiote.Restfully">
+      <HintPath>..\..\lib\Symbiote.Restfully.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -86,6 +89,7 @@
     <Compile Include="DatabaseDeleter.cs" />
     <Compile Include="DocumentRetriever.cs" />
     <Compile Include="DocumentSaver.cs" />
+    <Compile Include="LuceneSearchClient.cs" />
     <Compile Include="PagingDataLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

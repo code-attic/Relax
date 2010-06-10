@@ -1,4 +1,4 @@
-﻿using Relax.Impl.Configuration;
+﻿using Relax.Config;
 using Relax.Impl.Http;
 using StructureMap;
 
@@ -84,6 +84,11 @@ namespace Relax.Impl
         public static object[] GetDocmentsFromGraph(this object instance)
         {
             return Utility.GetDocumentGraph(instance);
+        }
+
+        public static string GetDatabaseForType<TModel>()
+        {
+            return Utility.GetDatabaseForType<TModel>();
         }
 
         public static CouchUri NewUri(this ICouchConfiguration configuration)

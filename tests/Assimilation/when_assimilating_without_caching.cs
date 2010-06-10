@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
+using Relax.Config;
 using Relax.Impl;
-using Relax.Impl.Configuration;
 using StructureMap;
 using Symbiote.Core;
 

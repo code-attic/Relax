@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Net;
+using Relax.Config;
 using Relax.Impl.Commands;
-using Relax.Impl.Configuration;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Relax.Impl.Model;
@@ -206,6 +206,11 @@ namespace Relax.Impl
         public virtual bool IsDocument(object instance)
         {
             return instance.GetType().GetInterface("ICouchDocument`2") != null;
+        }
+
+        public virtual string GetDatabaseForType<TModel>()
+        {
+            return configuration.GetDatabaseNameForType<TModel>();
         }
 
         public CouchUtility(ICouchConfiguration couchConfiguration)

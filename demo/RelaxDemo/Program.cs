@@ -7,6 +7,7 @@ using Symbiote.Core;
 using Symbiote.Daemon;
 using Symbiote.Log4Net;
 using Symbiote.Eidetic;
+using Symbiote.Restfully;
 
 namespace RelaxDemo
 {
@@ -23,6 +24,7 @@ namespace RelaxDemo
                            .Description("Relax Integration Testing")
                 )
                 .Relax(x => x.UseDefaults().Server(ConfigurationManager.AppSettings["couchdb"]))
+                .HttpClient(x => x.Server(@"http://localhost:8420/").Timeout(80000))
                 .AddColorConsoleLogger<ChangeWatcher>(x => x
                                                                .Info()
                                                                .DefineColor()
@@ -33,6 +35,7 @@ namespace RelaxDemo
                                                              .Info()
                                                              .MessageLayout(m => m.Message().Newline())
                 )
+                .Dependencies(x => x.For(typeof(IRemoteProxy<>)).Use(typeof(RemoteProxy<>)))
                 .RunDaemon();
         }
     }

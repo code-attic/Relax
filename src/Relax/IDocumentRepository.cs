@@ -39,7 +39,11 @@ namespace Relax
         void SaveAttachment<TModel>(TModel model, string attachmentName, string contentType, byte[] content)
             where TModel : IHaveAttachments;
 
-        void HandleUpdates<TModel>(int since, Action<ChangeRecord> onUpdate, AsyncCallback updatesInterrupted);
+        void HandleUpdates<TModel>(int since, Action<string, ChangeRecord> onUpdate, AsyncCallback updatesInterrupted);
+
+        void HandleUpdates(string database, int since, Action<string, ChangeRecord> onUpdate, AsyncCallback updatesInterrupted);
+
+        void StopChangeStreaming(string database);
 
         void StopChangeStreaming<TModel>();
     }

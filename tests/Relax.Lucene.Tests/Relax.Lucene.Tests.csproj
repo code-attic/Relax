@@ -52,6 +52,9 @@
     <Reference Include="Symbiote.Core">
       <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Symbiote.Lucene">
+      <HintPath>..\..\lib\Symbiote.Lucene.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,10 +64,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Car.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="DomainHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="when_searching_against_family.cs" />
+    <Compile Include="with_domain_model.cs" />
+    <Compile Include="with_indexed_people.cs" />
+    <Compile Include="with_lucene.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Relax.Lucene\Relax.Lucene.csproj">
+      <Project>{EAC2B6B2-8F3C-49A8-88B0-DA6CC04C4935}</Project>
+      <Name>Relax.Lucene</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Relax\Relax.csproj">
       <Project>{3A8D40A3-96F9-4878-902E-7CBC3A82AEDD}</Project>
       <Name>Relax</Name>

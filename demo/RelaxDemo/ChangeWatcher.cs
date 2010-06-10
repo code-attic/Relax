@@ -12,7 +12,7 @@ namespace RelaxDemo
             _couch.HandleUpdates<TestDocument>(0, Update, null);
         }
 
-        private void Update(ChangeRecord obj)
+        private void Update(string database, ChangeRecord obj)
         {
             "An update was posted to couch: \r\n\t {0}"
                 .ToInfo<ChangeWatcher>(obj.Document);

@@ -1,4 +1,5 @@
 ﻿using System;
+using Relax.Config;
 using Symbiote.Core;
 
 namespace Relax
