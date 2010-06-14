@@ -11,8 +11,8 @@ namespace Relax.Impl
     public class ExpressionTreeProcessor
     {
         #region "Don't look at this, it'll break your eyes"
-        protected static Dictionary<ExpressionType, Action<Expression, DelimitedBuilder>> processors =
-            new Dictionary<ExpressionType, Action<Expression, DelimitedBuilder>>()
+        protected static Dictionary<ExpressionType, Action<Expression, string, DelimitedBuilder>> processors =
+            new Dictionary<ExpressionType, Action<Expression, string, DelimitedBuilder>>()
                 {
                     {ExpressionType.Add, ProcessAddition},                
                     {ExpressionType.AddAssign, DoNothing},                
@@ -102,7 +102,7 @@ namespace Relax.Impl
 
         #endregion
 
-        private static void ProcessMemberAccess(Expression expr, DelimitedBuilder builder)
+        private static void ProcessMemberAccess(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var symbols = new[] { "{", "TO ", ":", "[", @"\+", @"\-", @"\\", @"\*" };
             var memberExpr = expr as MemberExpression;
@@ -115,7 +115,11 @@ namespace Relax.Impl
             }
             else
             {
-                builder.Append(GetMemberName(memberExpr));
+                var memberName = GetMemberName(memberExpr);
+                var value = string.IsNullOrEmpty(prefix)
+                                ? memberName
+                                : "{0}.{1}".AsFormat(prefix, memberName);
+                builder.Append(value);
             }
         }
 
@@ -148,14 +152,14 @@ namespace Relax.Impl
             }
         }
 
-        private static void ProcessLambda(Expression expr, DelimitedBuilder builder)
+        private static void ProcessLambda(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var lambda = expr as LambdaExpression;
 
-            Process(lambda.Body, builder);
+            Process(lambda.Body, prefix, builder);
         }
 
-        private static void ProcessParameter(Expression expr, DelimitedBuilder builder)
+        private static void ProcessParameter(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var parameterExpr = expr as ParameterExpression;
 
@@ -166,83 +170,83 @@ namespace Relax.Impl
             }
         }
 
-        public static void Process(Expression expr, DelimitedBuilder builder)
+        public static void Process(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            processors[expr.NodeType](expr, builder);
+            processors[expr.NodeType](expr, prefix, builder);
         }
 
-        private static void ProcessAddition(Expression expr, DelimitedBuilder builder)
+        private static void ProcessAddition(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, @"\+");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, @"\+");
         }
 
-        private static void ProcessAnd(Expression expr, DelimitedBuilder builder)
+        private static void ProcessAnd(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, " AND ");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, " AND ");
         }
 
-        private static void ProcessOr(Expression expr, DelimitedBuilder builder)
+        private static void ProcessOr(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, " OR ");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, " OR ");
         }
 
-        private static void ProcessGreaterThan(Expression expr, DelimitedBuilder builder)
+        private static void ProcessGreaterThan(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var binaryExpr = expr as BinaryExpression;
-            Process(binaryExpr.Left, builder);
+            Process(binaryExpr.Left, prefix, builder);
             builder.Append(":{");
-            Process(binaryExpr.Right, builder);
+            Process(binaryExpr.Right, prefix, builder);
             builder.Append(" TO *}");
         }
 
-        private static void ProcessGreaterThanEqualTo(Expression expr, DelimitedBuilder builder)
+        private static void ProcessGreaterThanEqualTo(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var binaryExpr = expr as BinaryExpression;
-            Process(binaryExpr.Left, builder);
+            Process(binaryExpr.Left, prefix, builder);
             builder.Append(":[");
-            Process(binaryExpr.Right, builder);
+            Process(binaryExpr.Right, prefix, builder);
             builder.Append(" TO *]");
         }
 
-        private static void ProcessLessThan(Expression expr, DelimitedBuilder builder)
+        private static void ProcessLessThan(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var binaryExpr = expr as BinaryExpression;
-            Process(binaryExpr.Left, builder);
+            Process(binaryExpr.Left, prefix, builder);
             builder.Append(":{* TO ");
-            Process(binaryExpr.Right, builder);
+            Process(binaryExpr.Right, prefix, builder);
             builder.Append("}");
         }
 
-        private static void ProcessLessThanEqualTo(Expression expr, DelimitedBuilder builder)
+        private static void ProcessLessThanEqualTo(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var binaryExpr = expr as BinaryExpression;
-            Process(binaryExpr.Left, builder);
+            Process(binaryExpr.Left, prefix, builder);
             builder.Append(":[* TO ");
-            Process(binaryExpr.Right, builder);
+            Process(binaryExpr.Right, prefix, builder);
             builder.Append("]");
         }
 
-        private static void ProcessEquals(Expression expr, DelimitedBuilder builder)
+        private static void ProcessEquals(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, ":");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, ":");
         }
 
-        private static void ProcessDivision(Expression expr, DelimitedBuilder builder)
+        private static void ProcessDivision(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, @"\\");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, @"\\");
         }
 
-        private static void ProcessMultiplication(Expression expr, DelimitedBuilder builder)
+        private static void ProcessMultiplication(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, @"\*");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, @"\*");
         }
 
-        private static void ProcessSubtraction(Expression expr, DelimitedBuilder builder)
+        private static void ProcessSubtraction(Expression expr, string prefix, DelimitedBuilder builder)
         {
-            ProcessSimpleBinaryExpression(expr, builder, @"\-");
+            ProcessSimpleBinaryExpression(expr, prefix, builder, @"\-");
         }
 
-        private static void ProcessCall(Expression expr, DelimitedBuilder builder)
+        private static void ProcessCall(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var call = expr as MethodCallExpression;
             var name = call.Method.Name;
@@ -257,43 +261,53 @@ namespace Relax.Impl
                 switch (name)
                 {
                     case "StartsWith":
-                        Process(call.Object, builder);
+                        Process(call.Object, prefix, builder);
                         builder.Append(":");
-                        call.Arguments.ForEach(x => Process(x, builder));
+                        call.Arguments.ForEach(x => Process(x, prefix, builder));
                         builder.Append("*");
                         break;
                     case "EndsWith":
-                        Process(call.Object, builder);
+                        Process(call.Object, prefix, builder);
                         builder.Append(":");
                         builder.Append("*");
-                        call.Arguments.ForEach(x => Process(x, builder));
+                        call.Arguments.ForEach(x => Process(x, prefix, builder));
                         break;
                     case "Contains":
-                        Process(call.Object, builder);
+                        Process(call.Object, prefix, builder);
                         builder.Append(":");
                         builder.Append("*");
-                        call.Arguments.ForEach(x => Process(x, builder));
+                        call.Arguments.ForEach(x => Process(x, prefix, builder));
                         builder.Append("*");
                         break;
+                    case "Any":
+                        var memberName = GetMemberName(call.Arguments.First() as MemberExpression);
+                        var newPrefix = string.IsNullOrEmpty(prefix) ?
+                            memberName :
+                            "{0}.{1}".AsFormat(prefix, memberName);
+                        call.Arguments.Skip(1).ForEach(x =>
+                        {
+                            Process(x, newPrefix, builder);
+                        });
+                        break;
                     default:
-                        call.Arguments.ForEach(x => Process(x, builder));
+                        call.Arguments.ForEach(x => Process(x, prefix, builder));
                         break;
                 }
             }
         }
 
-        private static void ProcessConstant(Expression expr, DelimitedBuilder builder)
+        private static void ProcessConstant(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var constantExpr = expr as ConstantExpression;
             builder.Append(HandleFormatting(constantExpr.Value));
         }
 
-        private static void ProcessSimpleBinaryExpression(Expression expr, DelimitedBuilder builder, string token)
+        private static void ProcessSimpleBinaryExpression(Expression expr, string prefix, DelimitedBuilder builder, string token)
         {
             var binaryExpr = expr as BinaryExpression;
-            Process(binaryExpr.Left, builder);
+            Process(binaryExpr.Left, prefix, builder);
             builder.Append(token);
-            Process(binaryExpr.Right, builder);
+            Process(binaryExpr.Right, prefix, builder);
         }
 
         private static string HandleFormatting(object value)
@@ -308,7 +322,7 @@ namespace Relax.Impl
             }
         }
 
-        private static void DoNothing(Expression expr, DelimitedBuilder builder)
+        private static void DoNothing(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var nodeType = expr.NodeType;
             builder.AppendFormat("No handler for node type {0}", nodeType.ToString());

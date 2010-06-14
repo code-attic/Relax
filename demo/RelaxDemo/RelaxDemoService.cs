@@ -114,7 +114,7 @@ namespace RelaxDemo
             // call search to test index service...
             try
             {
-                var hits = _couch.Repository.GetAllByCriteria<TestDocument>(x => x.Message.Contains("ment"));
+                var hits = _couch.Repository.GetAllByCriteria<TestDocument>(x => x.RandomNumber >= 50);
                 "Your query returned {0} results!"
                     .ToInfo<RelaxDemoService>(hits.Count);
             }
