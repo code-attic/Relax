@@ -36,11 +36,13 @@
     <Compile Include="ApplicationServices\CouchMembershipDocument.cs" />
     <Compile Include="ApplicationServices\CouchMembershipProvider.cs" />
     <Compile Include="ApplicationServices\UserViews.cs" />
+    <Compile Include="Impl\ExpressionTreeProcessor.cs" />
     <Compile Include="Impl\Commands\DeleteAttachmentCommand.cs" />
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />
     <Compile Include="Impl\Commands\ChangeStreamCommand.cs" />
     <Compile Include="Impl\Commands\CommandResult.cs" />
     <Compile Include="Impl\Commands\GetAttachmentCommand.cs" />
+    <Compile Include="Impl\Commands\RelaxQueryCommand.cs" />
     <Compile Include="Impl\Commands\SaveAttachmentCommand.cs" />
     <Compile Include="Impl\CouchUtility.cs" />
     <Compile Include="Impl\Commands\DeleteDocumentCommand.cs" />
@@ -98,7 +100,7 @@
     <Compile Include="IRelaxQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelaxAssimilation.cs" />
-    <Compile Include="Config\RelaxConfiguration.cs" />
+    <Compile Include="RelaxConfiguration.cs" />
     <Compile Include="Config\RelaxConfigurationException.cs" />
     <Compile Include="RelaxException.cs" />
   </ItemGroup>
@@ -111,6 +113,9 @@
     </Reference>
     <Reference Include="Symbiote.Core">
       <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Symbiote.Restfully">
+      <HintPath>..\..\lib\Symbiote.Restfully.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

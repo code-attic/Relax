@@ -114,9 +114,9 @@ namespace RelaxDemo
             // call search to test index service...
             try
             {
-                var ids = _queryClient.GetMatchesForQuery();
+                var hits = _couch.Repository.GetAllByCriteria<TestDocument>(x => x.Message.Contains("ment"));
                 "Your query returned {0} results!"
-                    .ToInfo<RelaxDemoService>(ids.Length);
+                    .ToInfo<RelaxDemoService>(hits.Count);
             }
             catch (Exception)
             {

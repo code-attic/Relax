@@ -60,6 +60,9 @@ namespace Relax.Lucene
             if (array.Children().Count() == 0)
                 return;
 
+            observers
+                .ForEach(x => x.OnNext(Tuple.Create(prefix + ".Count", array.Count.ToString())));
+
             array
                 .Children()
                 .ForEach(x => Process(x, prefix));

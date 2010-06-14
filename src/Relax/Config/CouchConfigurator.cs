@@ -65,6 +65,12 @@ namespace Relax.Config
             return this;
         }
 
+        public CouchConfigurator RelaxQueryServiceUrl(string url)
+        {
+            _config.RelaxQueryServiceUrl = url;
+            return this;
+        }
+
         public CouchConfigurator Server(string server)
         {
             _config.Server = server;

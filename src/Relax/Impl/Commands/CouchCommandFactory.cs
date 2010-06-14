@@ -39,6 +39,11 @@ namespace Relax.Impl.Commands
             return GetCommand<GetFromViewCommand>();
         }
 
+        public RelaxQueryCommand GetQueryCommand()
+        {
+            return GetCommand<RelaxQueryCommand>();
+        }
+
         public SaveDocumentCommand GetSaveCommand()
         {
             return GetCommand<SaveDocumentCommand>();

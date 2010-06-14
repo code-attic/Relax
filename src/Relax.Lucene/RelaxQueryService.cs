@@ -13,7 +13,7 @@ namespace Relax.Lucene
         public string[] GetDocumentIdsForQuery(string database, string luceneQuery)
         {
             var searchProvider = luceneServiceFactory.GetSearchProviderForIndex(database);
-            var documents = searchProvider.GetDocumentsForQuery("", luceneQuery).ToList();
+            var documents = searchProvider.GetDocumentsForQuery(luceneQuery).ToList();
             var ids = documents.Select(x => x.Item2.Get("_id").ToString());
             return ids.ToArray();
         }

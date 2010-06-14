@@ -36,7 +36,8 @@ namespace Relax.Config
         public TimeSpan CacheLimit { get; set; }
         public bool Throw404Exceptions { get; set; }
         public bool IncludeTypeSpecification { get; set; }
-        
+        public string RelaxQueryServiceUrl { get; set; }
+
         public CouchConfiguration()
         {
             Protocol = "http";
@@ -45,6 +46,7 @@ namespace Relax.Config
             Preauthorize = false;
             TimeOut = 6000;
             IncludeTypeSpecification = true;
+            RelaxQueryServiceUrl = @"http://localhost:8420/";
             Conventions = new DocumentConventions();
         }
     }

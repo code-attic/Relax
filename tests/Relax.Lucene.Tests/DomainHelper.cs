@@ -13,7 +13,7 @@ namespace Relax.Lucene.Tests
                            Age = 31,
                            Cars = new List<Car>()
                                       {
-                                          new Car() {Make="Chevy",Model="Equinox",Year=2007}
+                                          new Car() {Make="Honda",Model="Crosstour",Year=2010}
                                       }
                        };
         }
@@ -29,7 +29,7 @@ namespace Relax.Lucene.Tests
                                    Age = 31,
                                    Cars = new List<Car>()
                                               {
-                                                  new Car() {Make="Chevy",Model="Equinox",Year=2007}
+                                                  new Car() {Make="Honda",Model="Crosstour",Year=2010}
                                               }
                                },
                            new Person()

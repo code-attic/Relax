@@ -5,6 +5,7 @@ using System.Text;
 using Symbiote.Core.Extensions;
 using Symbiote.Daemon;
 using Symbiote.Lucene;
+using Symbiote.Restfully;
 using Symbiote.Restfully.Impl;
 
 namespace Relax.Lucene
@@ -15,7 +16,7 @@ namespace Relax.Lucene
         protected IRelaxLuceneConfiguration configuration { get; set; }
         protected ILuceneServiceFactory luceneServiceFactory { get; set; }
         protected IDocumentRepository repository { get; set; }
-        protected IHttpServer server { get; set; }
+        protected IHttpServiceHost server { get; set; }
         
         public void Start()
         {
@@ -48,7 +49,7 @@ namespace Relax.Lucene
             IRelaxLuceneConfiguration configuration,
             IDocumentRepository respository,
             ILuceneServiceFactory serviceFactory,
-            IHttpServer server)
+            IHttpServiceHost server)
         {
             this.configuration = configuration;
             this.repository = respository;

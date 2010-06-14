@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Relax.Impl;
 using Relax.Impl.Commands;
 using Relax.Impl.Model;
@@ -31,6 +32,8 @@ namespace Relax
 
         Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)
             where TModel : IHaveAttachments;
+
+        IList<TModel> GetAllByCriteria<TModel>(Expression<Func<TModel, bool>> criteria);
 
         void Save<TModel>(TModel model);
 

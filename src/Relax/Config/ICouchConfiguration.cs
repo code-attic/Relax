@@ -20,6 +20,7 @@ namespace Relax.Config
         string GetDatabaseNameForType<T>();
         bool Throw404Exceptions { get; set; }
         bool IncludeTypeSpecification { get; set; }
+        string RelaxQueryServiceUrl { get; set; }
         void SetDatabaseNameForType<T>(string databaseName);
     }
 }

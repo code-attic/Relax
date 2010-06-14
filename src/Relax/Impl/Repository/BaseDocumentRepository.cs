@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
@@ -86,6 +87,13 @@ namespace Relax.Impl.Repository
             var command = commandFactory.GetGetDocumentCommand();
             var result = command.GetDocuments<TModel>(startingWith, endingWith);
             return result.GetResultAs<ViewResult<TModel>>().GetList().ToList();
+        }
+
+        public IList<TModel> GetAllByCriteria<TModel>(Expression<Func<TModel,bool>> criteria)
+        {
+            var command = commandFactory.GetQueryCommand();
+            var ids = command.GetDocumentIdsForQuery<TModel>(criteria);
+            return GetAllByKeys<TModel>(ids);
         }
 
         public virtual Tuple<string, byte[]> GetAttachment<TModel>(object id, string attachmentName)

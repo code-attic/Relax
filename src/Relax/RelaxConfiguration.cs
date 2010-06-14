@@ -1,13 +1,17 @@
 ﻿using System;
+using Relax.Config;
 using Relax.Impl;
 using Relax.Impl.Cache;
 using Relax.Impl.Http;
 using Relax.Impl.Repository;
 using Relax.Impl.Serialization;
 using StructureMap;
+using Symbiote.Core;
 using Symbiote.Core.Cache;
+using Symbiote.Restfully;
+using Symbiote.Restfully.Impl.Rpc;
 
-namespace Relax.Config
+namespace Relax
 {
     public class RelaxConfiguration
     {
@@ -20,6 +24,10 @@ namespace Relax.Config
 
         public static void Configure(ICouchConfiguration configuration)
         {
+            Assimilate
+                .Core()
+                .HttpServiceClient(x => x.Server(configuration.RelaxQueryServiceUrl).Timeout(10000))
+                .Dependencies(x => x.For(typeof (IRemoteProxy<>)).Use(typeof (RemoteProxy<>)));
             ObjectFactory.Configure(c =>
             {
                 c.For<ICouchConfiguration>().Use(configuration);
