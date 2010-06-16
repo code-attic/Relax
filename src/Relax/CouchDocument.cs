@@ -8,7 +8,7 @@ namespace Relax
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
-    public abstract class CouchDocument : BaseDocument, ICouchDocument<string, string>
+    public abstract class CouchDocument : BaseDocument, ICouchDocument<string>
     {
         [JsonIgnore]
         public virtual string _docId { get; set; }
@@ -30,9 +30,14 @@ namespace Relax
         [JsonProperty(PropertyName = "_rev")]
         public virtual string DocumentRevision { get; set; }
 
-        public virtual string GetIdAsJson()
+        public virtual string GetDocumentIdAsJson()
         {
-            return DocumentId.ToJson(false);
+            return DocumentId.ToString();
+        }
+
+        public virtual object GetDocumentId()
+        {
+            return DocumentId;
         }
 
         public virtual string GetRevAsJson()
@@ -47,7 +52,7 @@ namespace Relax
 
         public virtual void UpdateRevFromJson(string jsonRev)
         {
-            DocumentRevision = jsonRev.FromJson<string>();
+            DocumentRevision = jsonRev;
         }
 
     }

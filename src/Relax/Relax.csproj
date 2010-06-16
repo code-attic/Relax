@@ -61,10 +61,9 @@
     <Compile Include="ChangeRecord.cs" />
     <Compile Include="Impl\Model\ComplexCouchDocument.cs" />
     <Compile Include="ICouchServer.cs" />
-    <Compile Include="Impl\Model\IHandleJsonDocumentId.cs" />
-    <Compile Include="Impl\Model\IHandleJsonDocumentRevision.cs" />
+    <Compile Include="Impl\Model\IHaveDocumentId.cs" />
+    <Compile Include="Impl\Model\IHaveDocumentRevision.cs" />
     <Compile Include="Impl\Model\IHaveAttachments.cs" />
-    <Compile Include="Impl\Json\BulkResponse.cs" />
     <Compile Include="Impl\Cache\CacheKeyBuilder.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentResolverStrategy.cs" />
     <Compile Include="Impl\Serialization\ConventionSerializationContractResolver.cs" />
@@ -89,7 +88,6 @@
     <Compile Include="Impl\Cache\ICouchCacheProvider.cs" />
     <Compile Include="Impl\Http\IHttpAction.cs" />
     <Compile Include="Config\ICouchConfiguration.cs" />
-    <Compile Include="Impl\Json\NewRevision.cs" />
     <Compile Include="Impl\Serialization\DocumentConventions.cs" />
     <Compile Include="Impl\Json\ReplicationCommand.cs" />
     <Compile Include="Impl\Commands\ViewQuery.cs" />

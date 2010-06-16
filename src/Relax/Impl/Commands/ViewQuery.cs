@@ -23,7 +23,7 @@ namespace Relax.Impl.Commands
             _uri.EndKey(key);
             return this;
         }
-
+        
         public ViewQuery Group()
         {
             _uri.Group();

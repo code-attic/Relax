@@ -13,7 +13,7 @@ namespace Relax.Impl.Commands
             try
             {
                 CreateUri<TModel>()
-                    .Id(model.GetDocumentId())
+                    .Id(model.GetDocumentIdAsJson())
                     .Attachment(attachmentName)
                     .Revision(model.GetDocumentRevision());
 
@@ -28,7 +28,7 @@ namespace Relax.Impl.Commands
                                 "An exception occurred trying to save an attachment {0} to a document of type {1} with id {2} and rev {3} at {4}. \r\n\t {5}",
                                 attachmentName,
                                 typeof(TModel).FullName,
-                                model.GetDocumentId(),
+                                model.GetDocumentIdAsJson(),
                                 model.GetDocumentRevision(),
                                 Uri.ToString(),
                                 ex);

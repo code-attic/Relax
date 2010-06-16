@@ -6,38 +6,23 @@ namespace Relax.Impl.Model
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptOut)]
-    public abstract class ComplexCouchDocument<TModel, TKey, TRev> : BaseDocument, ICouchDocument<TKey, TRev>
-        where TModel : ComplexCouchDocument<TModel, TKey, TRev>
+    public abstract class ComplexCouchDocument<TModel, TKey> : BaseDocument, ICouchDocument<TKey>
+        where TModel : ComplexCouchDocument<TModel, TKey>
     {
         protected TKey _documentId;
-        protected TRev _documentRev;
 
-        protected Func<TModel, TKey> GetDocumentId = x => x._documentId;
-        protected Func<TModel, TRev> GetDocumentRevision = x => x._documentRev;
-        protected Action<TModel, TKey> SetDocumentId = (x,k) => x._documentId = k;
-        protected Action<TModel, TRev> SetDocumentRevision= (x,r) => x._documentRev = r;
+        protected Func<TModel, TKey> DocumentIdGetter = x => x._documentId;
+        protected Action<TModel, TKey> DocumentIdSetter = (x,k) => x._documentId = k;
 
         protected virtual TModel KeyGetter(Func<TModel, TKey> getter)
         {
-            GetDocumentId = getter;
+            DocumentIdGetter = getter;
             return this as TModel;
         }           
 
         protected virtual TModel KeySetter(Action<TModel, TKey> setter)
         {
-            SetDocumentId = setter;
-            return this as TModel;
-        }
-
-        protected virtual TModel RevisionGetter(Func<TModel, TRev> getter)
-        {
-            GetDocumentRevision = getter;
-            return this as TModel;
-        }
-
-        protected virtual TModel RevisionSetter(Action<TModel, TRev> setter)
-        {
-            SetDocumentRevision = setter;
+            DocumentIdSetter = setter;
             return this as TModel;
         }
 
@@ -46,37 +31,35 @@ namespace Relax.Impl.Model
         {
             get
             {
-                return GetDocumentId(this as TModel);
+                return DocumentIdGetter(this as TModel);
             }
             set
             {
-                SetDocumentId(this as TModel, value);
+                DocumentIdSetter(this as TModel, value);
             }
         }
 
         [JsonProperty(PropertyName = "_rev")]
-        public virtual TRev DocumentRevision
+        public virtual string DocumentRevision { get; set; }
+
+        public virtual object GetDocumentId()
         {
-            get
+            return DocumentId;
+        }
+
+        public virtual string GetDocumentIdAsJson()
+        {
+            var typeCode = typeof (TKey);
+            if(typeCode.IsValueType && typeCode.Namespace.StartsWith("System"))
             {
-                return GetDocumentRevision(this as TModel);
+                return DocumentId.ToString();
             }
-            set
+            else
             {
-                SetDocumentRevision(this as TModel, value);
+                return DocumentId.ToJson(false);
             }
         }
-
-        public virtual string GetIdAsJson()
-        {
-            return DocumentId.ToJson(false);
-        }
-
-        public virtual string GetRevAsJson()
-        {
-            return DocumentRevision.ToJson(false);
-        }
-
+        
         public virtual void UpdateKeyFromJson(string jsonKey)
         {
             var documentId = jsonKey.FromJson<TKey>();
@@ -85,8 +68,7 @@ namespace Relax.Impl.Model
 
         public virtual void UpdateRevFromJson(string jsonRev)
         {
-            var documentRevision = jsonRev.FromJson<TRev>();
-            DocumentRevision = object.Equals(documentRevision, default(TRev)) ? "\"{0}\"".AsFormat(jsonRev).FromJson<TRev>() : documentRevision;
+            DocumentRevision = jsonRev;
         }
     }
 }

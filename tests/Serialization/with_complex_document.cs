@@ -10,7 +10,7 @@ using Symbiote.Core.Extensions;
 namespace Relax.Tests.Serialization
 {
     [Serializable]
-    public class ComplexDocument : ComplexCouchDocument<ComplexDocument, Guid, string>
+    public class ComplexDocument : ComplexCouchDocument<ComplexDocument, Guid>
     {
         public virtual string Message { get; set; }
         public virtual DateTime Time { get; set; }

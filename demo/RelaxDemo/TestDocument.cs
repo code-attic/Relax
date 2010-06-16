@@ -8,7 +8,7 @@ namespace RelaxDemo
 {
     [Serializable]
     public class TestDocument 
-        : ComplexCouchDocument<TestDocument, Guid, string>
+        : ComplexCouchDocument<TestDocument, Guid>
     {
         public virtual string Message { get; set; }
         public virtual DateTime Time { get; set; }

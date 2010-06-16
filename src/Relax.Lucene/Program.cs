@@ -18,7 +18,7 @@ namespace Relax.Lucene
                 .Core()
                 .Relax(x => x.UseDefaults().Preauthorize("admin","p@ssw0rd"))
                 .Lucene(x => x.UseDefaults())
-                .RelaxLuceneService(x => x.UseDefaults().IndexDatabase("testdocument"))
+                .RelaxLuceneService(x => x.UseDefaults().IndexDatabase("post"))
                 .HttpServiceHost(x => x.UseDefaults().HostService<IRelaxQueryService>())
                 .Dependencies(x => x.For<IRelaxQueryService>().Use<RelaxQueryService>())
                 .Daemon(x => x

@@ -5,7 +5,7 @@ using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.Document
 {
-    public class Person : ComplexCouchDocument<Person, string, string>
+    public class Person : ComplexCouchDocument<Person, string>
     {
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }

@@ -4,11 +4,10 @@ using Relax.Impl.Model;
 
 namespace Relax
 {
-    public interface ICouchDocument<TKey, TRev>
-        : IHandleJsonDocumentId, IHandleJsonDocumentRevision
+    public interface ICouchDocument<TKey>
+        : IHaveDocumentId, IHaveDocumentRevision
     {
         TKey DocumentId { get; set; }
-        TRev DocumentRevision { get; set; }
         IEnumerable<string> Attachments { get; }
     }
 }

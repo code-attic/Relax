@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net;
 using Relax.Config;
 using Relax.Impl.Commands;
@@ -9,6 +11,8 @@ using Relax.Impl.Model;
 using Symbiote.Core.Extensions;
 using Symbiote.Core.Reflection;
 using Symbiote.Core.Utility;
+using System.Linq;
+using Relax.Impl;
 
 namespace Relax.Impl
 {
@@ -18,58 +22,56 @@ namespace Relax.Impl
         protected CouchCommandFactory commandFactory { get; set; }
         protected ConcurrentDictionary<string, bool> _databaseExists = new ConcurrentDictionary<string, bool>();
 
-        public virtual string GetDocumentId(object instance)
+        public virtual string GetDocumentIdAsJson(object instance)
         {
-            var doc = instance as IHandleJsonDocumentId;
+            var doc = instance as IHaveDocumentId;
             if (doc != null)
             {
-                return doc.GetIdAsJson();
+                return doc.GetDocumentIdAsJson();
             }
             else
             {
-                return JsonExtensions.ToJson<object>(Reflector.ReadMember(instance, configuration.Conventions.IdPropertyName), false);
+                return Reflector.ReadMember(instance, configuration.Conventions.IdPropertyName).ToJson(false);
+            }
+        }
+
+        public virtual object GetDocumentId(object instance)
+        {
+            var doc = instance as IHaveDocumentId;
+            if (doc != null)
+            {
+                return doc.GetDocumentId();
+            }
+            else
+            {
+                return Reflector.ReadMember(instance, configuration.Conventions.IdPropertyName);
             }
         }
 
         public virtual string GetDocumentRevision(object instance)
         {
-            var doc = instance as IHandleJsonDocumentRevision;
+            var doc = instance as IHaveDocumentRevision;
             if (doc != null)
             {
-                return doc.GetRevAsJson();
+                return doc.DocumentRevision;
             }
             else
             {
-                var documentRevision = Reflector.ReadMember(instance, configuration.Conventions.RevisionPropertyName).ToJson(false);
+                var documentRevision = Reflector.ReadMember(instance, configuration.Conventions.RevisionPropertyName).ToString();
                 return string.IsNullOrEmpty(documentRevision) ? null : documentRevision;
             }
         }
 
-        public virtual void SetDocumentId(string json, object instance)
+        public virtual void SetDocumentRevision(string revision, object instance)
         {
-            var doc = instance as IHandleJsonDocumentId;
+            var doc = instance as IHaveDocumentRevision;
             if (doc != null)
             {
-                doc.UpdateKeyFromJson(json);
+                doc.UpdateRevFromJson(revision);
             }
             else
             {
-                var idType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.IdPropertyName);
-                Reflector.WriteMember(instance, configuration.Conventions.IdPropertyName, json.FromJson(idType));
-            }
-        }
-
-        public virtual void SetDocumentRevision(string json, object instance)
-        {
-            var doc = instance as IHandleJsonDocumentRevision;
-            if (doc != null)
-            {
-                doc.UpdateRevFromJson(json);
-            }
-            else
-            {
-                var revType = Reflector.GetMemberType(instance.GetType(), configuration.Conventions.RevisionPropertyName);
-                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, json.FromJson(revType) ?? json);
+                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, revision);
             }
         }
         
@@ -189,7 +191,15 @@ namespace Relax.Impl
         public virtual object[] GetDocumentGraph(object model)
         {
             object[] documentArray = new object[] {};
-            var original = (model as object[]) ?? new [] {model};
+            List<object> original = new List<object>();
+            if(model as IEnumerable != null)
+            {
+                original.AddRange((model as IEnumerable).Cast<object>());
+            }
+            else
+            {
+                original.Add(model);
+            }
 
             if (configuration.BreakDownDocumentGraphs)
             {
@@ -200,7 +210,7 @@ namespace Relax.Impl
                 documentArray = watcher.Documents.ToArray();
             }
 
-            return documentArray.Length == 0 ? original : documentArray;
+            return documentArray.Length == 0 ? original.ToArray() : documentArray;
         }
 
         public virtual bool IsDocument(object instance)

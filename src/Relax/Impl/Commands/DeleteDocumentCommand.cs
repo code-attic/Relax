@@ -33,7 +33,7 @@ namespace Relax.Impl.Commands
 
             try
             {
-                id = model.GetDocumentId();
+                id = model.GetDocumentIdAsJson();
                 rev = model.GetDocumentRevision();
 
                 DeleteDocument<TModel>(id, rev);

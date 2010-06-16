@@ -42,7 +42,7 @@ namespace Relax.Impl.Http
 
         public CouchUri BulkInsert()
         {
-            _builder.Append("/_bulk_docs");
+            _builder.Append("/_bulk_docs?batck=ok");
             return this;
         }
 

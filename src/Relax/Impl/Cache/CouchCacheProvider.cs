@@ -66,7 +66,7 @@ namespace Relax.Impl.Cache
             {
                 result = retrieve(key, rev);
                 _cache.Store(cacheKey, result);
-                AddCrossReference(result.GetDocumentId(), cacheKey);
+                AddCrossReference(result.GetDocumentIdAsJson(), cacheKey);
             }
             return result;
         }
@@ -79,7 +79,7 @@ namespace Relax.Impl.Cache
             {
                 result = retrieve(key);
                 _cache.Store(cacheKey, result);
-                AddCrossReference(result.GetDocumentId(), cacheKey);
+                AddCrossReference(result.GetDocumentIdAsJson(), cacheKey);
             }
             return result;
         }
@@ -92,7 +92,7 @@ namespace Relax.Impl.Cache
             {
                 result = retrieve();
                 _cache.Store(cacheKey, result);
-                result.ForEach(x => AddCrossReference(x.GetDocumentId(), cacheKey));
+                result.ForEach(x => AddCrossReference(x.GetDocumentIdAsJson(), cacheKey));
             }
             return result;
         }
@@ -105,7 +105,7 @@ namespace Relax.Impl.Cache
             {
                 result = retrieve(pageNumber, pageSize);
                 _cache.Store(cacheKey, result);
-                result.ForEach(x => AddCrossReference(x.GetDocumentId(), cacheKey));
+                result.ForEach(x => AddCrossReference(x.GetDocumentIdAsJson(), cacheKey));
             }
             return result;
         }
@@ -118,29 +118,29 @@ namespace Relax.Impl.Cache
             {
                 result = retrieve(startingWith, endingWith);
                 _cache.Store(cacheKey, result);
-                result.ForEach(x => AddCrossReference(x.GetDocumentId(), cacheKey));
+                result.ForEach(x => AddCrossReference(x.GetDocumentIdAsJson(), cacheKey));
             }
             return result;
         }
 
         public virtual void Save<TModel>(TModel model, Action<TModel> save)
         {
-            InvalidateItem<TModel>(model.GetDocumentId());
+            InvalidateItem<TModel>(model.GetDocumentIdAsJson());
             save(model);
             CacheSavedModel(model);
         }
 
         protected virtual void CacheSavedModel<TModel>(TModel model)
         {
-            var simpleKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId());
-            var revKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId(), model.GetDocumentRevision());
+            var simpleKey = _keyBuilder.GetKey<TModel>(model.GetDocumentIdAsJson());
+            var revKey = _keyBuilder.GetKey<TModel>(model.GetDocumentIdAsJson(), model.GetDocumentRevision());
             _cache.Store(simpleKey, model);
             _cache.Store(revKey, model);
         }
 
         public virtual void Save<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save)
         {
-            list.ForEach(x => InvalidateItem<TModel>(x.GetDocumentId()));
+            list.ForEach(x => InvalidateItem<TModel>(x.GetDocumentIdAsJson()));
             save(list);
             list.ForEach(CacheSavedModel);
         }

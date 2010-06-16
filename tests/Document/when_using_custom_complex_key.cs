@@ -14,6 +14,6 @@ namespace Relax.Tests.Document
                                  };
 
         private It should_have_expected_key = () => driver.DocumentId.ShouldEqual(person);
-        private It should_have_correct_json = () => driver.GetIdAsJson().ShouldEqual(jsonKey);
+        private It should_have_correct_json = () => driver.GetDocumentIdAsJson().ShouldEqual(jsonKey);
     }
 }

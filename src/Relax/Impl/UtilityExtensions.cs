@@ -16,7 +16,12 @@ namespace Relax.Impl
             }
         }
 
-        public static string GetDocumentId(this object instance)
+        public static string GetDocumentIdAsJson(this object instance)
+        {
+            return Utility.GetDocumentIdAsJson(instance);
+        }
+
+        public static object GetDocumentId(this object instance)
         {
             return Utility.GetDocumentId(instance);
         }
@@ -25,15 +30,10 @@ namespace Relax.Impl
         {
             return Utility.GetDocumentRevision(instance);
         }
-
-        public static void SetDocumentId(this object instance, string json)
+        
+        public static void SetDocumentRevision(this object instance, string revision)
         {
-            Utility.SetDocumentId(json, instance);
-        }
-
-        public static void SetDocumentRevision(this object instance, string json)
-        {
-            Utility.SetDocumentRevision(json, instance);
+            Utility.SetDocumentRevision(revision, instance);
         }
 
         public static bool DoesDatabaseExist(this CouchUri uri)

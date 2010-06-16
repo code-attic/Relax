@@ -1,8 +1,8 @@
 ﻿namespace Relax.Impl.Model
 {
-    public interface IHandleJsonDocumentRevision
+    public interface IHaveDocumentRevision
     {
+        string DocumentRevision { get; set; }
         void UpdateRevFromJson(string jsonRev);
-        string GetRevAsJson();
     }
 }

@@ -18,13 +18,13 @@ namespace Relax.Impl
             if(parent != null)
             {
                 var childIdArray = new object[] {};
-                var childIds = new List<object>() { child.GetDocumentId() };
+                var childIds = new List<object>() { child.GetDocumentIdAsJson() };
                 if(parent.RelatedDocumentIds.TryGetValue(property, out childIdArray))
                 {
                     childIds.AddRange(childIdArray);
                 }
                 parent.RelatedDocumentIds[property] = childIds.ToArray();
-                child.ParentId = parent.GetDocumentId();
+                child.ParentId = parent.GetDocumentIdAsJson();
             }
             Documents.Add(child);
         }

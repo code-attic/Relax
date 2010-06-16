@@ -17,7 +17,6 @@ namespace Relax.Impl.Commands
 
                 var viewQuery = new ViewQuery(Uri);
                 query(viewQuery);
-                Uri.IncludeDocuments();
                 return Get();
             }
             catch (Exception ex)

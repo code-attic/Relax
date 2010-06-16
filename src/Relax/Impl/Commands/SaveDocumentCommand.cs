@@ -56,17 +56,19 @@ namespace Relax.Impl.Commands
             try
             {
                 var list = new BulkPersist(true, false, models);
-                var body = list.ToJson(configuration.IncludeTypeSpecification);
-                body = ScrubBulkPersistOfTypeTokens(body);
+                var body = list.ToString();
 
                 var result = Post(body);
-                var updates = result.GetResultAs<SaveResponse[]>();
+                var updates = result.GetResultAs<SaveResponse[]>().ToDictionary(x => x.Id, x => x.Revision);
                 models
                     .ForEach(x =>
                                  {
-                                     var update = updates.FirstOrDefault(u => u.GetDocumentId().Equals(x.GetDocumentId()));
-                                     if(update != null)
-                                         x.SetDocumentRevision(update.Revision);
+                                     var documentId = x.GetDocumentIdAsJson();
+                                     string newRev = null;
+                                     if (updates.TryGetValue(documentId, out newRev))
+                                     {
+                                         x.SetDocumentRevision(newRev);
+                                     }
                                  });
                 return result;
             }
