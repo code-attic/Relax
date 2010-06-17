@@ -55,7 +55,9 @@ namespace Relax.Config
             IncludeTypeSpecification = true;
             RelaxQueryServiceUrl = @"http://localhost:8420/";
             Conventions = new DocumentConventions();
-            DefaultDatabaseName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name.Replace(".", "");
+            DefaultDatabaseName = 
+                (System.Reflection.Assembly.GetEntryAssembly() ??
+                System.Reflection.Assembly.GetExecutingAssembly()).GetName().Name.Replace(".", "");
         }
     }
 }
