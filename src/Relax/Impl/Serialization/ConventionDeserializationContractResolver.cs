@@ -8,9 +8,9 @@ namespace Relax.Impl.Serialization
 
         protected override string ResolvePropertyName(string propertyName)
         {
-            if (propertyName == "Id")
+            if (propertyName == conventions.IdPropertyName)
                 return "_id";
-            else if (propertyName == "Rev")
+            else if (propertyName == conventions.RevisionPropertyName)
                 return "_rev";
             else
                 return base.ResolvePropertyName(propertyName);

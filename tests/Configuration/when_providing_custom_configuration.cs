@@ -11,7 +11,7 @@ namespace Relax.Tests.Configuration
                                        .Preauthorize("admin","test")
                                        .Server("couchdb")
                                        .TimeOut(1000)
-                                       .UseForType<TestDocument>("TeStIngDoC");
+                                       .AssignDatabaseToType<TestDocument>("TeStIngDoC");
 
         private It should_use_http_as_protocol = () => configuration.Protocol.ShouldEqual("https");
         private It should_use_localhost_as_server = () => configuration.Server.ShouldEqual("couchdb");
