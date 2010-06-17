@@ -45,24 +45,33 @@ namespace Relax.Overflow
             "Loading service starting"
                 .ToInfo<LoadingService>();
 
-            Action<IList<XElement>> saveAction = SaveChunk;
+            Action<IList<Post>> saveAction = SaveChunk;
+            Func<IEnumerable<XElement>, IList<Post>> transform = ProcessPosts;
             var loader = new BulkPostLoader(@"e:\stackoverflow\062010 so\posts.xml");
-            var batches = loader.BufferWithCount(5000);
-            var results = batches.Select(x => saveAction.BeginInvoke(x, null, null));
-            
-            results
-                .BufferWithCount(5)
-                .Subscribe(x => x.ForEach(y => y.AsyncWaitHandle.WaitOne()));
+            var posts = loader.Select(ProcessPost);
+            var batches = 
+                posts
+                .BufferWithCount(5000)
+                .Subscribe(SaveChunk);
+            //var results = batches.Select(x => saveAction.BeginInvoke(x, null, null));
+
+            //results
+            //    .BufferWithCount(5)
+            //    .Subscribe(x => x.First().AsyncWaitHandle.WaitOne());
 
             loader.Start();
         }
 
-        protected void SaveChunk(IList<XElement> x)
+        private IList<Post> ProcessPosts(IEnumerable<XElement> arg)
         {
-            var list = x.Select(ProcessPost).ToList();
-            repository.SaveAll(list);
+            return arg.Select(ProcessPost).ToList();
+        }
+
+        protected void SaveChunk(IList<Post> posts)
+        {
+            repository.SaveAll(posts);
             "Posts {0} to {1} chunked and saved"
-                .ToInfo<LoadingService>(list.First().Id, list.Last().Id);
+                .ToInfo<LoadingService>(posts.First().Id, posts.Last().Id);
         }
 
         public Post ProcessPost(XElement element)

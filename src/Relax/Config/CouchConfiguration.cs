@@ -10,18 +10,25 @@ namespace Relax.Config
 
         public string GetDatabaseNameForType<T>()
         {
-            var type = typeof (T);
-            var dbname = "";
-            _databaseForType.TryGetValue(type, out dbname);
-            dbname = dbname ?? type.Name.ToLower();
-            return dbname;
+            string dbname = null;
+            if(DatabaseResolver != null)
+            {
+                dbname = DatabaseResolver.GetDatabaseNameFor<T>();
+            }
+            if(dbname == null)
+            {
+                var type = typeof(T);
+                _databaseForType.TryGetValue(type, out dbname);
+            }
+            return (string.IsNullOrEmpty(dbname) ? DefaultDatabaseName : dbname).ToLower();
         }
-
+        
         public void SetDatabaseNameForType<T>(string databaseName)
         {
             _databaseForType[typeof (T)] = databaseName.ToLower();
         }
-
+        public IResolveDatabaseNames DatabaseResolver { get; set; }
+        public string DefaultDatabaseName { get; set; }
         public bool BreakDownDocumentGraphs { get; set; }
         public string Protocol { get; set; }
         public string Server { get; set; }

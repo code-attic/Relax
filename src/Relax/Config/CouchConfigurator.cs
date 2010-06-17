@@ -1,4 +1,5 @@
 ﻿using System;
+using StructureMap;
 
 namespace Relax.Config
 {
@@ -85,12 +86,26 @@ namespace Relax.Config
 
         public CouchConfigurator UseDefaults()
         {
+            _config.DefaultDatabaseName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name.Replace(".","");
             return this;
         }
 
-        public CouchConfigurator UseForType<T>(string datbaseName)
+        public CouchConfigurator DefaultDatabase(string databaseName)
         {
-            _config.SetDatabaseNameForType<T>(datbaseName);
+            _config.DefaultDatabaseName = databaseName;
+            return this;
+        }
+
+        public CouchConfigurator AssignDatabaseToType<T>(string databaseName)
+        {
+            _config.SetDatabaseNameForType<T>(databaseName);
+            return this;
+        }
+
+        public CouchConfigurator UseDatabaseTypeResolver<T>()
+            where T : IResolveDatabaseNames
+        {
+            _config.DatabaseResolver = ObjectFactory.GetInstance<T>();
             return this;
         }
 

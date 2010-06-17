@@ -96,6 +96,7 @@
     <Compile Include="Impl\Json\ViewResult.cs" />
     <Compile Include="Impl\Json\ViewRow.cs" />
     <Compile Include="IRelaxQueryService.cs" />
+    <Compile Include="IResolveDatabaseNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelaxAssimilation.cs" />
     <Compile Include="RelaxConfiguration.cs" />

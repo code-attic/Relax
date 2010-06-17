@@ -11,7 +11,7 @@ namespace Relax
     public abstract class CouchDocument : BaseDocument, ICouchDocument<string>
     {
         [JsonIgnore]
-        public virtual string _docId { get; set; }
+        protected virtual string _docId { get; set; }
 
         [JsonProperty(PropertyName = "_id")]
         public virtual string DocumentId

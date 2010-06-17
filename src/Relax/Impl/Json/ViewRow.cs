@@ -10,7 +10,28 @@ namespace Relax.Impl.Json
         [JsonProperty(PropertyName = "key")]
         public string Key { get; set; }
 
+        [JsonIgnore()]
+        public TModel Model
+        {
+            get
+            {
+                var type = typeof(TModel);
+                if(type.IsClass)
+                {
+                    var value = Document as object;
+                    return value == null ? Value : Document;
+                }
+                else
+                {
+                    return Document.Equals(default(TModel)) ? Value : Document;
+                }
+            }
+        }
+
         [JsonProperty(PropertyName = "doc")]
-        public TModel Model { get; set; }
+        protected TModel Document { get; set; }
+
+        [JsonProperty(PropertyName = "value")]
+        protected TModel Value { get; set; }
     }
 }
