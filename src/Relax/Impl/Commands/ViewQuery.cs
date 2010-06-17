@@ -36,6 +36,12 @@ namespace Relax.Impl.Commands
             return this;
         }
 
+        public ViewQuery UseDocumentsInsteadOfValue()
+        {
+            _uri.IncludeDocuments();
+            return this;
+        }
+
         public ViewQuery LimitTo(int count)
         {
             _uri.Limit(count);

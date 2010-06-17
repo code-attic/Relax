@@ -86,7 +86,6 @@ namespace Relax.Config
 
         public CouchConfigurator UseDefaults()
         {
-            _config.DefaultDatabaseName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name.Replace(".","");
             return this;
         }
 
