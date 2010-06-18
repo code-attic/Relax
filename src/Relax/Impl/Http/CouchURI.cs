@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Web;
+using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Http
@@ -11,6 +12,7 @@ namespace Relax.Impl.Http
     {
         private StringBuilder _builder = new StringBuilder();
         private bool _hasArguments = false;
+        private JsonUrlEncoder encoder = new JsonUrlEncoder();
 
         public string DatabaseName { get; set; }
 
@@ -167,7 +169,8 @@ namespace Relax.Impl.Http
 
         public CouchUri Key<TKey>(TKey key)
         {
-            var json = key.ToJson(false);
+            var json = encoder.Encode(key.ToJson(false));
+
             _builder.AppendFormat("{0}key={1}", 
                 _hasArguments ? "&" : "?",
                 json);
@@ -180,7 +183,7 @@ namespace Relax.Impl.Http
 
         public CouchUri KeyAndRev<TKey, TRev>(TKey key, TRev rev)
         {
-            var json = key.ToJson(false);
+            var json = encoder.Encode(key.ToJson(false));
             _builder.AppendFormat("{0}key={1}&rev={2}",
                 _hasArguments ? "&" : "?",
                 json,
@@ -260,7 +263,7 @@ namespace Relax.Impl.Http
 
         public CouchUri StartKey<TKey>(TKey start)
         {
-            var json = start.ToJson(false);
+            var json = encoder.Encode(start.ToJson(false));
             _builder.AppendFormat("{0}startkey={1}", 
                 _hasArguments ? "&" : "?",
                 json);
@@ -273,7 +276,7 @@ namespace Relax.Impl.Http
 
         public CouchUri EndKey<TKey>(TKey end)
         {
-            var json = end.ToJson(false);
+            var json = encoder.Encode(end.ToJson(false));
             _builder.AppendFormat("{0}endkey={1}",
                 _hasArguments ? "&" : "?",
                 json);

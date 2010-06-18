@@ -51,6 +51,7 @@
     <Compile Include="Impl\Commands\ServerCommand.cs" />
     <Compile Include="Impl\DocumentHierarchyWatcher.cs" />
     <Compile Include="Impl\Json\DesignDocumentFilter.cs" />
+    <Compile Include="Impl\Json\JsonUrlEncoder.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentContractResolver.cs" />
     <Compile Include="Impl\Serialization\ConventionDeserializationContractResolver.cs" />
     <Compile Include="Impl\Serialization\ConventionDeserializerContractResolverStrategy.cs" />

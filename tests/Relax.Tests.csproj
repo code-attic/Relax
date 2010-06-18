@@ -168,6 +168,7 @@
     <Compile Include="Repository\with_save_models_command.cs" />
     <Compile Include="Repository\with_save_model_command.cs" />
     <Compile Include="Repository\with_test_document.cs" />
+    <Compile Include="URI\Encoding\UrlEncoder.cs" />
     <Compile Include="URI\when_bulk_inserting.cs" />
     <Compile Include="URI\when_cleaning_up_view.cs" />
     <Compile Include="URI\when_compacting_database.cs" />
