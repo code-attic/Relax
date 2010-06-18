@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Machine.Specifications;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Relax.Impl.Json;
 using Symbiote.Core.Extensions;
@@ -14,16 +17,13 @@ namespace Relax.Tests.ViewFilter
 
         private Because of = () =>
                                  {
-                                     var jsonDoc = JObject.Parse(json);
-                                     IEnumerableExtenders.ForEach<JToken>(jsonDoc["rows"]
-                                                              .Children()
-                                                              .Where(x => x["doc"]["_id"].ToString().StartsWith(@"""_design")), x => x.Remove());
-                                     json = jsonDoc.ToString();
+                                     var filter = new DesignDocumentFilter();
+                                     json = filter.Filter(json);
 
                                      var view = json.FromJson<ViewResult<Request>>();
                                      requests = view.GetList().ToList();
                                  };
 
-        private It should_have_only_5_results = () => requests.Count.ShouldEqual(5);
+        private It should_have_only_1_results = () => requests.Count.ShouldEqual(1);
     }
 }

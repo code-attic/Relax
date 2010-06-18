@@ -17,7 +17,9 @@ namespace Relax.Impl.Commands
 
                 var viewQuery = new ViewQuery(Uri);
                 query(viewQuery);
-                return Get();
+                var commandResult = Get();
+                commandResult.ApplyDesignDocumentFilter();
+                return commandResult;
             }
             catch (Exception ex)
             {

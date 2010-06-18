@@ -67,7 +67,9 @@ namespace Relax.Impl.Commands
                     .ListAll()
                     .IncludeDocuments();
 
-                return Get();
+                var commandResult = Get();
+                commandResult.ApplyDesignDocumentFilter();
+                return commandResult;
             }
             catch (Exception ex)
             {
@@ -96,7 +98,9 @@ namespace Relax.Impl.Commands
                     .Skip((pageNumber - 1) * pageSize)
                     .Limit(pageSize);
 
-                return Get();
+                var commandResult = Get();
+                commandResult.ApplyDesignDocumentFilter();
+                return commandResult;
             }
             catch (Exception ex)
             {
@@ -124,7 +128,10 @@ namespace Relax.Impl.Commands
 
                 var keys = new KeyList() { keys = ids };
                 var jsonKeyList = keys.ToJson(false);
-                return Post(jsonKeyList);
+
+                var commandResult = Post(jsonKeyList);
+                commandResult.ApplyDesignDocumentFilter();
+                return commandResult;
             }
             catch (Exception ex)
             {
@@ -152,7 +159,9 @@ namespace Relax.Impl.Commands
                     .StartKey(startingWith)
                     .EndKey(endingWith);
 
-                return Get();
+                var commandResult = Get();
+                commandResult.ApplyDesignDocumentFilter();
+                return commandResult;
             }
             catch (Exception ex)
             {
