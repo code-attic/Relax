@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.List("myList").Descending().Skip(5);
 
         private It should_append_named_list_and_descending_and_skip_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_list/myList?descending=true&skip=5");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_list/myList?descending=true&skip=5");
     }
 }

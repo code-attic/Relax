@@ -7,7 +7,7 @@ namespace Relax.Tests.URI
     {
         private Because of = () => uri.Id("id");
 
-        private It should_append_id_to_uri 
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/id");
+        private It should_append_id_to_uri
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/id");
     }
 }

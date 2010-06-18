@@ -12,12 +12,11 @@ namespace Relax.Tests.URI
 
         private Because of = () =>
                                  {
-                                     complexKey = new object[] {"id", 1}.ToJson(false);
-                                     complexKey = Uri.EscapeUriString(complexKey);
+                                     complexKey = "test+10";
                                      uri.StartKey(complexKey);
                                  };
 
         private It should_append_reduce_false
-            = () => uri.ToString().ShouldEqual("http://localhost:5984/test?startkey=%5B%22id%22,1%5D");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?startkey=""test%2b10""");
     }
 }

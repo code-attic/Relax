@@ -7,7 +7,7 @@ namespace Relax.Tests.URI
     {
         private Because of = () => uri.InclusiveEnd();
 
-        private It should_append_inclusive_end_true 
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test?inclusive_end=true");
+        private It should_append_inclusive_end_true
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?inclusive_end=true");
     }
 }

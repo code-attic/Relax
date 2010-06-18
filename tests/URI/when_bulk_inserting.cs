@@ -11,6 +11,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.BulkInsert();
 
         private It should_append_bulk_docs
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_bulk_docs");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_bulk_docs");
     }
 }

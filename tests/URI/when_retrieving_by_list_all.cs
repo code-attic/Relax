@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.ListAll();
 
         private It should_append_all_docs_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_all_docs");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_all_docs");
     }
 }

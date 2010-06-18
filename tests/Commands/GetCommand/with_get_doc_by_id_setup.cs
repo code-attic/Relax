@@ -12,7 +12,7 @@ namespace Relax.Tests.Commands
         
         private Establish context = () =>
                                         {
-                                            url = @"http://localhost:5984/testdoc/1";
+                                            url = @"http://localhost:5984/relax/1";
                                             response = @"{""$type"":""Relax.Tests.Commands.TestDoc,Relax.Tests"",""_id"":""1"",""_rev"":""1"",""Message"":""Test""}";
                                             mockAction
                                                 .Setup(x => x.Get(Moq.It.Is<CouchUri>(i => i.ToString() == url)))

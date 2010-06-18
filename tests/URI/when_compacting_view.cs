@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => { uri.CompactView("testView"); };
 
         private It should_append_compact_to_uri =
-            () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_compact/testView");
+            () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_compact/testView");
     }
 }

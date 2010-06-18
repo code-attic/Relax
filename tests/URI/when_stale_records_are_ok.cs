@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.StaleOk();
 
         private It should_append_stale
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test?stale=ok");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?stale=ok");
     }
 }

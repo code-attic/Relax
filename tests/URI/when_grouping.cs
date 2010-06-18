@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.Group();
 
         private It should_append_group_level_1
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test?group=true&group_level=1");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?group=true&group_level=1");
     }
 }

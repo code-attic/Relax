@@ -16,7 +16,7 @@ namespace Relax.Tests.Server
         private Establish context = () =>
                                         {
                                             uri = new CouchUri("http", "localhost", 5984).Replicate();
-                                            sourceUri = new CouchUri("http", "localhost", 5984, "testdocument");
+                                            sourceUri = new CouchUri("http", "localhost", 5984, "relax");
                                             targetUri = new CouchUri("admin", "password", "http", "remotehost", 5984);
 
                                             replication = ReplicationCommand.Continuous(sourceUri, targetUri).ToJson(false);

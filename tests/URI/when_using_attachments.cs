@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.Attachment("foo.txt");
 
         private It should_append_attachment
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/foo.txt");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/foo.txt");
     }
 }

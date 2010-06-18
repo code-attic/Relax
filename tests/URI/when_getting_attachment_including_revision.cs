@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.Id("id").Attachment("foo.txt").Revision("1-A");
 
         private It should_append_attachment
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/id/foo.txt?rev=1-A");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/id/foo.txt?rev=1-A");
     }
 }

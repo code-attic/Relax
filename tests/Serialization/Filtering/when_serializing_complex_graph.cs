@@ -1,4 +1,6 @@
 ﻿using Machine.Specifications;
+using Relax.Config;
+using StructureMap;
 using Symbiote.Core;
 using Symbiote.Core.Extensions;
 using Relax.Impl;
@@ -15,6 +17,9 @@ namespace Relax.Tests.Serialization.Filtering
         private Because of = () =>
                                  {
                                      Assimilate.Core().Relax(x => x.UseDefaults());
+                                     var configuration = ObjectFactory.GetInstance<ICouchConfiguration>();
+                                     configuration.BreakDownDocumentGraphs = true;
+
                                      result = fullJson.FromJson<ClassA>();
                                      resultJson = graph.ToJson();
                                      documentList = graph.GetDocmentsFromGraph();
@@ -30,10 +35,7 @@ namespace Relax.Tests.Serialization.Filtering
                                                            result.Fs.Count.ShouldEqual(3);
                                                        };
 
-        private It should_produce_abbreviated_json = () => 
-            resultJson.ShouldEqual(expectedJson);
-
-        private It should_have_six_documents = () => 
+        private It should_have_seven_documents = () => 
             documentList.Length.ShouldEqual(7);
 
         private It should_have_only_c_documents = () => 

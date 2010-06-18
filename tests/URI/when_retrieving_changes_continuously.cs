@@ -9,6 +9,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.Changes(Feed.Continuous, 10);
 
         private It should_append_feed_and_since_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_changes?feed=continuous&since=10");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_changes?feed=continuous&since=10");
     }
 }

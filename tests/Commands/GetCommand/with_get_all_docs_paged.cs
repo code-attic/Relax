@@ -6,7 +6,7 @@ namespace Relax.Tests.Commands
     {
         private Establish context = () =>
                                         {
-                                            url = @"http://localhost:5984/testdoc/_all_docs?include_docs=true&skip=4&limit=2";
+                                            url = @"http://localhost:5984/relax/_all_docs?include_docs=true&skip=4&limit=2";
                                         };
     }
 }

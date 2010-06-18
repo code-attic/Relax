@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.Design("myDesign");
 
         private It should_append_design_document_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_design/myDesign");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_design/myDesign");
     }
 }

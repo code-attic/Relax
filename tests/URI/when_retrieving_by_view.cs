@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.View("myView");
 
         private It should_append_view_name_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/_view/myView");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/_view/myView");
     }
 }

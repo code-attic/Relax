@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.IdAndRev("id", 2);
 
         private It should_append_key_and_rev_to_uri
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test/id?rev=2");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax/id?rev=2");
     }
 }

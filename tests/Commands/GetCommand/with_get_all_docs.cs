@@ -12,7 +12,7 @@ namespace Relax.Tests.Commands
 
         private Establish context = () =>
                                         {
-                                            url = @"http://localhost:5984/testdoc/_all_docs?include_docs=true";
+                                            url = @"http://localhost:5984/relax/_all_docs?include_docs=true";
                                             response = @"{""total_rows"":""2"",""offset"":""0"",""rows"":[{""doc"":{""$type"":""Relax.Tests.Commands.TestDoc,Relax.Tests"",""_id"":""1"",""_rev"":""1"",""Message"":""Test1""}},{""doc"":{""$type"":""Relax.Tests.Commands.TestDoc,Relax.Tests"",""_id"":""2"",""_rev"":""1"",""Message"":""Test2""}}]}";
                                             mockAction
                                                 .Setup(x => x.Get(Moq.It.Is<CouchUri>(i => i.ToString() == url)))

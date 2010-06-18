@@ -8,17 +8,15 @@ namespace Relax.Tests.URI
     public class when_using_end_key_only : with_basic_uri
     {
         private static DateTime date = DateTime.Now;
-        private static string complexKey;
+        private static object complexKey;
 
         private Because of = () =>
                                  {
-                                     complexKey = new object[] { "id", 1}.ToJson(false);
-                                     complexKey = Uri.EscapeUriString(complexKey);
+                                     complexKey = new object[] {"test", 10, "+"};
                                      uri.EndKey(complexKey);
                                  };
 
         private It should_append_reduce_false
-            //= () => uri.ToString().ShouldEqual("http://localhost:5984/test?endkey=%5B%22id%22,1%5D");
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test?endkey=""%5B%22id%22,1%5D""");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?endkey=[""test"",10,""%2b""]");
     }
 }

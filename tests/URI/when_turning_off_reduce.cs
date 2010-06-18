@@ -8,6 +8,6 @@ namespace Relax.Tests.URI
         private Because of = () => uri.NoReduce();
 
         private It should_append_reduce_false
-            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/test?reduce=false");
+            = () => uri.ToString().ShouldEqual(@"http://localhost:5984/relax?reduce=false");
     }
 }
