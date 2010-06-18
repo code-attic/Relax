@@ -30,7 +30,8 @@ namespace Relax.Impl.Repository
             var deleteCommand = commandFactory.GetDeleteCommand();
             var getCommand = commandFactory.GetGetDocumentCommand();
 
-            var doc = getCommand.GetDocument<TModel>(id);
+            var getResult = getCommand.GetDocument<TModel>(id);
+            var doc = getResult.GetResultAs<TModel>();
             deleteCommand.DeleteDocument(doc);
         }
 

@@ -78,6 +78,8 @@
     <Compile Include="Commands\GetCommand\with_get_all_docs.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_by_ids.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
+    <Compile Include="Commands\SaveCommand\when_persisting_list_without_breaking_documents.cs" />
+    <Compile Include="Commands\SaveCommand\when_persisting_list_with_breaking_documents.cs" />
     <Compile Include="Commands\SaveCommand\when_scrubbing_bulk_persist_type_tokens.cs" />
     <Compile Include="Commands\SaveCommand\with_document_list.cs" />
     <Compile Include="Commands\SaveCommand\with_nested_document_list.cs" />
@@ -118,12 +120,16 @@
     <Compile Include="Serialization\Filtering\when_serializing_complex_graph.cs" />
     <Compile Include="Serialization\Filtering\with_test_graph.cs" />
     <Compile Include="Serialization\Test.cs" />
+    <Compile Include="Serialization\when_deserializing_view_result_and_document_excluded.cs" />
+    <Compile Include="Serialization\when_deserializing_view_result_with_documents_included.cs" />
     <Compile Include="Serialization\with_bulk_insert.cs" />
     <Compile Include="Serialization\when_serializing_bulk_insert.cs" />
     <Compile Include="Serialization\with_assimilation.cs" />
     <Compile Include="Serialization\when_trying_custom_serializer.cs" />
     <Compile Include="Serialization\with_complex_document.cs" />
     <Compile Include="Serialization\with_single_document.cs" />
+    <Compile Include="Serialization\with_view_result_and_documents_included.cs" />
+    <Compile Include="Serialization\with_view_result_and_no_documents.cs" />
     <Compile Include="Server\when_cleaning_up_views.cs" />
     <Compile Include="Server\when_compacting_db.cs" />
     <Compile Include="Server\when_compacting_view.cs" />

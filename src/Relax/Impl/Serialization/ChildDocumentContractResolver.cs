@@ -7,7 +7,7 @@ namespace Relax.Impl.Serialization
 {
     public class ChildDocumentContractResolver : DefaultContractResolver
     {
-        private const string ICOUCHDOC_TYPE = "ICouchDocument`2";
+        private const string ICOUCHDOC_TYPE = "ICouchDocument`1";
         private const string IENUMERABLE_TYPE = "IEnumerable`1";
 
         private ICouchConfiguration configuration { get; set; }

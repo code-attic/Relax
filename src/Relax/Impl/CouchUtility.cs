@@ -215,7 +215,7 @@ namespace Relax.Impl
 
         public virtual bool IsDocument(object instance)
         {
-            return instance.GetType().GetInterface("ICouchDocument`2") != null;
+            return instance.GetType().GetInterface("ICouchDocument`1") != null;
         }
 
         public virtual string GetDatabaseForType<TModel>()

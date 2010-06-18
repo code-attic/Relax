@@ -8,7 +8,7 @@ namespace Relax.Impl.Json
         public string Id { get; set; }
 
         [JsonProperty(PropertyName = "key")]
-        public string Key { get; set; }
+        public object Key { get; set; }
 
         [JsonIgnore()]
         public TModel Model

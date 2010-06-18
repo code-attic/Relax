@@ -10,7 +10,7 @@ namespace Relax.Impl.Serialization
     {
         public bool ResolverAppliesForSerialization(Type type)
         {
-            return type.GetInterface("ICouchDocument`2") == null;
+            return type.GetInterface("ICouchDocument`1") == null;
         }
 
         public bool ResolverAppliesForDeserialization(Type type)

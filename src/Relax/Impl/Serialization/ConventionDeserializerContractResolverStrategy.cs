@@ -15,10 +15,10 @@ namespace Relax.Impl.Serialization
         public bool ResolverAppliesForDeserialization(Type type)
         {
             if (type.IsGenericType)
-                if (type.GetGenericArguments()[0].GetInterface("ICouchDocument`2") == null)
+                if (type.GetGenericArguments()[0].GetInterface("ICouchDocument`1") == null)
                     return true;
 
-            return type.GetInterface("ICouchDocument`2") == null;
+            return type.GetInterface("ICouchDocument`1") == null;
         }
 
         public IContractResolver Resolver
