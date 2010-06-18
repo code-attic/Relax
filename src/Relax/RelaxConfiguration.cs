@@ -28,6 +28,7 @@ namespace Relax
                 .Core()
                 .HttpServiceClient(x => x.Server(configuration.RelaxQueryServiceUrl).Timeout(10000))
                 .Dependencies(x => x.For(typeof (IRemoteProxy<>)).Use(typeof (RemoteProxy<>)));
+
             ObjectFactory.Configure(c =>
             {
                 c.For<ICouchConfiguration>().Use(configuration);

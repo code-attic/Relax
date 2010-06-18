@@ -1,5 +1,6 @@
 ﻿using Machine.Specifications;
 using Relax.Config;
+using Symbiote.Core;
 
 namespace Relax.Tests.Commands
 {
