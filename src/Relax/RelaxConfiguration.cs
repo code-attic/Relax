@@ -36,6 +36,7 @@ namespace Relax
                 c.For<ICouchCacheProvider>().Use<CouchCacheProvider>();
                 c.For<ICacheKeyBuilder>().Use<CacheKeyBuilder>();
                 c.For<ICouchServer>().Use<CouchDbServer>();
+                c.For<IKeyAssociationManager>().Singleton().Use<DefaultKeyAssociationManager>();
                 c.For<DocumentConventions>().Use(configuration.Conventions);
                 if (configuration.Cache)
                 {

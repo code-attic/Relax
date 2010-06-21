@@ -12,31 +12,18 @@ namespace Relax.Impl.Cache
     {
         protected ICacheProvider _cache;
         protected ICacheKeyBuilder _keyBuilder;
-        protected ConcurrentDictionary<string, ConcurrentStack<string>> _crossReferences
-            = new ConcurrentDictionary<string, ConcurrentStack<string>>();
+        protected IKeyAssociationManager _associationManager;
 
-        public virtual void AddCrossReference(string key, string cacheKey)
+        public void AddCrossReference(string key, string cacheKey)
         {
-            ConcurrentStack<string> list = null;
-            if (!_crossReferences.TryGetValue(key, out list))
-            {
-                list = new ConcurrentStack<string>();
-                _crossReferences[key] = list;
-            }
-            list.Push(cacheKey);
+            _associationManager.AddKeyAssociation(key, cacheKey);
         }
 
         public virtual void InvalidateItem<TModel>(string affectedKey)
         {
-            ConcurrentStack<string> relatedKeys = null;
-            if (_crossReferences.TryGetValue(affectedKey, out relatedKeys))
-            {
-                string key = null;
-                while (relatedKeys.TryPop(out key))
-                {
-                    _cache.Remove(key);
-                }
-            }
+            _associationManager
+                .GetAssociations(affectedKey)
+                .ForEach(x => _cache.Remove(x));
         }
 
         public virtual void Delete<TModel>(object key, Action<object> delete)
@@ -55,7 +42,7 @@ namespace Relax.Impl.Cache
 
         public virtual void DeleteAll<TModel>()
         {
-            _crossReferences.Keys.ForEach(InvalidateItem<TModel>);
+            _associationManager.GetAllKeys().ForEach(InvalidateItem<TModel>);
         }
 
         public virtual TModel Get<TModel>(object key, object rev, Func<object, object, TModel> retrieve)
@@ -145,10 +132,11 @@ namespace Relax.Impl.Cache
             list.ForEach(CacheSavedModel);
         }
 
-        public CouchCacheProvider(ICacheProvider cache, ICacheKeyBuilder keyBuilder)
+        public CouchCacheProvider(ICacheProvider cache, IKeyAssociationManager keyAssociationManager, ICacheKeyBuilder keyBuilder)
         {
             _cache = cache;
             _keyBuilder = keyBuilder;
+            _associationManager = keyAssociationManager;
         }
     }
 }
