@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assimilation\when_assimilating_with_caching.cs" />
     <Compile Include="Assimilation\when_assimilating_without_caching.cs" />
+    <Compile Include="Caching\when_getting_cache_keys.cs" />
     <Compile Include="Caching\with_caching_provider.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents_by_ids.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Commands\GetCommand\with_get_all_docs.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_by_ids.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
+    <Compile Include="Commands\ParentDoc.cs" />
     <Compile Include="Commands\SaveCommand\when_persisting_list_without_breaking_documents.cs" />
     <Compile Include="Commands\SaveCommand\when_persisting_list_with_breaking_documents.cs" />
     <Compile Include="Commands\SaveCommand\when_scrubbing_bulk_persist_type_tokens.cs" />
@@ -93,6 +95,8 @@
     <Compile Include="Commands\GetCommand\with_get_doc_by_id_and_rev_setup.cs" />
     <Compile Include="Commands\GetCommand\with_get_doc_by_id_setup.cs" />
     <Compile Include="Commands\with_mock_http_action.cs" />
+    <Compile Include="Configuration\TestDatabaseResolver.cs" />
+    <Compile Include="Configuration\when_using_cache_without_a_cache_provider.cs" />
     <Compile Include="Configuration\when_using_caching_with_time_limit.cs" />
     <Compile Include="Configuration\when_providing_custom_configuration.cs" />
     <Compile Include="Configuration\when_using_caching_with_expiration_date.cs" />
@@ -105,12 +109,15 @@
     <Compile Include="Document\when_serializing_design_document.cs" />
     <Compile Include="Document\when_using_custom_complex_key.cs" />
     <Compile Include="Document\when_using_custom_key.cs" />
+    <Compile Include="Document\when_working_with_complex_couch_document.cs" />
+    <Compile Include="Document\when_working_with_simple_couch_document.cs" />
     <Compile Include="Document\with_custom_document_complex_key.cs" />
     <Compile Include="Document\with_custom_document_simple_key.cs" />
     <Compile Include="Document\with_design_document.cs" />
     <Compile Include="Mocks\with_mock_repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\with_from_view_command.cs" />
+    <Compile Include="Serialization\ComplexDocument.cs" />
     <Compile Include="Serialization\Filtering\ClassA.cs" />
     <Compile Include="Serialization\Filtering\ClassB.cs" />
     <Compile Include="Serialization\Filtering\ClassC.cs" />
@@ -120,13 +127,15 @@
     <Compile Include="Serialization\Filtering\when_serializing_complex_graph.cs" />
     <Compile Include="Serialization\Filtering\with_test_graph.cs" />
     <Compile Include="Serialization\Test.cs" />
+    <Compile Include="Serialization\when_deserializing_complex_document.cs" />
+    <Compile Include="Serialization\when_deserializing_complex_view.cs" />
     <Compile Include="Serialization\when_deserializing_view_result_and_document_excluded.cs" />
     <Compile Include="Serialization\when_deserializing_view_result_with_documents_included.cs" />
     <Compile Include="Serialization\with_bulk_insert.cs" />
-    <Compile Include="Serialization\when_serializing_bulk_insert.cs" />
     <Compile Include="Serialization\with_assimilation.cs" />
     <Compile Include="Serialization\when_trying_custom_serializer.cs" />
     <Compile Include="Serialization\with_complex_document.cs" />
+    <Compile Include="Serialization\with_complex_view_result.cs" />
     <Compile Include="Serialization\with_single_document.cs" />
     <Compile Include="Serialization\with_view_result_and_documents_included.cs" />
     <Compile Include="Serialization\with_view_result_and_no_documents.cs" />
@@ -143,6 +152,7 @@
     <Compile Include="Server\with_view_cleanup_command.cs" />
     <Compile Include="Server\with_view_compaction.cs" />
     <Compile Include="Server\with_couch_server.cs" />
+    <Compile Include="SimpleDocument.cs" />
     <Compile Include="TestDocument.cs" />
     <Compile Include="Server\when_checking_database_existence.cs" />
     <Compile Include="Server\when_creating_database.cs" />
@@ -168,7 +178,8 @@
     <Compile Include="Repository\with_save_models_command.cs" />
     <Compile Include="Repository\with_save_model_command.cs" />
     <Compile Include="Repository\with_test_document.cs" />
-    <Compile Include="URI\Encoding\UrlEncoder.cs" />
+    <Compile Include="URI\Encoding\with_test_json.cs" />
+    <Compile Include="URI\Encoding\when_encoding_json_for_url.cs" />
     <Compile Include="URI\when_bulk_inserting.cs" />
     <Compile Include="URI\when_cleaning_up_view.cs" />
     <Compile Include="URI\when_compacting_database.cs" />

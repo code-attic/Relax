@@ -17,9 +17,8 @@ namespace Relax.Tests.Serialization.Filtering
         private Because of = () =>
                                  {
                                      Assimilate.Core().Relax(x => x.UseDefaults());
-                                     var configuration = ObjectFactory.GetInstance<ICouchConfiguration>();
-                                     configuration.BreakDownDocumentGraphs = true;
-
+                                     ObjectFactory.GetAllInstances<ICouchConfiguration>().ForEach(x => x.BreakDownDocumentGraphs = true);
+                                     
                                      result = fullJson.FromJson<ClassA>();
                                      resultJson = graph.ToJson();
                                      documentList = graph.GetDocmentsFromGraph();

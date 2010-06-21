@@ -39,12 +39,7 @@ namespace Relax
         {
             return DocumentId;
         }
-
-        public virtual string GetRevAsJson()
-        {
-            return DocumentRevision.ToJson(false);
-        }
-
+        
         public virtual void UpdateKeyFromJson(string jsonKey)
         {
             DocumentId = jsonKey.FromJson<string>();
