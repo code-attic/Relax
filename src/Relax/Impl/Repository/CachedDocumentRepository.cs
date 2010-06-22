@@ -16,7 +16,7 @@ namespace Relax.Impl.Repository
             _cache = cacheProvider;
         }
 
-        public override void DeleteDocument<TModel>(object id, object rev)
+        public override void DeleteDocument<TModel>(object id, string rev)
         {
             _cache.Delete<TModel>(id, rev, base.DeleteDocument<TModel>);
         }
@@ -26,7 +26,7 @@ namespace Relax.Impl.Repository
             _cache.Delete<TModel>(id, base.DeleteDocument<TModel>);
         }
 
-        public override TModel Get<TModel>(object id, object revision)
+        public override TModel Get<TModel>(object id, string revision)
         {
             return _cache.Get(id, revision, base.Get<TModel>);
         }

@@ -35,7 +35,7 @@ namespace Relax.Impl.Repository
             deleteCommand.DeleteDocument(doc);
         }
 
-        public virtual void DeleteDocument<TModel>(object id, object rev)
+        public virtual void DeleteDocument<TModel>(object id, string rev)
         {
             var deleteCommand = commandFactory.GetDeleteCommand();
             deleteCommand.DeleteDocument<TModel>(id,rev);
@@ -48,7 +48,7 @@ namespace Relax.Impl.Repository
             return response.GetResultAs<ViewResult<TModel>>().GetList().ToList();
         }
 
-        public virtual TModel Get<TModel>(object id, object revision)
+        public virtual TModel Get<TModel>(object id, string revision)
         {
             var command = commandFactory.GetGetDocumentCommand();
             var result = command.GetDocument<TModel>(id, revision);

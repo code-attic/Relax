@@ -8,15 +8,13 @@ namespace Relax.Impl.Cache
     {
         void AddCrossReference(string key, string cacheKey);
 
-        void InvalidateItem<TModel>(string affectedKey);
+        void InvalidateItem(string affectedKey);
 
         void Delete<TModel>(object key, Action<object> delete);
 
-        void Delete<TModel>(object key, object rev, Action<object, object> delete);
+        void Delete<TModel>(object key, string rev, Action<object, string> delete);
 
-        void DeleteAll<TModel>();
-
-        TModel Get<TModel>(object key, object rev, Func<object, object, TModel> retrieve);
+        TModel Get<TModel>(object key, string rev, Func<object, string, TModel> retrieve);
 
         TModel Get<TModel>(object key, Func<object, TModel> retrieve);
 

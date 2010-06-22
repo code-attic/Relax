@@ -6,7 +6,7 @@ namespace RelaxDemo
     {
         private IDocumentRepository _couch;
 
-        public TestDocument GetById(object id, object rev)
+        public TestDocument GetById(object id, string rev)
         {
             return _couch.Get<TestDocument>(id, rev);
         }

@@ -71,10 +71,12 @@
   <ItemGroup>
     <Compile Include="Assimilation\when_assimilating_with_caching.cs" />
     <Compile Include="Assimilation\when_assimilating_without_caching.cs" />
+    <Compile Include="Caching\when_adding_cross_reference.cs" />
     <Compile Include="Caching\when_associating_keys.cs" />
-    <Compile Include="Caching\when_getting_cache_keys.cs" />
+    <Compile Include="Caching\when_getting_cache_keys_with_default_cache_key_builder.cs" />
     <Compile Include="Caching\with_cache_provider.cs" />
     <Compile Include="Caching\with_caching_provider.cs" />
+    <Compile Include="Caching\with_couch_cache_provider.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents_by_ids.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents_paged.cs" />

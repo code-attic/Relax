@@ -11,14 +11,14 @@ namespace Relax
     {
         void DeleteDocument<TModel>(object id);
 
-        void DeleteDocument<TModel>(object id, object rev);
+        void DeleteDocument<TModel>(object id, string rev);
 
         void DeleteAttachment<TModel>(TModel model, string attachmentName)
             where TModel : IHaveAttachments;
 
         IList<TModel> FromView<TModel>(string designDocument, string viewName, Action<ViewQuery> query);
 
-        TModel Get<TModel>(object id, object revision);
+        TModel Get<TModel>(object id, string revision);
 
         TModel Get<TModel>(object id);
 
