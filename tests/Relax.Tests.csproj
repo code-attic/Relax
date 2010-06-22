@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Symbiote.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Symbiote.Restfully, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Symbiote.Restfully.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -101,6 +105,9 @@
     <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
     <Compile Include="Commands\GetCommand\with_get_doc_by_range.cs" />
     <Compile Include="Commands\ParentDoc.cs" />
+    <Compile Include="Commands\Querying\MockProxy.cs" />
+    <Compile Include="Commands\Querying\when_querying_relax_lucene.cs" />
+    <Compile Include="Commands\Querying\with_relax_query.cs" />
     <Compile Include="Commands\SavingAttachments\when_saving_document_attachment.cs" />
     <Compile Include="Commands\SavingAttachments\with_save_attachment_command.cs" />
     <Compile Include="Commands\SaveCommand\when_persisting_list_without_breaking_documents.cs" />

@@ -138,9 +138,9 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public virtual CouchUri InclusiveEnd()
+        public virtual CouchUri NonInclusiveRange()
         {
-            _builder.AppendFormat("{0}inclusive_end=true",
+            _builder.AppendFormat("{0}inclusive_end=false",
                 _hasArguments ? "&" : "?");
 
             if (!_hasArguments)

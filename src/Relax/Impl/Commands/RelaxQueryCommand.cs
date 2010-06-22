@@ -14,9 +14,7 @@ namespace Relax.Impl.Commands
 
         public object[] GetDocumentIdsForQuery<TModel>(Expression<Func<TModel,bool>> criteria)
         {
-            var builder = new DelimitedBuilder("");
-            ExpressionTreeProcessor.Process(criteria, "", builder);
-            var luceneQuery = builder.ToString();
+            var luceneQuery = ExpressionTreeProcessor.TranslateExpression(criteria);
             var database = UtilityExtensions.GetDatabaseForType<TModel>();
             return queryService.Call(x => x.GetDocumentIdsForQuery(database, luceneQuery));
         }

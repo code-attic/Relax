@@ -102,6 +102,18 @@ namespace Relax.Impl
 
         #endregion
 
+        public static string TranslateExpression(Expression expression)
+        {
+            var builder = new DelimitedBuilder("");
+            Process(expression, "", builder);
+            return builder.ToString();
+        }
+
+        public static void Process(Expression expr, string prefix, DelimitedBuilder builder)
+        {
+            processors[expr.NodeType](expr, prefix, builder);
+        }
+
         private static void ProcessMemberAccess(Expression expr, string prefix, DelimitedBuilder builder)
         {
             var symbols = new[] { "{", "TO ", ":", "[", @"\+", @"\-", @"\\", @"\*" };
@@ -168,11 +180,6 @@ namespace Relax.Impl
                 var paramValue = Expression<Action<object>>.Lambda(parameterExpr).Compile().DynamicInvoke();
                 builder.Append(HandleFormatting(paramValue));
             }
-        }
-
-        public static void Process(Expression expr, string prefix, DelimitedBuilder builder)
-        {
-            processors[expr.NodeType](expr, prefix, builder);
         }
 
         private static void ProcessAddition(Expression expr, string prefix, DelimitedBuilder builder)
