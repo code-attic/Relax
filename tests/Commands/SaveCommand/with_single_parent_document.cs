@@ -11,6 +11,7 @@ namespace Relax.Tests.Commands.SaveCommand
                                         {
                                             testDoc = new ParentDoc()
                                                           {
+                                                              DocumentId = "doc 1",
                                                               Message = "Parent1",
                                                               Children = new List<TestDoc>()
                                                                              {

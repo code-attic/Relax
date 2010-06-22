@@ -43,12 +43,12 @@ namespace Relax.Impl.Repository
 
         public override IList<TModel> GetAll<TModel>(int pageSize, int pageNumber)
         {
-            return _cache.GetAll(pageNumber, pageSize, base.GetAll<TModel>);
+            return _cache.GetAllPaged(pageNumber, pageSize, base.GetAll<TModel>);
         }
 
         public override IList<TModel> GetAllBetweenKeys<TModel>(object startingWith, object endingWith)
         {
-            return _cache.GetAll(startingWith, endingWith, base.GetAllBetweenKeys<TModel>);
+            return _cache.GetAllInRange(startingWith, endingWith, base.GetAllBetweenKeys<TModel>);
         }
 
         public override void Save<TModel>(TModel model)
@@ -58,7 +58,7 @@ namespace Relax.Impl.Repository
 
         public override void SaveAll<TModel>(IEnumerable<TModel> list)
         {
-            _cache.Save(list, base.SaveAll);
+            _cache.SaveAll(list, base.SaveAll);
         }
     }
 }

@@ -84,13 +84,13 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public virtual IList<TModel> GetAll<TModel>(int pageSize, int pageNumber, Func<int, int, IList<TModel>> retrieve)
+        public virtual IList<TModel> GetAllPaged<TModel>(int pageSize, int pageNumber, Func<int, int, IList<TModel>> retrieve)
         {
             var listCacheKey = _keyBuilder.GetListKey<TModel>(pageNumber, pageSize);
             var result = _cache.Get<IList<TModel>>(listCacheKey);
             if (result == null)
             {
-                result = retrieve(pageNumber, pageSize);
+                result = retrieve(pageSize, pageNumber);
                 _cache.Store(listCacheKey, result);
                 result.ForEach(x =>
                 {
@@ -104,7 +104,7 @@ namespace Relax.Impl.Cache
             return result;
         }
 
-        public IList<TModel> GetAll<TModel>(object startingWith, object endingWith, Func<object,object,IList<TModel>> retrieve)
+        public IList<TModel> GetAllInRange<TModel>(object startingWith, object endingWith, Func<object,object,IList<TModel>> retrieve)
         {
             var listCacheKey = _keyBuilder.GetRangeKey<TModel>(startingWith, endingWith);
             var result = _cache.Get<IList<TModel>>(listCacheKey);
@@ -131,28 +131,26 @@ namespace Relax.Impl.Cache
             InvalidateItem(cacheKey);
             InvalidateItem(cacheRevKey);
             save(model);
-            CacheSavedModel(model);
+            CacheSavedModel(model, cacheKey, cacheRevKey);
         }
 
-        protected virtual void CacheSavedModel<TModel>(TModel model)
+        protected virtual void CacheSavedModel<TModel>(TModel model, string cacheKey, string cacheRevKey)
         {
-            var simpleKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId());
-            var revKey = _keyBuilder.GetKey<TModel>(model.GetDocumentId(), model.GetDocumentRevision());
-            _cache.Store(simpleKey, model);
-            _cache.Store(revKey, model);
+            _cache.Store(cacheKey, model);
+            _cache.Store(cacheRevKey, model);
         }
 
-        public virtual void Save<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save)
+        public virtual void SaveAll<TModel>(IEnumerable<TModel> list, Action<IEnumerable<TModel>> save)
         {
+            save(list);
             list.ForEach(x =>
                              {
                                  var cacheKey = _keyBuilder.GetKey<TModel>(x.GetDocumentId());
                                  var cacheRevKey = _keyBuilder.GetKey<TModel>(x.GetDocumentId(), x.GetDocumentRevision());
                                  InvalidateItem(cacheKey);
                                  InvalidateItem(cacheRevKey);
+                                 CacheSavedModel(x, cacheKey, cacheRevKey);
                              });
-            save(list);
-            list.ForEach(CacheSavedModel);
         }
 
         public CouchCacheProvider(ICacheProvider cache, IKeyAssociationManager keyAssociationManager, ICacheKeyBuilder keyBuilder)

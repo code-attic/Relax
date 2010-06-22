@@ -36,19 +36,19 @@ namespace Relax.Impl.Http
             return new CouchUri(user, password, prefix, server, port);
         }
 
-        public CouchUri Attachment(string attachmentName)
+        public virtual CouchUri Attachment(string attachmentName)
         {
             _builder.AppendFormat("/{0}", attachmentName);
             return this;
         }
 
-        public CouchUri BulkInsert()
+        public virtual CouchUri BulkInsert()
         {
             _builder.Append("/_bulk_docs");
             return this;
         }
 
-        public CouchUri ByRange<TKey>(TKey start, TKey end)
+        public virtual CouchUri ByRange<TKey>(TKey start, TKey end)
         {
             var startKey = start.ToJson(false);
             var endKey = end.ToJson(false);
@@ -64,7 +64,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Changes(Feed feed, int since)
+        public virtual CouchUri Changes(Feed feed, int since)
         {
             _builder.Append("/_changes");
 
@@ -80,25 +80,25 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri CleanupViews()
+        public virtual CouchUri CleanupViews()
         {
             _builder.Append("/_view_cleanup");
             return this;
         }
 
-        public CouchUri Compact()
+        public virtual CouchUri Compact()
         {
             _builder.Append("/_compact");
             return this;
         }
 
-        public CouchUri CompactView(string designDocument)
+        public virtual CouchUri CompactView(string designDocument)
         {
             _builder.Append("/_compact/{0}".AsFormat(designDocument));
             return this;
         }
 
-        public CouchUri Descending()
+        public virtual CouchUri Descending()
         {
             _builder.AppendFormat("{0}descending=true",
                                   _hasArguments ? "&" : "?");
@@ -109,13 +109,13 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Design(string designDocumentName)
+        public virtual CouchUri Design(string designDocumentName)
         {
             _builder.AppendFormat("/_design/{0}", designDocumentName);
             return this;
         }
 
-        public CouchUri Format(string format)
+        public virtual CouchUri Format(string format)
         {
             _builder.AppendFormat("{0}format={1}",
                                   _hasArguments ? "&" : "?", format);
@@ -126,7 +126,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri IncludeDocuments()
+        public virtual CouchUri IncludeDocuments()
         {
             _builder.AppendFormat("{0}include_docs=true", _hasArguments
                                                               ? "&"
@@ -138,7 +138,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri InclusiveEnd()
+        public virtual CouchUri InclusiveEnd()
         {
             _builder.AppendFormat("{0}inclusive_end=true",
                 _hasArguments ? "&" : "?");
@@ -149,14 +149,14 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Id<TKey>(TKey key)
+        public virtual CouchUri Id<TKey>(TKey key)
         {
             _builder.AppendFormat("/{0}", key.ToString().TrimStart('"').TrimEnd('"'));
 
             return this;
         }
 
-        public CouchUri IdAndRev<TKey, TRev>(TKey key, TRev rev)
+        public virtual CouchUri IdAndRev<TKey, TRev>(TKey key, TRev rev)
         {
             if (!_hasArguments)
                 _hasArguments = true;
@@ -167,7 +167,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Key<TKey>(TKey key)
+        public virtual CouchUri Key<TKey>(TKey key)
         {
             var json = encoder.Encode(key.ToJson(false));
 
@@ -181,7 +181,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri KeyAndRev<TKey, TRev>(TKey key, TRev rev)
+        public virtual CouchUri KeyAndRev<TKey, TRev>(TKey key, TRev rev)
         {
             var json = encoder.Encode(key.ToJson(false));
             _builder.AppendFormat("{0}key={1}&rev={2}",
@@ -195,12 +195,12 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Group()
+        public virtual CouchUri Group()
         {
             return Group(1);
         }
 
-        public CouchUri Group(int groupLevel)
+        public virtual CouchUri Group(int groupLevel)
         {
             _builder.AppendFormat("{0}group=true&group_level={1}",
                                   _hasArguments ? "&" : "?", groupLevel);
@@ -211,7 +211,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Limit(int limit)
+        public virtual CouchUri Limit(int limit)
         {
             _builder.AppendFormat("{0}limit={1}",
                                   _hasArguments ? "&" : "?", limit);
@@ -222,19 +222,19 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri List(string listName)
+        public virtual CouchUri List(string listName)
         {
             _builder.AppendFormat("/_list/{0}", listName);
             return this;
         }
 
-        public CouchUri ListAll()
+        public virtual CouchUri ListAll()
         {
             _builder.Append("/_all_docs");
             return this;
         }
 
-        public CouchUri NoReduce()
+        public virtual CouchUri NoReduce()
         {
             _builder.AppendFormat("{0}reduce=false",
                                   _hasArguments ? "&" : "?");
@@ -245,13 +245,13 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Replicate()
+        public virtual CouchUri Replicate()
         {
             _builder.Append("/_replicate");
             return this;
         }
 
-        public CouchUri Revision<TRev>(TRev revision)
+        public virtual CouchUri Revision<TRev>(TRev revision)
         {
             _builder.AppendFormat("{0}rev={1}",
                                   _hasArguments ? "&" : "?", revision.ToString().TrimStart('"').TrimEnd('"'));
@@ -261,7 +261,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri StartKey<TKey>(TKey start)
+        public virtual CouchUri StartKey<TKey>(TKey start)
         {
             var json = encoder.Encode(start.ToJson(false));
             _builder.AppendFormat("{0}startkey={1}", 
@@ -274,7 +274,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri EndKey<TKey>(TKey end)
+        public virtual CouchUri EndKey<TKey>(TKey end)
         {
             var json = encoder.Encode(end.ToJson(false));
             _builder.AppendFormat("{0}endkey={1}",
@@ -287,7 +287,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri Skip(int number)
+        public virtual CouchUri Skip(int number)
         {
             _builder.AppendFormat("{0}skip={1}",
                                   _hasArguments ? "&" : "?", number);
@@ -298,7 +298,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri StaleOk()
+        public virtual CouchUri StaleOk()
         {
             _builder.AppendFormat("{0}stale=ok",
                 _hasArguments ? "&" : "?");
@@ -309,7 +309,7 @@ namespace Relax.Impl.Http
             return this;
         }
 
-        public CouchUri View(string viewName)
+        public virtual CouchUri View(string viewName)
         {
             _builder.AppendFormat("/_view/{0}", viewName);
             return this;
