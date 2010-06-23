@@ -1,4 +1,5 @@
-﻿using Machine.Specifications;
+﻿using System.Linq;
+using Machine.Specifications;
 
 namespace Relax.Tests.Commands.SaveAttachmentCommand
 {
@@ -12,6 +13,8 @@ namespace Relax.Tests.Commands.SaveAttachmentCommand
         private It should_update_revision = () => 
                                             document.DocumentRevision.ShouldEqual("2");
 
+        private It should_add_attachment_to_document = () => document.Attachments.Count().ShouldEqual(1);
+        private It should_have_attachment = () => document.Attachments.First().ShouldEqual("test");
         private It should_call_action = () => mockAction.VerifyAll();
     }
 }

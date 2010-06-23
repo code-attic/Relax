@@ -1,20 +1,20 @@
 ﻿using System;
 using Machine.Specifications;
-using Relax.Impl.Json;
+using Relax.Tests.Commands;
 
 namespace Relax.Tests.Repository
 {
-    public class when_deleting_document_by_id_and_rev : with_delete_document_command_by_id_and_rev
+    public class when_deleting_document_by_id : with_delete_document_command_by_id
     {
         private static Exception exception = null;
         private Because of = () =>
                                  {
                                      exception = Catch.Exception(
-                                         () => repository.DeleteDocument<TestDocument>(id, "1")
+                                         () => repository.DeleteDocument<TestDoc>(id)
                                          );
                                  };
 
         private It should_delete_document_without_exception = () => exception.ShouldBeNull();
-        private It should_call_delete_correctly = () => commandMock.Verify(x => x.Delete(couchUri));
+        private It should_call_delete_correctly = () => commandMock.VerifyAll();
     }
 }

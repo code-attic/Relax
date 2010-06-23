@@ -1,4 +1,5 @@
-﻿using Machine.Specifications;
+﻿using System.Linq;
+using Machine.Specifications;
 
 namespace Relax.Tests.Commands.DeletingAttachments
 {
