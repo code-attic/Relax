@@ -35,6 +35,17 @@
   <ItemGroup>
     <Compile Include="Impl\Cache\DefaultKeyAssociationManager.cs" />
     <Compile Include="Impl\Cache\IKeyAssociationManager.cs" />
+    <Compile Include="Impl\Commands\BaseSaveDocumentCollection.cs" />
+    <Compile Include="Impl\Commands\GetAllDocumentsCommand.cs" />
+    <Compile Include="Impl\Commands\GetDocumentsByIdsCommand.cs" />
+    <Compile Include="Impl\Commands\GetDocumentsInRangeCommand.cs" />
+    <Compile Include="Impl\Commands\GetDocumentsPagedCommand.cs" />
+    <Compile Include="Impl\Commands\ISaveDocument.cs" />
+    <Compile Include="Impl\Commands\ISaveDocuments.cs" />
+    <Compile Include="Impl\Commands\SaveDocumentGraphCommand.cs" />
+    <Compile Include="Impl\Commands\SaveDocumentGraphListCommand.cs" />
+    <Compile Include="Impl\Commands\SaveDocumentListCommand.cs" />
+    <Compile Include="Impl\DocumentUtility.cs" />
     <Compile Include="Impl\ExpressionTreeProcessor.cs" />
     <Compile Include="Impl\Commands\DeleteAttachmentCommand.cs" />
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />

@@ -35,7 +35,7 @@ namespace Relax.Tests.Commands.FromView
                                                 .Setup(x => x.Get(Moq.It.Is<CouchUri>(u => u.ToString() == url)))
                                                 .Returns(jsonResult);
 
-                                            command = factory.GetViewCommand();
+                                            command = factory.CreateGetFromViewCommand();
                                         };
     }
 }

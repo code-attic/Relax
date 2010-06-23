@@ -1,8 +1,6 @@
 ﻿using System;
 using Relax.Config;
 using Relax.Impl.Http;
-using Relax.Impl.Json;
-using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Commands
 {
@@ -48,126 +46,6 @@ namespace Relax.Impl.Commands
                         typeof(TModel).FullName,
                         id,
                         rev,
-                        Uri.ToString(),
-                        ex
-                    );
-
-                if (configuration.Throw404Exceptions)
-                    throw couchEx;
-
-                return new CommandResult("");
-            }
-        }
-
-        public CommandResult GetDocuments<TModel>()
-        {
-            try
-            {
-                CreateUri<TModel>()
-                    .ListAll()
-                    .IncludeDocuments();
-
-                var commandResult = Get();
-                commandResult.ApplyDesignDocumentFilter();
-                return commandResult;
-            }
-            catch (Exception ex)
-            {
-                var couchEx = Exception(
-                        ex,
-                        "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
-                        typeof(TModel).FullName,
-                        Uri.ToString(),
-                        ex
-                    );
-
-                if (configuration.Throw404Exceptions)
-                    throw couchEx;
-
-                return new CommandResult("");
-            }
-        }
-
-        public CommandResult GetDocuments<TModel>(int pageSize, int pageNumber)
-        {
-            try
-            {
-                CreateUri<TModel>()
-                    .ListAll()
-                    .IncludeDocuments()
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Limit(pageSize);
-
-                var commandResult = Get();
-                commandResult.ApplyDesignDocumentFilter();
-                return commandResult;
-            }
-            catch (Exception ex)
-            {
-                var couchEx = Exception(ex,
-                        "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
-                        typeof(TModel).FullName,
-                        Uri.ToString(),
-                        ex
-                    );
-
-                if (configuration.Throw404Exceptions)
-                    throw couchEx;
-
-                return new CommandResult("");
-            }
-        }
-
-        public CommandResult GetDocuments<TModel>(object[] ids)
-        {
-            try
-            {
-                CreateUri<TModel>()
-                    .ListAll()
-                    .IncludeDocuments();
-
-                var keys = new KeyList() { keys = ids };
-                var jsonKeyList = keys.ToJson(false);
-
-                var commandResult = Post(jsonKeyList);
-                commandResult.ApplyDesignDocumentFilter();
-                return commandResult;
-            }
-            catch (Exception ex)
-            {
-                var couchEx = Exception(ex,
-                        "An exception occurred trying to retrieve a list of documents of type {0} by keys at {1}. \r\n\t {2}",
-                        typeof(TModel).FullName,
-                        Uri.ToString(),
-                        ex
-                    );
-
-                if (configuration.Throw404Exceptions)
-                    throw couchEx;
-
-                return new CommandResult("");
-            }
-        }
-        
-        public CommandResult GetDocuments<TModel>(object startingWith, object endingWith)
-        {
-            try
-            {
-                CreateUri<TModel>()
-                    .ListAll()
-                    .IncludeDocuments()
-                    .StartKey(startingWith)
-                    .EndKey(endingWith);
-
-                var commandResult = Get();
-                commandResult.ApplyDesignDocumentFilter();
-                return commandResult;
-            }
-            catch (Exception ex)
-            {
-                var couchEx = Exception(ex,
-                        "An exception occurred trying to retrieve all documents of type {0} at {1}. \r\n\t {2}",
-                        typeof(TModel).FullName,
                         Uri.ToString(),
                         ex
                     );

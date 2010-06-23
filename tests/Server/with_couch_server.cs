@@ -8,6 +8,7 @@ using Relax.Impl;
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Repository;
+using StructureMap;
 
 namespace Relax.Tests.Server
 {
@@ -27,7 +28,7 @@ namespace Relax.Tests.Server
         private Establish context = () =>
         {
             commandMock = new Mock<IHttpAction>();
-            server = new CouchDbServer(new DocumentRepository());
+            server = ObjectFactory.GetInstance<CouchDbServer>();
         };
     }
 }

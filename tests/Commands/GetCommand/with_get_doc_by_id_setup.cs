@@ -18,7 +18,7 @@ namespace Relax.Tests.Commands
                                                 .Setup(x => x.Get(Moq.It.Is<CouchUri>(i => i.ToString() == url)))
                                                 .Returns(response)
                                                 .AtMostOnce();
-                                            command = factory.GetGetDocumentCommand();
+                                            command = factory.CreateGetDocumentCommand();
                                         };
     }
 }

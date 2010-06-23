@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Relax.Config;
 using Relax.Impl.Cache;
+using Relax.Impl.Commands;
 
 namespace Relax.Impl.Repository
 {
@@ -11,7 +13,8 @@ namespace Relax.Impl.Repository
         protected IDocumentRepository _repository;
         protected ICacheKeyBuilder _builder;
 
-        public CachedDocumentRepository(ICouchCacheProvider cacheProvider)
+        public CachedDocumentRepository(ICouchCacheProvider cacheProvider, ICouchConfiguration configuration) 
+            : base(configuration)
         {
             _cache = cacheProvider;
         }

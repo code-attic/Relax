@@ -18,7 +18,7 @@ namespace Relax.Tests.Commands.SaveCommand
                                          .Setup(x => x.Post(Moq.It.Is<CouchUri>(i => url.ToString() == url), Moq.It.IsAny<string>()))
                                          .Returns(response)
                                          .AtMostOnce();
-                                     command = factory.GetSaveCommand();
+                                     command = factory.CreateSaveDocumentsCommand();
                                      command.SaveAll("relax", new object[] {testDoc});
                                  };
         

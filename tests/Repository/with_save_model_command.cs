@@ -11,8 +11,7 @@ namespace Relax.Tests.Repository
     public abstract class with_save_model_command : with_test_document
     {
         protected static Guid id;
-        protected static BulkPersist bulkSave;
-        protected static string bulkSaveJson;
+        protected static string json;
 
         private Establish context = () =>
                                         {
@@ -23,17 +22,12 @@ namespace Relax.Tests.Repository
                                                 Message = "Hello",
                                                 DocumentRevision = "2"
                                             };
-                                            bulkSave = new BulkPersist(true, false, new[] { document });
-                                            bulkSaveJson = bulkSave.ToString();
+                                            json = document.ToJson();
 
-                                            uri = new CouchUri("http", "localhost", 5984, "relax").BulkInsert();
-                                            var saveResponse =
-                                                new[]
-                                                    {
-                                                        new SaveResponse() {Id = id.ToString(), Revision = "3", Success = true}
-                                                    };
+                                            uri = new CouchUri("http", "localhost", 5984, "relax").Id(id);
+                                            var saveResponse = new SaveResponse() {Id = id.ToString(), Revision = "3", Success = true};
 
-                                            commandMock.Setup(x => x.Post(couchUri, It.Is<string>(s => s.Equals(bulkSaveJson))))
+                                            commandMock.Setup(x => x.Put(couchUri, It.Is<string>(s => s.Equals(json))))
                                                 .Returns(saveResponse.ToJson(false));
                                             WireUpCommandMock(commandMock.Object);
                                         };

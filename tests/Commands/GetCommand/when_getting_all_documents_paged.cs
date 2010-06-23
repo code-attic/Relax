@@ -5,7 +5,7 @@ using Relax.Impl.Json;
 
 namespace Relax.Tests.Commands
 {
-    public class when_getting_all_documents_paged : with_get_all_docs_paged
+    public class when_getting_all_documents_paged : with_get_docs_paged
     {
         protected static CommandResult result;
         protected static ViewResult<TestDoc> viewResult;
@@ -13,11 +13,11 @@ namespace Relax.Tests.Commands
 
         private Because of = () =>
                                  {
-                                     result = command.GetDocuments<TestDoc>(2, 3);
+                                     result = command.GetDocumentsPaged<TestDoc>(2, 3);
                                      viewResult = result.GetResultAs<ViewResult<TestDoc>>();
                                      json = result.Json.Replace("\r\n", "").Replace(" ", "");
                                  };
-
+        
         private It should_produce_expected_json = () => json.ShouldEqual(response);
 
         private It should_have_two_rows = () => ShouldExtensionMethods.ShouldEqual(viewResult.GetList().Count(), 2);

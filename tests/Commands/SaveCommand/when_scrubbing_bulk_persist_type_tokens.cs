@@ -17,8 +17,10 @@ namespace Relax.Tests.Commands.SaveCommand
 
         private Because of = () =>
                                  {
+                                     var saveDocumentsCommand = factory.CreateSaveDocumentOnlyListCommand();
+
                                      timer = Stopwatch.StartNew();
-                                     scrubbedJson = command.ScrubBulkPersistOfTypeTokens(json);
+                                     scrubbedJson = saveDocumentsCommand.ScrubBulkPersistOfTypeTokens(json);
                                      timer.Stop();
 
                                      scrubbedJsonObject = JObject.Parse(scrubbedJson);

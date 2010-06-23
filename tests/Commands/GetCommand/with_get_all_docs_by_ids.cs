@@ -11,7 +11,7 @@ namespace Relax.Tests.Commands
         protected static KeyList keyList;
         protected static string response;
         protected static string url;
-        protected static GetDocumentCommand command;
+        protected static GetDocumentsByIdsCommand command;
 
         private Establish context = () =>
                                         {
@@ -22,7 +22,7 @@ namespace Relax.Tests.Commands
                                                 .Setup(x => x.Post(Moq.It.Is<CouchUri>(i => i.ToString() == url), keyList.ToJson(false)))
                                                 .Returns(response)
                                                 .AtMostOnce();
-                                            command = factory.GetGetDocumentCommand();
+                                            command = factory.CreateGetDocumentsByIdsCommand();
                                         };
     }
 }

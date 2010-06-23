@@ -7,6 +7,8 @@ using Machine.Specifications;
 using Moq;
 using Relax.Impl;
 using Relax.Impl.Commands;
+using StructureMap;
+using Symbiote.Restfully;
 
 namespace Relax.Tests.Commands.Querying
 {
@@ -24,7 +26,9 @@ namespace Relax.Tests.Commands.Querying
                                             SetPredicate(x => x.Message.StartsWith("Hi"));
                                             expectedQuery = ExpressionTreeProcessor.TranslateExpression(queryPredicate);
                                             proxy = new MockProxy(document, expectedQuery);
-                                            command = new RelaxQueryCommand(proxy);
+                                            ObjectFactory.Configure(
+                                                x => x.For<IRemoteProxy<IRelaxQueryService>>().Use(proxy));
+                                            command = factory.CreateQueryCommand();
                                         };
 
         protected static void SetPredicate(Expression<Func<TestDocument, bool>> predicate)

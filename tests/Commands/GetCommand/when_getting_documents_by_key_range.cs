@@ -12,7 +12,7 @@ namespace Relax.Tests.Commands
 
         private Because of = () =>
                                  {
-                                     result = command.GetDocuments<TestDoc>("doc 1", "doc 2");
+                                     result = command.GetDocumentsInRange<TestDoc>("doc 1", "doc 2");
                                      viewResult = result.GetResultAs<ViewResult<TestDoc>>();
                                  };
 

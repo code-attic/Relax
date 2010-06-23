@@ -8,7 +8,7 @@ namespace Relax.Tests.Commands
     {
         protected static string response;
         protected static string url;
-        protected static GetDocumentCommand command;
+        protected static GetDocumentsInRangeCommand command;
 
         private Establish context = () =>
                                         {
@@ -33,7 +33,7 @@ namespace Relax.Tests.Commands
                                                 .Setup(x => x.Get(Moq.It.Is<CouchUri>(i => i.ToString() == url)))
                                                 .Returns(response)
                                                 .AtMostOnce();
-                                            command = factory.GetGetDocumentCommand();
+                                            command = factory.CreateGetDocumentsInRangeCommand();
                                         };
     }
 }

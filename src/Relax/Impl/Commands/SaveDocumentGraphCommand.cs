@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq;
 using Relax.Config;
 using Relax.Impl.Http;
-using Relax.Impl.Json;
-using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Commands
 {
-    public class SaveDocumentCommand : 
-        BaseCouchCommand,
+    public class SaveDocumentGraphCommand : 
+        BaseSaveDocumentCollection, 
         ISaveDocument
     {
         public virtual CommandResult Save<TModel>(TModel model)
@@ -24,9 +21,8 @@ namespace Relax.Impl.Commands
                 CreateUri(databaseName)
                     .Id(model.GetDocumentId());
 
-                var body = model.ToJson();
-                var result = Put(body);
-                model.SetDocumentRevision(result.GetResultAs<SaveResponse>().Revision);
+                var documents = model.GetDocmentsFromGraph();
+                var result = Save(documents);
                 return result;
             }
             catch (Exception ex)
@@ -41,7 +37,7 @@ namespace Relax.Impl.Commands
             }
         }
 
-        public SaveDocumentCommand(IHttpAction action, ICouchConfiguration configuration) : base(action, configuration)
+        public SaveDocumentGraphCommand(IHttpAction action, ICouchConfiguration configuration) : base(action, configuration)
         {
         }
     }

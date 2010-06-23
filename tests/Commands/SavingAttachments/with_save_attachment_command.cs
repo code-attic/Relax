@@ -27,7 +27,7 @@ namespace Relax.Tests.Commands.SaveAttachmentCommand
                                                 .Setup(x => x.SaveAttachment(Moq.It.Is<CouchUri>(u => u.ToString() == url), "text", bytes))
                                                 .Returns(@"{rev:2}");
 
-                                            command = factory.GetSaveAttachmentCommand();
+                                            command = factory.CreateSaveAttachmentCommand();
                                         };
     }
 }

@@ -26,7 +26,7 @@ namespace Relax.Tests.Commands.GettingAttachments
                                                 .Setup(
                                                     x => x.GetAttachment(Moq.It.Is<CouchUri>(u => u.ToString() == url)))
                                                 .Returns(attachment);
-                                            command = factory.GetGetAttachmentCommand();
+                                            command = factory.CreateGetAttachmentCommand();
                                         };
     }
 }

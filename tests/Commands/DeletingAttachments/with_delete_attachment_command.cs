@@ -29,7 +29,7 @@ namespace Relax.Tests.Commands.DeletingAttachments
                                                 .Setup(x => x.Delete(Moq.It.Is<CouchUri>(u => u.ToString() == url)))
                                                 .Returns(jsonResult);
 
-                                            command = factory.GetDeleteAttachmentCommand();
+                                            command = factory.CreateDeleteAttachmentCommand();
                                         };
     }
 }

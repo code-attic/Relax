@@ -1,5 +1,6 @@
 ﻿using Machine.Specifications;
 using Relax.Impl.Commands;
+using StructureMap;
 
 namespace Relax.Tests.Commands
 {
@@ -9,7 +10,7 @@ namespace Relax.Tests.Commands
 
         private Establish context = () =>
                                         {
-                                            factory = new CouchCommandFactory();
+                                            factory = ObjectFactory.GetInstance<CouchCommandFactory>();
                                         };
     }
 }

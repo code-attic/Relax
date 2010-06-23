@@ -1,66 +1,121 @@
-﻿using StructureMap;
+﻿using System;
+using Relax.Config;
+using StructureMap;
 
 namespace Relax.Impl.Commands
 {
     public class CouchCommandFactory 
     {
-        protected TCommand GetCommand<TCommand>()
+        protected ICouchConfiguration configuration { get; set; }
+
+        protected TCommand CreateCommand<TCommand>()
         {
             return ObjectFactory.GetInstance<TCommand>();
         }
 
-        public DeleteAttachmentCommand GetDeleteAttachmentCommand()
+        public DeleteAttachmentCommand CreateDeleteAttachmentCommand()
         {
-            return GetCommand<DeleteAttachmentCommand>();
+            return CreateCommand<DeleteAttachmentCommand>();
         }
 
-        public GetAttachmentCommand GetGetAttachmentCommand()
+        public GetAttachmentCommand CreateGetAttachmentCommand()
         {
-            return GetCommand<GetAttachmentCommand>();
+            return CreateCommand<GetAttachmentCommand>();
         }
 
-        public SaveAttachmentCommand GetSaveAttachmentCommand()
+        public SaveAttachmentCommand CreateSaveAttachmentCommand()
         {
-            return GetCommand<SaveAttachmentCommand>();
+            return CreateCommand<SaveAttachmentCommand>();
         }
 
-        public DeleteDocumentCommand GetDeleteCommand()
+        public DeleteDocumentCommand CreateDeleteCommand()
         {
-            return GetCommand<DeleteDocumentCommand>();
+            return CreateCommand<DeleteDocumentCommand>();
         }
 
-        public GetDocumentCommand GetGetDocumentCommand()
+        public GetDocumentCommand CreateGetDocumentCommand()
         {
-            return GetCommand<GetDocumentCommand>();
-        }
-        
-        public GetFromViewCommand GetViewCommand()
-        {
-            return GetCommand<GetFromViewCommand>();
+            return CreateCommand<GetDocumentCommand>();
         }
 
-        public RelaxQueryCommand GetQueryCommand()
+        public GetAllDocumentsCommand CreateGetAllDocumentsCommand()
         {
-            return GetCommand<RelaxQueryCommand>();
+            return CreateCommand<GetAllDocumentsCommand>();
         }
 
-        public SaveDocumentCommand GetSaveCommand()
+        public GetDocumentsPagedCommand CreateGetDocumentsPagedCommand()
         {
-            return GetCommand<SaveDocumentCommand>();
+            return CreateCommand<GetDocumentsPagedCommand>();
         }
 
-        public ServerCommand GetServerCommand()
+        public GetDocumentsByIdsCommand CreateGetDocumentsByIdsCommand()
         {
-            return GetCommand<ServerCommand>();
+            return CreateCommand<GetDocumentsByIdsCommand>();
         }
 
-        public ChangeStreamCommand GetStreamCommand()
+        public GetDocumentsInRangeCommand CreateGetDocumentsInRangeCommand()
         {
-            return GetCommand<ChangeStreamCommand>();
+            return CreateCommand<GetDocumentsInRangeCommand>();
         }
 
-        public CouchCommandFactory()
+        public GetFromViewCommand CreateGetFromViewCommand()
         {
+            return CreateCommand<GetFromViewCommand>();
+        }
+
+        public RelaxQueryCommand CreateQueryCommand()
+        {
+            return CreateCommand<RelaxQueryCommand>();
+        }
+
+        public ISaveDocument CreateSaveDocumentCommand()
+        {
+            return configuration.BreakDownDocumentGraphs ? (ISaveDocument)
+                        CreateSaveDocumentGraphCommand()
+                       : CreateSaveDocumentOnlyCommand();
+        }
+
+        public ISaveDocuments CreateSaveDocumentsCommand()
+        {
+            return configuration.BreakDownDocumentGraphs
+                       ? (ISaveDocuments)
+                         CreateSaveDocumentOnlyListCommand()
+                       : CreateSaveDocumentGraphListCommand();
+        }
+
+        public SaveDocumentCommand CreateSaveDocumentOnlyCommand()
+        {
+            return CreateCommand<SaveDocumentCommand>();
+        }
+
+        public SaveDocumentGraphCommand CreateSaveDocumentGraphCommand()
+        {
+            return CreateCommand<SaveDocumentGraphCommand>();
+        }
+
+        public SaveDocumentListCommand CreateSaveDocumentOnlyListCommand()
+        {
+            return CreateCommand<SaveDocumentListCommand>();
+        }
+
+        public SaveDocumentGraphListCommand CreateSaveDocumentGraphListCommand()
+        {
+            return CreateCommand<SaveDocumentGraphListCommand>();
+        }
+
+        public ServerCommand CreateServerCommand()
+        {
+            return CreateCommand<ServerCommand>();
+        }
+
+        public ChangeStreamCommand CreateStreamCommand()
+        {
+            return CreateCommand<ChangeStreamCommand>();
+        }
+
+        public CouchCommandFactory(ICouchConfiguration configuration)
+        {
+            this.configuration = configuration;
         }
     }
 }

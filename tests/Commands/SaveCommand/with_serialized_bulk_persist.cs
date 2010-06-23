@@ -13,13 +13,13 @@ namespace Relax.Tests.Commands.SaveCommand
     {
         protected static BulkPersist persist;
         protected static string json;
-        protected static SaveDocumentCommand command;
+        protected static ISaveDocuments command;
 
         private Establish context = () =>
                                         {
                                             persist = new BulkPersist(true, false, new [] {testDoc});
                                             json = persist.ToJson();
-                                            command = factory.GetSaveCommand();
+                                            command = factory.CreateSaveDocumentsCommand();
                                         };
     }
 }
