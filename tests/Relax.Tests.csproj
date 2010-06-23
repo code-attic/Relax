@@ -96,6 +96,8 @@
     <Compile Include="Caching\with_cache_provider.cs" />
     <Compile Include="Caching\with_caching_provider.cs" />
     <Compile Include="Caching\with_couch_cache_provider.cs" />
+    <Compile Include="Commands\FromView\when_getting_from_view.cs" />
+    <Compile Include="Commands\FromView\with_get_from_view_command.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents_by_ids.cs" />
     <Compile Include="Commands\GetCommand\when_getting_all_documents_paged.cs" />
