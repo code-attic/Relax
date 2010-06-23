@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EAC2B6B2-8F3C-49A8-88B0-DA6CC04C4935}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Relax.Lucene</RootNamespace>
     <AssemblyName>Relax.Lucene</AssemblyName>
@@ -79,7 +79,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="RelaxIndexingService.cs" />
     <Compile Include="IRelaxLuceneConfiguration.cs" />
     <Compile Include="JsonVisitor.cs" />
