@@ -19,7 +19,8 @@ namespace Relax.Impl.Commands
                     .Revision(model.GetDocumentRevision());
 
                 var result = Delete();
-                model.SetDocumentRevision(result.JsonObject["rev"].ToString());
+                model.SetDocumentRevision(result.JsonObject.Value<string>("rev"));
+                model.RemoveAttachment(attachmentName);
                 return result;
             }
             catch (Exception ex)
