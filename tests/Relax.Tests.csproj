@@ -106,6 +106,8 @@
     <Compile Include="Commands\GetCommand\with_get_all_docs_by_ids.cs" />
     <Compile Include="Commands\GetCommand\with_get_all_docs_paged.cs" />
     <Compile Include="Commands\GetCommand\with_get_doc_by_range.cs" />
+    <Compile Include="Commands\GettingAttachments\when_getting_attachment.cs" />
+    <Compile Include="Commands\GettingAttachments\with_get_attachment_command.cs" />
     <Compile Include="Commands\ParentDoc.cs" />
     <Compile Include="Commands\Querying\MockProxy.cs" />
     <Compile Include="Commands\Querying\when_querying_relax_lucene.cs" />
