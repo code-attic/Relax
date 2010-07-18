@@ -32,32 +32,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Machine.Specifications, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Machine.Specifications.dll</HintPath>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\lib\MSpec\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications.GallioAdapter, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Machine.Specifications.GallioAdapter.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
-      <HintPath>..\..\lib\Moq.dll</HintPath>
+      <HintPath>..\lib\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap, Version=2.5.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+    <Reference Include="StructureMap">
+      <HintPath>..\lib\Symbiote.StructureMap\StructureMap.dll</HintPath>
     </Reference>
-    <Reference Include="Symbiote.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Symbiote.Core.dll</HintPath>
+    <Reference Include="Symbiote.Core">
+      <HintPath>..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Symbiote.Restfully, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Symbiote.Restfully.dll</HintPath>
+    <Reference Include="Symbiote.StructureMap">
+      <HintPath>..\lib\Symbiote.StructureMap\Symbiote.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -111,9 +105,6 @@
     <Compile Include="Commands\GettingAttachments\when_getting_attachment.cs" />
     <Compile Include="Commands\GettingAttachments\with_get_attachment_command.cs" />
     <Compile Include="Commands\ParentDoc.cs" />
-    <Compile Include="Commands\Querying\MockProxy.cs" />
-    <Compile Include="Commands\Querying\when_querying_relax_lucene.cs" />
-    <Compile Include="Commands\Querying\with_relax_query.cs" />
     <Compile Include="Commands\SavingAttachments\when_saving_document_attachment.cs" />
     <Compile Include="Commands\SavingAttachments\with_save_attachment_command.cs" />
     <Compile Include="Commands\SaveCommand\when_persisting_list_without_breaking_documents.cs" />

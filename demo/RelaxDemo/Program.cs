@@ -1,13 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Text;
+﻿using System.Configuration;
 using Relax;
 using Symbiote.Core;
 using Symbiote.Daemon;
+using Symbiote.JsonRpc.Client;
+using Symbiote.JsonRpc.Client.Impl.Rpc;
 using Symbiote.Log4Net;
-using Symbiote.Eidetic;
-using Symbiote.Restfully;
+using Symbiote.StructureMap;
 
 namespace RelaxDemo
 {
@@ -16,7 +14,7 @@ namespace RelaxDemo
         static void Main(string[] args)
         {
             Assimilate
-                .Core()
+                .Core<StructureMapAdapter>()
                 .Daemon(x => x
                            .Arguments(args)
                            .Name("relaxdemo")
@@ -24,7 +22,7 @@ namespace RelaxDemo
                            .Description("Relax Integration Testing")
                 )
                 .Relax(x => x.UseDefaults().Server(ConfigurationManager.AppSettings["couchdb"]))
-                //.HttpClient(x => x.Server(@"http://localhost:8420/").Timeout(80000))
+                .JsonRpcClient(x => x.Server(@"http://localhost:8420/").Timeout(80000))
                 .AddColorConsoleLogger<ChangeWatcher>(x => x
                                                                .Info()
                                                                .DefineColor()
@@ -35,7 +33,7 @@ namespace RelaxDemo
                                                              .Info()
                                                              .MessageLayout(m => m.Message().Newline())
                 )
-                //.Dependencies(x => x.For(typeof(IRemoteProxy<>)).Use(typeof(RemoteProxy<>)))
+                .Dependencies(x => x.For(typeof(IRemoteProxy<>)).Use(typeof(RemoteProxy<>)))
                 .RunDaemon();
         }
     }

@@ -35,35 +35,52 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\lib\log4net.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Log4Net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Magnum">
+      <HintPath>..\..\lib\Symbiote.Daemon\Magnum.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\lib\Symbiote.StructureMap\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.StructureMap\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Core">
-      <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.StructureMap\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Daemon">
-      <HintPath>..\..\lib\Symbiote.Daemon.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Daemon\Symbiote.Daemon.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Log4Net">
-      <HintPath>..\..\lib\Symbiote.Log4Net.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Log4Net\Symbiote.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Symbiote.StructureMap">
+      <HintPath>..\..\lib\Symbiote.StructureMap\Symbiote.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.CoreEx, Version=1.0.2521.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Interactive, Version=1.0.2521.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Reactive, Version=1.0.2521.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.CoreEx, Version=1.0.2563.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Reactive\System.CoreEx.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Interactive, Version=1.0.2563.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Reactive\System.Interactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive, Version=1.0.2563.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Reactive\System.Reactive.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Topshelf">
-      <HintPath>..\..\lib\Topshelf.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Daemon\Topshelf.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

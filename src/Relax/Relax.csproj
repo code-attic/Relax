@@ -46,7 +46,6 @@
     <Compile Include="Impl\Commands\SaveDocumentGraphListCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentListCommand.cs" />
     <Compile Include="Impl\DocumentUtility.cs" />
-    <Compile Include="Impl\ExpressionTreeProcessor.cs" />
     <Compile Include="Impl\Commands\DeleteAttachmentCommand.cs" />
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />
     <Compile Include="Impl\Commands\ChangeStreamCommand.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Impl\Commands\SaveDocumentCommand.cs" />
     <Compile Include="Impl\Commands\ServerCommand.cs" />
     <Compile Include="Impl\DocumentHierarchyWatcher.cs" />
+    <Compile Include="Impl\IDocumentSearchProvider.cs" />
     <Compile Include="Impl\Json\DesignDocumentFilter.cs" />
     <Compile Include="Impl\Json\JsonUrlEncoder.cs" />
     <Compile Include="Impl\Serialization\ChildDocumentContractResolver.cs" />
@@ -116,17 +116,14 @@
     <Compile Include="RelaxException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Core">
-      <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Symbiote.Restfully">
-      <HintPath>..\..\lib\Symbiote.Restfully.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

@@ -1,7 +1,7 @@
 ﻿using System;
+using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json.Serialization;
 using Relax.Impl.Json;
-using StructureMap;
 using Symbiote.Core.Extensions;
 
 namespace Relax.Impl.Serialization
@@ -20,7 +20,7 @@ namespace Relax.Impl.Serialization
 
         public IContractResolver Resolver
         {
-            get { return ObjectFactory.GetInstance<ConventionSerializationContractResolver>(); }
+            get { return ServiceLocator.Current.GetInstance<ConventionSerializationContractResolver>(); }
         }
     }
 }

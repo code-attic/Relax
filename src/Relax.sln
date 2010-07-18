@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relax.Overflow", "..\demo\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouchDBIndexService", "CouchDBIndexService\CouchDBIndexService.csproj", "{681B03FD-66ED-48D8-8C14-EC49452CDBDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relax.Lucene.SearchProvider", "Relax.Lucene.SearchProvider\Relax.Lucene.SearchProvider.csproj", "{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{29F7781E-9069-46D6-A55D-096A9BF411BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6FF6BDDE-AA0B-4F71-AE50-2F64970BDFD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,8 +102,25 @@ Global
 		{681B03FD-66ED-48D8-8C14-EC49452CDBDC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{681B03FD-66ED-48D8-8C14-EC49452CDBDC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{681B03FD-66ED-48D8-8C14-EC49452CDBDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{681B03FD-66ED-48D8-8C14-EC49452CDBDC} = {29F7781E-9069-46D6-A55D-096A9BF411BD}
+		{03875D45-98AB-4C98-B569-A8A9EE16252D} = {29F7781E-9069-46D6-A55D-096A9BF411BD}
+		{B1BB0BE4-77B7-45D4-A973-C6BAEE76A709} = {29F7781E-9069-46D6-A55D-096A9BF411BD}
+		{6F1DB555-D2FF-4E2C-8F20-4A012D6F4581} = {6FF6BDDE-AA0B-4F71-AE50-2F64970BDFD5}
+		{FF6CE562-6D4A-466B-8D17-8AA2B2330CB7} = {6FF6BDDE-AA0B-4F71-AE50-2F64970BDFD5}
 	EndGlobalSection
 EndGlobal

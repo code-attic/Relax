@@ -14,6 +14,7 @@ using Symbiote.Core;
 using Symbiote.Core.Extensions;
 using Symbiote.Daemon;
 using Symbiote.Log4Net;
+using Symbiote.StructureMap;
 
 namespace Relax.Overflow
 {
@@ -22,7 +23,7 @@ namespace Relax.Overflow
         static void Main(string[] args)
         {
             Assimilate
-                .Core()
+                .Core<StructureMapAdapter>()
                 .Daemon(x => x
                     .Arguments(args)
                     .Name("SOBulkLoader")

@@ -1,5 +1,5 @@
 ﻿using System;
-using StructureMap;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Relax.Config
 {
@@ -104,7 +104,7 @@ namespace Relax.Config
         public CouchConfigurator UseDatabaseTypeResolver<T>()
             where T : IResolveDatabaseNames
         {
-            _config.DatabaseResolver = ObjectFactory.GetInstance<T>();
+            _config.DatabaseResolver = ServiceLocator.Current.GetInstance<T>();
             return this;
         }
 

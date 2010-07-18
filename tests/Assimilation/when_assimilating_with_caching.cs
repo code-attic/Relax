@@ -4,6 +4,7 @@ using Relax.Config;
 using Relax.Impl;
 using StructureMap;
 using Symbiote.Core.Cache;
+using Symbiote.StructureMap;
 using It = Machine.Specifications.It;
 
 namespace Relax.Tests.Assimilation
@@ -16,7 +17,7 @@ namespace Relax.Tests.Assimilation
         {
             var rememberMock = new Mock<ICacheProvider>().Object;
             ObjectFactory.Configure(x => x.For<ICacheProvider>().Use(rememberMock));
-            RelaxConfiguration.Configure(x => x.UseDefaults().Cache());
+            RelaxConfiguration.Configure<StructureMapAdapter>(x => x.UseDefaults().Cache());
         };
 
         private It should_use_CouchConfiguration_for_ICouchConfiguration =

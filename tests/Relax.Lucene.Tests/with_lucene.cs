@@ -2,6 +2,7 @@
 using StructureMap;
 using Symbiote.Core;
 using Symbiote.Lucene;
+using Symbiote.StructureMap;
 
 namespace Relax.Lucene.Tests
 {
@@ -11,7 +12,7 @@ namespace Relax.Lucene.Tests
 
         private Establish context = () =>
                                         {
-                                            LuceneAssimilation.Lucene(Assimilate.Core(), x => x.UseDefaults());
+                                            Assimilate.Core<StructureMapAdapter>().Lucene(x => x.UseDefaults());
                                             luceneServiceFactory = ObjectFactory.GetInstance<ILuceneServiceFactory>();
                                         };
     }

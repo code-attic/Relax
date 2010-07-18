@@ -4,6 +4,7 @@ using StructureMap;
 using Symbiote.Core;
 using Symbiote.Core.Extensions;
 using Relax.Impl;
+using Symbiote.StructureMap;
 
 namespace Relax.Tests.Serialization.Filtering
 {
@@ -16,7 +17,7 @@ namespace Relax.Tests.Serialization.Filtering
 
         private Because of = () =>
                                  {
-                                     Assimilate.Core().Relax(x => x.UseDefaults());
+                                     Assimilate.Core<StructureMapAdapter>().Relax(x => x.UseDefaults());
                                      ObjectFactory.GetAllInstances<ICouchConfiguration>().ForEach(x => x.BreakDownDocumentGraphs = true);
                                      
                                      result = fullJson.FromJson<ClassA>();

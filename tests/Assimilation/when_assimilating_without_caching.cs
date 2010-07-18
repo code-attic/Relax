@@ -3,13 +3,14 @@ using Relax.Config;
 using Relax.Impl;
 using StructureMap;
 using Symbiote.Core;
+using Symbiote.StructureMap;
 
 namespace Relax.Tests.Assimilation
 {
     [Subject("Assimilation")]
     public class when_assimilating_without_caching
     {
-        private Because of = () => RelaxConfiguration.Configure(x => x.UseDefaults());
+        private Because of = () => RelaxConfiguration.Configure<StructureMapAdapter>(x => x.UseDefaults());
 
         private It should_use_CouchConfiguration_for_ICouchConfiguration = 
             () => ObjectFactory

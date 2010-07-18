@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Relax;
-using Symbiote.Restfully;
+using Symbiote.JsonRpc.Client;
 
 namespace RelaxDemo
 {

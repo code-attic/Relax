@@ -31,34 +31,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Enyim.Caching">
-      <HintPath>..\..\lib\Enyim.Caching.dll</HintPath>
-    </Reference>
     <Reference Include="Lucene.Net">
-      <HintPath>..\..\lib\Lucene.Net.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Lucene\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
-      <HintPath>..\..\lib\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\lib\MSpec\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications.GallioAdapter">
-      <HintPath>..\..\lib\Machine.Specifications.GallioAdapter.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\lib\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.StructureMap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Core">
-      <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Lucene">
-      <HintPath>..\..\lib\Symbiote.Lucene.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Lucene\Symbiote.Lucene.dll</HintPath>
+    </Reference>
+    <Reference Include="Symbiote.StructureMap">
+      <HintPath>..\..\lib\Symbiote.StructureMap\Symbiote.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

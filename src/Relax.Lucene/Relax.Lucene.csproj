@@ -34,48 +34,46 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Enyim.Caching">
-      <HintPath>..\..\lib\Enyim.Caching.dll</HintPath>
+    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Lucene\Lucene.Net.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\lib\log4net.dll</HintPath>
+    <Reference Include="Magnum, Version=0.8.0.446, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Daemon\Magnum.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\..\lib\Lucene.Net.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\lib\StructureMap.dll</HintPath>
+    <Reference Include="Symbiote.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Symbiote.Core">
-      <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
+    <Reference Include="Symbiote.Daemon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Daemon\Symbiote.Daemon.dll</HintPath>
     </Reference>
-    <Reference Include="Symbiote.Daemon">
-      <HintPath>..\..\lib\Symbiote.Daemon.dll</HintPath>
+    <Reference Include="Symbiote.JsonRpc.Host">
+      <HintPath>..\..\lib\Symbiote.JsonRpc.Host\Symbiote.JsonRpc.Host.dll</HintPath>
     </Reference>
-    <Reference Include="Symbiote.Eidetic">
-      <HintPath>..\..\lib\Symbiote.Eidetic.dll</HintPath>
-    </Reference>
-    <Reference Include="Symbiote.Log4Net">
-      <HintPath>..\..\lib\Symbiote.Log4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Symbiote.Lucene">
-      <HintPath>..\..\lib\Symbiote.Lucene.dll</HintPath>
-    </Reference>
-    <Reference Include="Symbiote.Restfully">
-      <HintPath>..\..\lib\Symbiote.Restfully.dll</HintPath>
+    <Reference Include="Symbiote.Lucene, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Lucene\Symbiote.Lucene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Topshelf">
-      <HintPath>..\..\lib\Topshelf.dll</HintPath>
+    <Reference Include="Topshelf, Version=0.8.0.137, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Symbiote.Daemon\Topshelf.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

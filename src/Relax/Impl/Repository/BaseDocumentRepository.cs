@@ -8,7 +8,6 @@ using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
 using Relax.Impl.Model;
-using StructureMap;
 
 namespace Relax.Impl.Repository
 {

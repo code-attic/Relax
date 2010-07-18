@@ -1,6 +1,6 @@
-﻿using Relax.Config;
+﻿using Microsoft.Practices.ServiceLocation;
+using Relax.Config;
 using Relax.Impl.Http;
-using StructureMap;
 
 namespace Relax.Impl
 {
@@ -12,7 +12,7 @@ namespace Relax.Impl
         {
             get
             {
-                _couchUtility = _couchUtility ?? ObjectFactory.GetInstance<CouchUtility>();
+                _couchUtility = _couchUtility ?? ServiceLocator.Current.GetInstance<CouchUtility>();
                 return _couchUtility;
             }
         }
@@ -20,7 +20,7 @@ namespace Relax.Impl
         {
             get
             {
-                _documentUtility = _documentUtility ?? ObjectFactory.GetInstance<DocumentUtility>();
+                _documentUtility = _documentUtility ?? ServiceLocator.Current.GetInstance<DocumentUtility>();
                 return _documentUtility;
             }
         }

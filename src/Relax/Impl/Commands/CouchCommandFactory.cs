@@ -1,6 +1,6 @@
 ﻿using System;
+using Microsoft.Practices.ServiceLocation;
 using Relax.Config;
-using StructureMap;
 
 namespace Relax.Impl.Commands
 {
@@ -10,7 +10,7 @@ namespace Relax.Impl.Commands
 
         protected TCommand CreateCommand<TCommand>()
         {
-            return ObjectFactory.GetInstance<TCommand>();
+            return ServiceLocator.Current.GetInstance<TCommand>();
         }
 
         public DeleteAttachmentCommand CreateDeleteAttachmentCommand()

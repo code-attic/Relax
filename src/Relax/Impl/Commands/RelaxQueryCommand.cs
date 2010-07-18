@@ -5,26 +5,29 @@ using System.Linq.Expressions;
 using System.Text;
 using Relax.Config;
 using Symbiote.Core;
-using Symbiote.Restfully;
 
 namespace Relax.Impl.Commands
 {
     public class RelaxQueryCommand
     {
-        protected ICouchConfiguration configuration { get; set; }
-        protected IRemoteProxy<IRelaxQueryService> queryService { get; set;}
+        protected IDocumentSearchProvider searchProvider { get; set; }
 
         public object[] GetDocumentIdsForQuery<TModel>(Expression<Func<TModel,bool>> criteria)
         {
-            var luceneQuery = ExpressionTreeProcessor.TranslateExpression(criteria);
-            var database = configuration.GetDatabaseNameForType<TModel>();
-            return queryService.Call(x => x.GetDocumentIdsForQuery(database, luceneQuery));
+            if(searchProvider == null)
+            {
+                throw new RelaxConfigurationException(
+                    "No search provider has been configured for Relax. Please specify a search provider via the fluent configuration API.");
+            }
+            else
+            {
+                return searchProvider.GetDocumentIdsForQuery(criteria);
+            }
         }
 
-        public RelaxQueryCommand(ICouchConfiguration configuration, IRemoteProxy<IRelaxQueryService> queryService)
+        public RelaxQueryCommand(IDocumentSearchProvider searchProvider)
         {
-            this.configuration = configuration;
-            this.queryService = queryService;
+            this.searchProvider = searchProvider;
         }
     }
 }
