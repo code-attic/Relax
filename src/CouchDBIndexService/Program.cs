@@ -21,7 +21,7 @@ namespace CouchDBIndexService
                 .Core<StructureMapAdapter>()
                 .Relax(x => x.UseDefaults().Preauthorize("admin", "p@ssw0rd"))
                 .Lucene(x => x.UseDefaults())
-                .RelaxLuceneService(x => x.UseDefaults().IndexDatabase("post"))
+                .RelaxLuceneService(x => x.UseDefaults().IndexDatabase("relaxdemo"))
                 .JsonRpcHost(x => x.UseDefaults().HostService<IRelaxQueryService>())
                 .Dependencies(x => x.For<IRelaxQueryService>().Use<RelaxQueryService>())
                 .Daemon(x => x

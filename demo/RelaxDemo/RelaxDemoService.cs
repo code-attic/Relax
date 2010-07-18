@@ -31,7 +31,7 @@ namespace RelaxDemo
             // start watcher
             "Starting change watcher."
                 .ToInfo<RelaxDemoService>();
-            _watcher.Start();
+            //_watcher.Start();
 
             // create bulk documents
             "Creating 10 documents via bulk insertion ..."
@@ -118,7 +118,7 @@ namespace RelaxDemo
                 "Your query returned {0} results!"
                     .ToInfo<RelaxDemoService>(hits.Count);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 "Well your search crapped all over itself."
                     .ToInfo<RelaxDemoService>();

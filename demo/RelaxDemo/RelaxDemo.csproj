@@ -94,6 +94,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Relax.Lucene.SearchProvider\Relax.Lucene.SearchProvider.csproj">
+      <Project>{5F1B1763-0BC1-4363-A287-9FE4123BBFC2}</Project>
+      <Name>Relax.Lucene.SearchProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Relax\Relax.csproj">
       <Project>{3A8D40A3-96F9-4878-902E-7CBC3A82AEDD}</Project>
       <Name>Relax</Name>

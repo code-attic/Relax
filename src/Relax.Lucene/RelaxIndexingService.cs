@@ -17,6 +17,8 @@ namespace Relax.Lucene
         protected ILuceneServiceFactory luceneServiceFactory { get; set; }
         protected IDocumentRepository repository { get; set; }
         protected IJsonRpcHost server { get; set; }
+        protected object _lock = new object();
+        public bool firstRunComplete { get;set; }
         
         public void Start()
         {
@@ -35,6 +37,22 @@ namespace Relax.Lucene
         }
 
         protected void OnChange(string database, ChangeRecord record)
+        {
+            if(!firstRunComplete)
+            {
+                lock(_lock)
+                {
+                    IndexDocument(record, database);
+                    firstRunComplete = true;
+                }
+            }
+            else
+            {
+                IndexDocument(record, database);
+            }
+        }
+
+        protected void IndexDocument(ChangeRecord record, string database)
         {
             "Indexing document id '{0}', sequence {1}"
                 .ToInfo<RelaxIndexingService>(record.Id, record.Sequence);
