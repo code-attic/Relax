@@ -91,7 +91,9 @@
     <Compile Include="TestDocument.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Relax.Lucene.SearchProvider\Relax.Lucene.SearchProvider.csproj">

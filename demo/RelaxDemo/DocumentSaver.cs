@@ -1,4 +1,6 @@
-﻿using Relax;
+﻿using System.Diagnostics;
+using Relax;
+using Symbiote.Core.Extensions;
 
 namespace RelaxDemo
 {
@@ -8,7 +10,11 @@ namespace RelaxDemo
 
         public void Save(TestDocument document)
         {
+            var watch = Stopwatch.StartNew();
             _couch.Save(document);
+            watch.Stop();
+            "Save completed in {0}"
+                .ToInfo<ChangeWatcher>(watch.ElapsedMilliseconds);
         }
 
         public DocumentSaver(IDocumentRepository couch)
