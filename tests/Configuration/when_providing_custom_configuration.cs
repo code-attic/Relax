@@ -12,12 +12,10 @@ namespace Relax.Tests.Configuration
                                        .Server("couchdb")
                                        .TimeOut(1000)
                                        .DefaultDatabase("defaultdb")
-                                       .BreakDocumentGraphsIntoSeperateDocuments()
                                        .ExcludeTypeSpecificationFromJson()
                                        .FailedGetShouldThrowException()
-                                       .WithConventions("DocId","DocRev")
                                        .AssignDatabaseToType<TestDocument>("TeStIngDoC")
-                                       .RelaxQueryServiceUrl("http://localhost/bogus")
+                                       .CouchQueryServiceUrl("http://localhost/bogus")
                                        .UseDatabaseTypeResolver<TestDatabaseResolver>();
 
         private It should_use_http_as_protocol = () => configuration.Protocol.ShouldEqual("https");
@@ -28,19 +26,11 @@ namespace Relax.Tests.Configuration
         private It should_have_password = () => configuration.Password.ShouldEqual("test");
         private It should_have_six_second_timeout = () => configuration.TimeOut.ShouldEqual(1000);
         private It should_not_use_cache = () => configuration.Cache.ShouldBeFalse();
-        private It should_breakdown_document_graphs = () => configuration.BreakDownDocumentGraphs.ShouldBeTrue();
         private It should_have_default_database_name = () => configuration.GetDatabaseNameForType<object>().ShouldEqual("defaultdb");
         private It should_exclude_type_spec_from_json = () => configuration.IncludeTypeSpecification.ShouldBeFalse();
         private It should_throw_exception_on_failed_calls = () => configuration.Throw404Exceptions.ShouldBeTrue();
-        private It should_have_relax_query_service_url = () => configuration.RelaxQueryServiceUrl.ShouldEqual("http://localhost/bogus");
-        private It should_have_custom_document_conventions = () =>
-                                                                 {
-                                                                     configuration.Conventions.IdPropertyName.
-                                                                         ShouldEqual("DocId");
-                                                                     configuration.Conventions.RevisionPropertyName.
-                                                                         ShouldEqual("DocRev");
-                                                                 };
-
+        private It should_have_Couch_query_service_url = () => configuration.CouchQueryServiceUrl.ShouldEqual("http://localhost/bogus");
+        
         private It should_get_database_name_from_type_resolver = () => configuration.GetDatabaseNameForType<TestDocument>().ShouldEqual("testdocument");
     }
 }

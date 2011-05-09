@@ -3,7 +3,7 @@ using Machine.Specifications;
 using Relax.Impl.Commands;
 using Relax.Impl.Json;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public class when_getting_all_documents_paged : with_get_docs_paged
     {

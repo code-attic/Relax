@@ -1,5 +1,4 @@
 ﻿using Machine.Specifications;
-using Relax.Impl;
 using Relax.Impl.Http;
 
 namespace Relax.Tests.Server

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using Machine.Specifications;
+using Relax.Impl.Commands;
 using Relax.Impl.Http;
 
-namespace Relax.Tests.Commands.SaveAttachmentCommand
+namespace Relax.Tests.Commands.SavingAttachments
 {
     public abstract class with_save_attachment_command : with_command_factory
     {
@@ -13,7 +11,7 @@ namespace Relax.Tests.Commands.SaveAttachmentCommand
         protected static string attachment;
         protected static byte[] bytes;
         protected static TestDoc document;
-        protected static Impl.Commands.SaveAttachmentCommand command;
+        protected static SaveAttachmentCommand command;
 
         private Establish context = () =>
                                         {
@@ -26,7 +24,6 @@ namespace Relax.Tests.Commands.SaveAttachmentCommand
                                             mockAction
                                                 .Setup(x => x.SaveAttachment(Moq.It.Is<CouchUri>(u => u.ToString() == url), "text", bytes))
                                                 .Returns(@"{rev:2}");
-
                                             command = factory.CreateSaveAttachmentCommand();
                                         };
     }

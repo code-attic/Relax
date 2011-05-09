@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Machine.Specifications;
 using Relax.Impl.Commands;
 using Relax.Impl.Json;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public class when_getting_all_documents : with_get_all_docs
     {
@@ -21,7 +20,7 @@ namespace Relax.Tests.Commands
 
         private It should_produce_expected_json = () => json.ShouldEqual(response);
 
-        private It should_have_two_rows = () => ShouldExtensionMethods.ShouldEqual(viewResult.GetList().Count(), 2);
+        private It should_have_two_rows = () => viewResult.GetList().Count().ShouldEqual( 2 );
 
         private It should_create_valid_instances = () =>
                                                        {

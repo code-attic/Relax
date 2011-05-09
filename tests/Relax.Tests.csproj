@@ -35,23 +35,11 @@
     <Reference Include="Machine.Specifications">
       <HintPath>..\lib\MSpec\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\lib\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\lib\Symbiote.StructureMap\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="Symbiote.Core">
       <HintPath>..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Symbiote.StructureMap">
-      <HintPath>..\lib\Symbiote.StructureMap\Symbiote.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,18 +85,28 @@
     <Compile Include="Commands\GettingDocuments\when_getting_all_documents.cs" />
     <Compile Include="Commands\GettingDocuments\when_getting_all_documents_by_ids.cs" />
     <Compile Include="Commands\GettingDocuments\when_getting_all_documents_paged.cs" />
+    <Compile Include="Commands\GettingDocuments\when_getting_all_pocos_by_ids.cs" />
+    <Compile Include="Commands\GettingDocuments\when_getting_all_pocos_by_ids_timed.cs" />
     <Compile Include="Commands\GettingDocuments\when_getting_documents_by_key_range.cs" />
+    <Compile Include="Commands\GettingDocuments\when_getting_doc_by_id_timed.cs" />
+    <Compile Include="Commands\GettingDocuments\when_getting_poco_by_id.cs" />
+    <Compile Include="Commands\GettingDocuments\when_getting_poco_by_id_timed.cs" />
     <Compile Include="Commands\GettingDocuments\with_get_all_docs.cs" />
     <Compile Include="Commands\GettingDocuments\with_get_all_docs_by_ids.cs" />
     <Compile Include="Commands\GettingDocuments\with_get_all_docs_paged.cs" />
+    <Compile Include="Commands\GettingDocuments\with_get_all_pocos_by_ids.cs" />
     <Compile Include="Commands\GettingDocuments\with_get_doc_by_range.cs" />
     <Compile Include="Commands\GettingAttachments\when_getting_attachment.cs" />
     <Compile Include="Commands\GettingAttachments\with_get_attachment_command.cs" />
+    <Compile Include="Commands\GettingDocuments\with_get_poco_by_id_setup.cs" />
     <Compile Include="Commands\ParentDoc.cs" />
+    <Compile Include="Commands\SaveCommand\when_saving_poco_list_to_database.cs" />
+    <Compile Include="Commands\SaveCommand\when_saving_poco_to_database.cs" />
+    <Compile Include="Commands\SaveCommand\with_poco_list.cs" />
+    <Compile Include="Commands\SaveCommand\with_poco_list_persistence.cs" />
+    <Compile Include="Commands\SaveCommand\with_poco_persistence.cs" />
     <Compile Include="Commands\SavingAttachments\when_saving_document_attachment.cs" />
     <Compile Include="Commands\SavingAttachments\with_save_attachment_command.cs" />
-    <Compile Include="Commands\SaveCommand\when_persisting_list_without_breaking_documents.cs" />
-    <Compile Include="Commands\SaveCommand\when_persisting_list_with_breaking_documents.cs" />
     <Compile Include="Commands\SaveCommand\when_saving_list_to_database.cs" />
     <Compile Include="Commands\SaveCommand\when_scrubbing_bulk_persist_type_tokens.cs" />
     <Compile Include="Commands\SaveCommand\with_document_list.cs" />
@@ -157,14 +155,6 @@
     <Compile Include="Repository\with_get_documents_by_keys.cs" />
     <Compile Include="Repository\with_get_documents_by_range.cs" />
     <Compile Include="Serialization\ComplexDocument.cs" />
-    <Compile Include="Serialization\Filtering\ClassA.cs" />
-    <Compile Include="Serialization\Filtering\ClassB.cs" />
-    <Compile Include="Serialization\Filtering\ClassC.cs" />
-    <Compile Include="Serialization\Filtering\ClassD.cs" />
-    <Compile Include="Serialization\Filtering\ClassE.cs" />
-    <Compile Include="Serialization\Filtering\ClassF.cs" />
-    <Compile Include="Serialization\Filtering\when_serializing_complex_graph.cs" />
-    <Compile Include="Serialization\Filtering\with_test_graph.cs" />
     <Compile Include="Serialization\Test.cs" />
     <Compile Include="Serialization\when_deserializing_complex_document.cs" />
     <Compile Include="Serialization\when_deserializing_complex_view.cs" />
@@ -172,7 +162,6 @@
     <Compile Include="Serialization\when_deserializing_view_result_with_documents_included.cs" />
     <Compile Include="Serialization\with_bulk_insert.cs" />
     <Compile Include="Serialization\with_assimilation.cs" />
-    <Compile Include="Serialization\when_trying_custom_serializer.cs" />
     <Compile Include="Serialization\with_complex_document.cs" />
     <Compile Include="Serialization\with_complex_view_result.cs" />
     <Compile Include="Serialization\with_single_document.cs" />
@@ -196,9 +185,9 @@
     <Compile Include="Server\when_checking_database_existence.cs" />
     <Compile Include="Server\when_creating_database.cs" />
     <Compile Include="Server\when_deleteing_database.cs" />
-    <Compile Include="Repository\when_deleting_document.cs" />
-    <Compile Include="Repository\when_getting_all_docuemnts.cs" />
-    <Compile Include="Repository\when_getting_all_docuemnts_with_paging.cs" />
+    <Compile Include="Repository\when_deleting_document_by_id_and_rev.cs" />
+    <Compile Include="Repository\when_getting_all_documents.cs" />
+    <Compile Include="Repository\when_getting_all_documents_with_paging.cs" />
     <Compile Include="Repository\when_getting_a_document_by_key.cs" />
     <Compile Include="Repository\when_getting_a_document_by_key_and_rev.cs" />
     <Compile Include="Server\when_getting_list_of_databases.cs" />
@@ -258,13 +247,13 @@
     <Compile Include="with_configuration.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Commands\ServerCommand\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\src\Relax\Relax.csproj">
       <Project>{3A8D40A3-96F9-4878-902E-7CBC3A82AEDD}</Project>
       <Name>Relax</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\ServerCommand\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

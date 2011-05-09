@@ -4,7 +4,6 @@ using Machine.Specifications;
 using Moq;
 using Relax.Impl.Cache;
 using Symbiote.Core;
-using Symbiote.StructureMap;
 using It = Machine.Specifications.It;
 
 namespace Relax.Tests.Caching
@@ -20,7 +19,7 @@ namespace Relax.Tests.Caching
 
         private Because of = () =>
                                  {
-                                     Assimilate.Core<StructureMapAdapter>().Relax(x => x.UseDefaults());
+                                     Assimilate.Initialize();
 
                                      documents = new List<TestDocument>()
                                                      {

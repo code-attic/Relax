@@ -1,16 +1,32 @@
-﻿using System;
-using Microsoft.Practices.ServiceLocation;
+﻿// /* 
+// Copyright 2008-2011 Alex Robson
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// */
 using Relax.Config;
+using Relax.Impl.Serialization;
+using Symbiote.Core;
 
 namespace Relax.Impl.Commands
 {
-    public class CouchCommandFactory 
+    public class CouchCommandFactory
     {
         protected ICouchConfiguration configuration { get; set; }
+        protected ISerializationProvider Serializer { get; set; }
 
         protected TCommand CreateCommand<TCommand>()
         {
-            return ServiceLocator.Current.GetInstance<TCommand>();
+            return Assimilate.GetInstanceOf<TCommand>();
         }
 
         public DeleteAttachmentCommand CreateDeleteAttachmentCommand()
@@ -63,24 +79,19 @@ namespace Relax.Impl.Commands
             return CreateCommand<GetFromViewCommand>();
         }
 
-        public RelaxQueryCommand CreateQueryCommand()
+        public CouchQueryCommand CreateQueryCommand()
         {
-            return CreateCommand<RelaxQueryCommand>();
+            return CreateCommand<CouchQueryCommand>();
         }
 
         public ISaveDocument CreateSaveDocumentCommand()
         {
-            return configuration.BreakDownDocumentGraphs ? (ISaveDocument)
-                        CreateSaveDocumentGraphCommand()
-                       : CreateSaveDocumentOnlyCommand();
+            return CreateSaveDocumentOnlyCommand();
         }
 
         public ISaveDocuments CreateSaveDocumentsCommand()
         {
-            return configuration.BreakDownDocumentGraphs
-                       ? (ISaveDocuments)
-                         CreateSaveDocumentOnlyListCommand()
-                       : CreateSaveDocumentGraphListCommand();
+            return CreateSaveDocumentOnlyListCommand();
         }
 
         public SaveDocumentCommand CreateSaveDocumentOnlyCommand()
@@ -88,19 +99,9 @@ namespace Relax.Impl.Commands
             return CreateCommand<SaveDocumentCommand>();
         }
 
-        public SaveDocumentGraphCommand CreateSaveDocumentGraphCommand()
-        {
-            return CreateCommand<SaveDocumentGraphCommand>();
-        }
-
         public SaveDocumentListCommand CreateSaveDocumentOnlyListCommand()
         {
             return CreateCommand<SaveDocumentListCommand>();
-        }
-
-        public SaveDocumentGraphListCommand CreateSaveDocumentGraphListCommand()
-        {
-            return CreateCommand<SaveDocumentGraphListCommand>();
         }
 
         public ServerCommand CreateServerCommand()
@@ -113,9 +114,10 @@ namespace Relax.Impl.Commands
             return CreateCommand<ChangeStreamCommand>();
         }
 
-        public CouchCommandFactory(ICouchConfiguration configuration)
+        public CouchCommandFactory( ICouchConfiguration configuration, ISerializationProvider serializer )
         {
             this.configuration = configuration;
+            this.Serializer = serializer;
         }
     }
 }

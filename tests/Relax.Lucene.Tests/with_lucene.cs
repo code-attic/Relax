@@ -12,7 +12,7 @@ namespace Relax.Lucene.Tests
 
         private Establish context = () =>
                                         {
-                                            Assimilate.Core<StructureMapAdapter>().Lucene(x => x.UseDefaults());
+                                            Assimilate.Core<StructureMapAdapter>().Relax().Lucene();
                                             luceneServiceFactory = ObjectFactory.GetInstance<ILuceneServiceFactory>();
                                         };
     }

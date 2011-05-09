@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Text;
 using Machine.Specifications;
-using Relax.Impl;
 using Relax.Impl.Json;
 using Relax.Tests.Document;
-using Symbiote.Core;
 
 namespace Relax.Tests.Serialization
 {

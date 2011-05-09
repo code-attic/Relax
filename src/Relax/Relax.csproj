@@ -17,54 +17,66 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Relax\</OutputPath>
+    <OutputPath>..\..\bin\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>
     </NoWarn>
+    <DocumentationFile>..\..\bin\debug\Relax.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\release\Relax.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Config\CouchConfigurationException.cs" />
+    <Compile Include="Config\CouchDependencies.cs" />
+    <Compile Include="CouchAssimilation.cs" />
+    <Compile Include="CouchInit.cs" />
     <Compile Include="Impl\Cache\DefaultKeyAssociationManager.cs" />
     <Compile Include="Impl\Cache\IKeyAssociationManager.cs" />
     <Compile Include="Impl\Commands\BaseSaveDocumentCollection.cs" />
+    <Compile Include="Impl\Commands\CouchQueryCommand.cs" />
     <Compile Include="Impl\Commands\GetAllDocumentsCommand.cs" />
     <Compile Include="Impl\Commands\GetDocumentsByIdsCommand.cs" />
     <Compile Include="Impl\Commands\GetDocumentsInRangeCommand.cs" />
     <Compile Include="Impl\Commands\GetDocumentsPagedCommand.cs" />
     <Compile Include="Impl\Commands\ISaveDocument.cs" />
     <Compile Include="Impl\Commands\ISaveDocuments.cs" />
-    <Compile Include="Impl\Commands\SaveDocumentGraphCommand.cs" />
-    <Compile Include="Impl\Commands\SaveDocumentGraphListCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentListCommand.cs" />
+    <Compile Include="Impl\CouchProxy.cs" />
     <Compile Include="Impl\DocumentUtility.cs" />
     <Compile Include="Impl\Commands\DeleteAttachmentCommand.cs" />
     <Compile Include="Impl\Commands\BaseCouchCommand.cs" />
     <Compile Include="Impl\Commands\ChangeStreamCommand.cs" />
     <Compile Include="Impl\Commands\CommandResult.cs" />
     <Compile Include="Impl\Commands\GetAttachmentCommand.cs" />
-    <Compile Include="Impl\Commands\RelaxQueryCommand.cs" />
     <Compile Include="Impl\Commands\SaveAttachmentCommand.cs" />
     <Compile Include="Impl\CouchUtility.cs" />
     <Compile Include="Impl\Commands\DeleteDocumentCommand.cs" />
     <Compile Include="Impl\Commands\GetFromViewCommand.cs" />
     <Compile Include="Impl\Commands\SaveDocumentCommand.cs" />
     <Compile Include="Impl\Commands\ServerCommand.cs" />
-    <Compile Include="Impl\DocumentHierarchyWatcher.cs" />
     <Compile Include="Impl\IDocumentSearchProvider.cs" />
     <Compile Include="Impl\Json\DesignDocumentFilter.cs" />
     <Compile Include="Impl\Json\JsonUrlEncoder.cs" />
-    <Compile Include="Impl\Serialization\ChildDocumentContractResolver.cs" />
-    <Compile Include="Impl\Serialization\ConventionDeserializationContractResolver.cs" />
-    <Compile Include="Impl\Serialization\ConventionDeserializerContractResolverStrategy.cs" />
+    <Compile Include="Impl\Model\DocumentMetadata.cs" />
+    <Compile Include="Impl\Persistence\KeyValueStore.cs" />
+    <Compile Include="Impl\Persistence\SimpleRepository.cs" />
+    <Compile Include="Impl\Serialization\DocumentContractResolver.cs" />
+    <Compile Include="Impl\Serialization\DocumentMetadataProvider.cs" />
+    <Compile Include="Impl\Serialization\IProvideDocumentMetadata.cs" />
+    <Compile Include="Impl\Serialization\ISerializationProvider.cs" />
+    <Compile Include="Impl\Serialization\IValueProviderCache.cs" />
+    <Compile Include="Impl\Serialization\MetadataValueProvider.cs" />
+    <Compile Include="Impl\Serialization\MetadataValueProviderCache.cs" />
+    <Compile Include="Impl\Serialization\SerializationProvider.cs" />
     <Compile Include="Impl\UtilityExtensions.cs" />
     <Compile Include="Impl\Model\DesignView.cs" />
     <Compile Include="Impl\Commands\GetDocumentCommand.cs" />
@@ -77,9 +89,6 @@
     <Compile Include="Impl\Model\IHaveDocumentRevision.cs" />
     <Compile Include="Impl\Model\IHaveAttachments.cs" />
     <Compile Include="Impl\Cache\CacheKeyBuilder.cs" />
-    <Compile Include="Impl\Serialization\ChildDocumentResolverStrategy.cs" />
-    <Compile Include="Impl\Serialization\ConventionSerializationContractResolver.cs" />
-    <Compile Include="Impl\Serialization\ConventionSerializationContractResolverStrategy.cs" />
     <Compile Include="Impl\Cache\CouchCacheProvider.cs" />
     <Compile Include="Impl\Http\HttpAction.cs" />
     <Compile Include="Impl\Commands\CouchCommandFactory.cs" />
@@ -110,20 +119,12 @@
     <Compile Include="IRelaxQueryService.cs" />
     <Compile Include="IResolveDatabaseNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RelaxAssimilation.cs" />
-    <Compile Include="RelaxConfiguration.cs" />
     <Compile Include="Config\RelaxConfigurationException.cs" />
     <Compile Include="RelaxException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\lib\Symbiote.Core\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\lib\Symbiote.Core\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Symbiote.Core">
-      <HintPath>..\..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
+      <HintPath>..\..\lib\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

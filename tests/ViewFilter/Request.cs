@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using Relax.Impl;
-
-namespace Relax.Tests.ViewFilter
+﻿namespace Relax.Tests.ViewFilter
 {
     public class Request : CouchDocument
     {

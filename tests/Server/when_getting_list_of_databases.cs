@@ -18,6 +18,6 @@ namespace Relax.Tests.Server
         private It should_get_list_without_exception = () => exception.ShouldBeNull();
         private It should_get_database_list = () => databases
                                                         .ShouldContain("one", "two", "three");
-        private It should_call_get_correctly = () => commandMock.Verify(x => x.Get(couchUri));
+        private It should_call_get_correctly = () => commandMock.VerifyAll();
     }
 }

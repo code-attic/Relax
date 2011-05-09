@@ -1,7 +1,7 @@
 ﻿using Machine.Specifications;
 using Relax.Impl.Commands;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public class when_getting_doc_by_id_and_rev : with_get_doc_by_id_and_rev_setup
     {

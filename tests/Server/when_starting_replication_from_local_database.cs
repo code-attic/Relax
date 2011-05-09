@@ -13,6 +13,6 @@ namespace Relax.Tests.Server
                                  };
 
         private It should_replication_without_exceptions = () => exception.ShouldBeNull();
-        private It should_call_replicate_via_post = () => commandMock.Verify(x => x.Post(couchUri, replication));
+        private It should_call_replicate_via_post = () => commandMock.VerifyAll();
     }
 }

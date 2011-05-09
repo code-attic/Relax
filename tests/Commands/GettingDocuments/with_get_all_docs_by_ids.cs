@@ -2,9 +2,9 @@
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
-using Symbiote.Core.Extensions;
+using Symbiote.Core.Serialization;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public abstract class with_get_all_docs_by_ids : with_command_factory
     {

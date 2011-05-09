@@ -1,6 +1,6 @@
 ﻿using System;
-using Relax.Impl;
 using Relax.Impl.Model;
+using Symbiote.Core;
 
 namespace Relax.Tests
 {
@@ -13,6 +13,19 @@ namespace Relax.Tests
         {
             _documentId = Guid.NewGuid();
             CreatedOn = DateTime.Now;
+        }
+    }
+
+    public class TestDocumentKeyAccessor : IKeyAccessor<TestDocument>
+    {
+        public string GetId( TestDocument actor )
+        {
+            return actor.DocumentId.ToString();
+        }
+
+        public void SetId<TKey>( TestDocument actor, TKey key )
+        {
+            actor.DocumentId = Guid.Parse( key.ToString() );
         }
     }
 }

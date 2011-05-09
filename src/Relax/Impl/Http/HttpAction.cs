@@ -1,39 +1,55 @@
-﻿using System;
+﻿// /* 
+// Copyright 2008-2011 Alex Robson
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// */
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using Relax.Config;
 using Symbiote.Core.Extensions;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Impl.Http
 {
     public class HttpAction : IHttpAction
     {
+        protected bool _pollForChanges;
         protected ICouchConfiguration configuration { get; set; }
-        protected bool _pollForChanges = false;
 
-        public virtual string GetResponse(CouchUri uri, string method, string body)
+        public virtual string GetResponse( CouchUri uri, string method, string body )
         {
-            var request = WebRequest.Create(uri.ToString());
+            var request = WebRequest.Create( uri.ToString() );
             request.Method = method;
             request.Timeout = configuration.TimeOut;
             //request.PreAuthenticate = configuration.Preauthorize;
 
-            if (!string.IsNullOrEmpty(body))
+            if ( !string.IsNullOrEmpty( body ) )
             {
-                var bytes = UTF8Encoding.UTF8.GetBytes(body);
+                var bytes = Encoding.UTF8.GetBytes( body );
                 request.ContentType = "application/json; charset=utf-8";
                 request.ContentLength = bytes.Length;
 
                 var writer = request.GetRequestStream();
-                writer.Write(bytes, 0, bytes.Length);
+                writer.Write( bytes, 0, bytes.Length );
                 writer.Close();
             }
 
             var result = "";
             var response = request.GetResponse();
 
-            using (var reader = new StreamReader(response.GetResponseStream()))
+            using( var reader = new StreamReader( response.GetResponseStream() ) )
             {
                 result = reader.ReadToEnd();
                 response.Close();
@@ -42,11 +58,11 @@ namespace Relax.Impl.Http
             return result;
         }
 
-        public virtual void GetContinuousResponse(CouchUri uri, int since, Action<string, ChangeRecord> callback)
+        public virtual void GetContinuousResponse( CouchUri uri, int since, Action<string, ChangeRecord> callback )
         {
             var baseUri = uri.Clone() as CouchUri;
-            uri = uri.Changes(Feed.Continuous, since);
-            var request = WebRequest.Create(uri.ToString());
+            uri = uri.Changes( Feed.Continuous, since );
+            var request = WebRequest.Create( uri.ToString() );
             request.Method = "GET";
             request.Timeout = int.MaxValue;
             request.PreAuthenticate = configuration.Preauthorize;
@@ -57,25 +73,25 @@ namespace Relax.Impl.Http
             {
                 var response = request.GetResponse();
 
-                using (var reader = new StreamReader(response.GetResponseStream()))
+                using( var reader = new StreamReader( response.GetResponseStream() ) )
                 {
-                    while (_pollForChanges)
+                    while ( _pollForChanges )
                     {
                         result = reader.ReadLine();
-                        if (!string.IsNullOrEmpty(result))
+                        if ( !string.IsNullOrEmpty( result ) )
                         {
                             var changeUri = baseUri.Clone() as CouchUri;
                             var change = result.FromJson<ChangeRecord>();
-                            change.Document = GetResponse(changeUri.Id(change.Id), "GET", "");
-                            callback.BeginInvoke(uri.DatabaseName, change, null, null);
+                            change.Document = GetResponse( changeUri.Id( change.Id ), "GET", "" );
+                            callback.BeginInvoke( uri.DatabaseName, change, null, null );
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
                 "An exception occurred while receiving the change stream from {0}. \r\n\t {1}"
-                    .ToError<IDocumentRepository>(uri.ToString(), ex);
+                    .ToError<IDocumentRepository>( uri.ToString(), ex );
                 throw;
             }
             finally
@@ -84,24 +100,24 @@ namespace Relax.Impl.Http
             }
         }
 
-        public virtual Tuple<string, byte[]> GetAttachment(CouchUri uri)
+        public virtual Tuple<string, byte[]> GetAttachment( CouchUri uri )
         {
-            var request = WebRequest.Create(uri.ToString());
+            var request = WebRequest.Create( uri.ToString() );
             request.Method = "GET";
             request.Timeout = configuration.TimeOut;
 
             var response = request.GetResponse();
             int bytesRead = 0;
             var memoryStream = new MemoryStream();
-            
-            using(var stream = response.GetResponseStream())
+
+            using( var stream = response.GetResponseStream() )
             {
-                stream.CopyTo(memoryStream);
+                stream.CopyTo( memoryStream );
             }
             memoryStream.Position = 0;
             var result =
                 Tuple.Create(
-                    response.ContentType, 
+                    response.ContentType,
                     memoryStream.ToArray()
                     );
 
@@ -110,13 +126,13 @@ namespace Relax.Impl.Http
             return result;
         }
 
-        public virtual string SaveAttachment(CouchUri uri, string type, byte[] content)
+        public virtual string SaveAttachment( CouchUri uri, string type, byte[] content )
         {
-            using(var client = new WebClient())
+            using( var client = new WebClient() )
             {
-                client.Headers.Add("Content-Type", type);
-                var bytes = client.UploadData(uri.ToString(), "PUT", content);
-                return UTF8Encoding.UTF8.GetString(bytes);
+                client.Headers.Add( "Content-Type", type );
+                var bytes = client.UploadData( uri.ToString(), "PUT", content );
+                return Encoding.UTF8.GetString( bytes );
             }
         }
 
@@ -125,41 +141,39 @@ namespace Relax.Impl.Http
             _pollForChanges = false;
         }
 
-        public virtual string Post(CouchUri uri)
+        public virtual string Post( CouchUri uri )
         {
-            return GetResponse(uri, "POST", "");
+            return GetResponse( uri, "POST", "" );
         }
 
-        public virtual string Post(CouchUri uri, string body)
+        public virtual string Post( CouchUri uri, string body )
         {
-            return GetResponse(uri, "POST", body);
+            return GetResponse( uri, "POST", body );
         }
 
-        public virtual string Put(CouchUri uri)
+        public virtual string Put( CouchUri uri )
         {
-            return GetResponse(uri, "PUT", "");
+            return GetResponse( uri, "PUT", "" );
         }
 
-        public virtual string Put(CouchUri uri, string body)
+        public virtual string Put( CouchUri uri, string body )
         {
-            return GetResponse(uri, "PUT", body);
+            return GetResponse( uri, "PUT", body );
         }
 
-        public virtual string Get(CouchUri uri)
+        public virtual string Get( CouchUri uri )
         {
-            return GetResponse(uri, "GET", "");
+            return GetResponse( uri, "GET", "" );
         }
 
-        public virtual string Delete(CouchUri uri)
+        public virtual string Delete( CouchUri uri )
         {
-            return GetResponse(uri, "DELETE", "");
+            return GetResponse( uri, "DELETE", "" );
         }
 
-        public HttpAction(ICouchConfiguration configuration)
+        public HttpAction( ICouchConfiguration configuration )
         {
             this.configuration = configuration;
         }
     }
-
-
 }

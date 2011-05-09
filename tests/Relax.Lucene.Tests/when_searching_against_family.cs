@@ -15,15 +15,13 @@ namespace Relax.Lucene.Tests
         private Because of = () =>
                                  {
                                      results = provider.GetDocumentsForQuery<Person>(x => 
-                                         x.Cars.Count > 0 && 
-                                         x.Cars[0].Model.StartsWith("C") && 
-                                         x.Cars[0].Make == "Honda" &&
-                                         x.Cars[0].Year > 2005
+                                         x.Cars.Count > 0 &&
+                                         x.Cars.Any(c => c.Year == 2010)
                                          ).ToList();
                                      result = results[0];
                                  };
         
         private It should_produce_1_result = () => 
-            results.Count.ShouldEqual(2);
+            results.Count.ShouldEqual(1);
     }
 }

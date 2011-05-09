@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace Relax.Tests.Serialization
+﻿namespace Relax.Tests.Serialization
 {
     public class with_complex_document
     {

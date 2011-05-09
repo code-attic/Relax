@@ -1,101 +1,98 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿// /* 
+// Copyright 2008-2011 Alex Robson
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// */
 using Relax.Config;
 using Relax.Impl.Model;
-using Symbiote.Core.Reflection;
-using Symbiote.Core.Utility;
-using JsonExtensions = Symbiote.Core.Extensions.JsonExtensions;
+using Relax.Impl.Serialization;
+using Symbiote.Core;
 
 namespace Relax.Impl
 {
     public class DocumentUtility
     {
         protected ICouchConfiguration configuration { get; set; }
+        protected IKeyAccessor KeyAccessor { get; set; }
+        protected IProvideDocumentMetadata MetadataProvider { get; set; }
 
-        public virtual string GetDocumentIdAsJson(object instance)
+        public virtual string GetDocumentIdAsJson( object instance )
         {
             var doc = instance as IHaveDocumentId;
-            if (doc != null)
+            if ( doc != null )
             {
                 return doc.GetDocumentIdAsJson();
             }
             else
             {
-                return JsonExtensions.ToJson<object>(Reflector.ReadMember(instance, configuration.Conventions.IdPropertyName), false);
+                return KeyAccessor.GetId( instance, instance.GetType() );
             }
         }
 
-        public virtual object GetDocumentId(object instance)
+        public virtual object GetDocumentId( object instance )
         {
             var doc = instance as IHaveDocumentId;
-            if (doc != null)
+            if ( doc != null )
             {
                 return doc.GetDocumentId();
             }
             else
             {
-                return Reflector.ReadMember(instance, configuration.Conventions.IdPropertyName);
+                return KeyAccessor.GetId( instance, instance.GetType() );
             }
         }
 
-        public virtual string GetDocumentRevision(object instance)
+        public virtual string GetDocumentRevision( object instance )
         {
             var doc = instance as IHaveDocumentRevision;
-            if (doc != null)
+            if ( doc != null )
             {
                 return doc.DocumentRevision;
             }
             else
             {
-                var documentRevision = Reflector.ReadMember(instance, configuration.Conventions.RevisionPropertyName).ToString();
-                return string.IsNullOrEmpty(documentRevision) ? null : documentRevision;
+                var key = KeyAccessor.GetId( instance, instance.GetType() );
+                var metadata = MetadataProvider.GetMetadata( key );
+                return metadata == null ? null : metadata._rev;
             }
         }
 
-        public virtual void SetDocumentRevision(string revision, object instance)
+        public virtual void SetDocumentRevision( string revision, object instance )
         {
             var doc = instance as IHaveDocumentRevision;
-            if (doc != null)
+            if ( doc != null )
             {
-                doc.UpdateRevFromJson(revision);
+                doc.UpdateRevFromJson( revision );
             }
             else
             {
-                Reflector.WriteMember(instance, configuration.Conventions.RevisionPropertyName, revision);
+                var key = KeyAccessor.GetId( instance, instance.GetType() );
+                var metadata = MetadataProvider.GetMetadata( key ) ??
+                               new DocumentMetadata() { _id = key, _rev = revision };
+                MetadataProvider.SetMetadata( key, metadata );
             }
         }
 
-        public virtual object[] GetDocumentGraph(object model)
+        public virtual bool IsDocument( object instance )
         {
-            object[] documentArray = new object[] { };
-            List<object> original = new List<object>();
-            if (model as IEnumerable != null)
-            {
-                original.AddRange((model as IEnumerable).Cast<object>());
-            }
-            else
-            {
-                original.Add(model);
-            }
-
-            var watcher = new DocumentHierarchyWatcher();
-            var visitor = new HierarchyVisitor(IsDocument);
-            visitor.Subscribe(watcher);
-            visitor.Visit(model);
-            documentArray = watcher.Documents.ToArray();
-
-            return documentArray.Length == 0 ? original.ToArray() : documentArray;
+            return instance.GetType().GetInterface( "ICouchDocument`1" ) != null;
         }
 
-        public virtual bool IsDocument(object instance)
+        public DocumentUtility( ICouchConfiguration couchConfiguration, IKeyAccessor keyAccessor, IProvideDocumentMetadata metadataProvider )
         {
-            return instance.GetType().GetInterface("ICouchDocument`1") != null;
-        }
-
-        public DocumentUtility(ICouchConfiguration couchConfiguration)
-        {
-            this.configuration = couchConfiguration;
+            configuration = couchConfiguration;
+            KeyAccessor = keyAccessor;
+            MetadataProvider = metadataProvider;
         }
     }
 }

@@ -2,7 +2,7 @@
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public abstract class with_get_doc_by_range : with_command_factory
     {

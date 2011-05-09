@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using Machine.Specifications;
 using Relax.Impl.Commands;
 using Relax.Impl.Json;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public class when_getting_all_documents_by_ids : with_get_all_docs_by_ids
     {
@@ -14,7 +15,7 @@ namespace Relax.Tests.Commands
         private Because of = () =>
                                  {
                                      result = command.GetDocuments<TestDoc>(new object[] {"1","2"});
-                                     viewResult = result.GetResultAs<ViewResult<TestDoc>>();
+                                     viewResult = command.DeserializeView<TestDoc>( result.Json );
                                      json = result.Json.Replace("\r\n", "").Replace(" ", "");
                                  };
 
@@ -36,5 +37,28 @@ namespace Relax.Tests.Commands
                                                        };
 
         private It should_call_action = () => mockAction.Verify();
+    }
+
+    public class when_getting_all_documents_by_ids_timed : with_get_all_docs_by_ids
+    {
+        protected static CommandResult result;
+        protected static ViewResult<TestDoc> viewResult;
+        protected static string json;
+        protected static Stopwatch watch;
+
+        private Because of = () =>
+                                 {
+                                     result = command.GetDocuments<TestDoc>(new object[] {"1","2"});
+                                     watch = Stopwatch.StartNew();
+
+                                     for( int i = 0; i < 10000; i++ )
+                                     {
+                                        viewResult = command.DeserializeView<TestDoc>( result.Json );    
+                                     }
+
+                                     watch.Stop();
+                                 };
+
+        private It should_not_take_longer_than_1_second = () => watch.ElapsedMilliseconds.ShouldBeLessThan( 3000 );
     }
 }

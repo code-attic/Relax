@@ -13,6 +13,6 @@ namespace Relax.Tests.Server
                                  };
 
         private It should_not_throw_exception = () => exception.ShouldBeNull();
-        private It should_call_clean_view_command = () => commandMock.Verify(x => x.Post(couchUri));
+        private It should_call_clean_view_command = () => commandMock.VerifyAll();
     }
 }

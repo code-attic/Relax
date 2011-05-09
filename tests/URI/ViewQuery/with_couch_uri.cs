@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using Moq;
 using Relax.Impl.Http;
-using It = Moq.It;
 
 namespace Relax.Tests.URI.ViewQuery
 {
@@ -13,7 +8,7 @@ namespace Relax.Tests.URI.ViewQuery
     {
         protected static Mock<CouchUri> uriMock;
         protected static CouchUri uri { get { return uriMock.Object; } }
-        protected static Impl.Commands.ViewQuery query { get { return new Impl.Commands.ViewQuery(uri); } }
+        protected static Relax.Impl.Commands.ViewQuery query { get { return new Relax.Impl.Commands.ViewQuery(uri); } }
 
         private Establish context = () =>
                                         {

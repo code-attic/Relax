@@ -1,7 +1,5 @@
 ﻿using Machine.Specifications;
-using Relax.Config;
 using Symbiote.Core;
-using Symbiote.StructureMap;
 
 namespace Relax.Tests.Commands
 {
@@ -9,7 +7,7 @@ namespace Relax.Tests.Commands
     {
         private Establish context = () =>
                                         {
-                                            RelaxConfiguration.Configure<StructureMapAdapter>(x => x.UseDefaults());
+                                            Assimilate.Initialize();
                                         };
     }
 }

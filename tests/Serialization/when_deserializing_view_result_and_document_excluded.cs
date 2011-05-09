@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
 using Relax.Impl.Json;
-using Symbiote.Core.Extensions;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.Serialization
 {

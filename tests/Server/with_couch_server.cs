@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using Moq;
 using Relax.Impl;
-using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Repository;
-using StructureMap;
+using Symbiote.Core;
 
 namespace Relax.Tests.Server
 {
@@ -21,6 +16,9 @@ namespace Relax.Tests.Server
         {
             get
             {
+                //var config = Assimilate.GetInstanceOf<ICouchConfiguration>();
+                //config.Cache = false;
+                Assimilate.Dependencies(x => x.For<IDocumentRepository>().Use<DocumentRepository>());
                 return Moq.It.Is<CouchUri>(u => u.ToString().Equals(uri.ToString()));
             }
         }
@@ -28,7 +26,7 @@ namespace Relax.Tests.Server
         private Establish context = () =>
         {
             commandMock = new Mock<IHttpAction>();
-            server = ObjectFactory.GetInstance<CouchDbServer>();
+            server = Assimilate.GetInstanceOf<CouchDbServer>();
         };
     }
 }

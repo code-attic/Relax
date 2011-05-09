@@ -1,10 +1,7 @@
 ﻿using Machine.Specifications;
-using Relax.Impl.Commands;
 using Relax.Impl.Http;
 using Relax.Impl.Json;
-using Relax.Tests.Repository;
-using Relax.Impl;
-using Symbiote.Core.Extensions;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.Server
 {

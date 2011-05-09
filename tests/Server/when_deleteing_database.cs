@@ -14,6 +14,6 @@ namespace Relax.Tests.Server
                                  };
 
         private It should_delete_database_without_exception = () => exception.ShouldBeNull();
-        private It should_call_delete_correctly = () => commandMock.Verify(x => x.Delete(couchUri));
+        private It should_call_delete_correctly = () => commandMock.VerifyAll();
     }
 }

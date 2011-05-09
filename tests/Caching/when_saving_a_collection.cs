@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Machine.Specifications;
 using Relax.Impl.Cache;
 using Symbiote.Core;
-using Symbiote.StructureMap;
 
 namespace Relax.Tests.Caching
 {
@@ -20,7 +19,7 @@ namespace Relax.Tests.Caching
 
         private Because of = () =>
                                  {
-                                     Assimilate.Core<StructureMapAdapter>().Relax(x => x.UseDefaults());
+                                     Assimilate.Initialize();
                                      document1 = new TestDocument
                                                      {
                                                          Message = "Doc 1",

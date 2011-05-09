@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public abstract class with_get_all_docs_paged : with_get_all_docs
     {

@@ -1,6 +1,5 @@
 ﻿using Machine.Specifications;
 using Symbiote.Core;
-using Symbiote.StructureMap;
 
 namespace Relax.Tests.Document
 {
@@ -10,7 +9,7 @@ namespace Relax.Tests.Document
 
         private Establish context = () =>
                                         {
-                                            Assimilate.Core<StructureMapAdapter>();
+                                            Assimilate.Initialize();
                                             driver = new Driver(person);
                                         };
     }

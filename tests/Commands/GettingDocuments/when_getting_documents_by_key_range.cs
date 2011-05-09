@@ -2,7 +2,7 @@
 using Relax.Impl.Commands;
 using Relax.Impl.Json;
 
-namespace Relax.Tests.Commands
+namespace Relax.Tests.Commands.GettingDocuments
 {
     public class when_getting_documents_by_key_range : with_get_doc_by_range
     {

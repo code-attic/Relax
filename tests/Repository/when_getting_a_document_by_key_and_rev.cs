@@ -21,6 +21,6 @@ namespace Relax.Tests.Repository
                                                record.Message.ShouldEqual("Hello");
                                                record.DocumentRevision.ShouldEqual("2");
                                            };
-        private It should_call_get_correctly = () => commandMock.Verify(x => x.Get(couchUri));
+        private It should_call_get_correctly = () => commandMock.VerifyAll();
     }
 }

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Machine.Specifications;
 using Symbiote.Core;
-using Symbiote.Core.Extensions;
-using Symbiote.StructureMap;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.Document
 {
@@ -19,8 +15,7 @@ namespace Relax.Tests.Document
         private Establish context = () =>
                                         {
                                             Assimilate
-                                                .Core<StructureMapAdapter>()
-                                                .Relax(x => x.UseDefaults());
+                                                .Initialize();
                                             simpleDocument = new TestDocument() {Message = "test"};
                                         };
 

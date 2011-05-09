@@ -1,6 +1,6 @@
 ﻿using Machine.Specifications;
 using Relax.Impl.Commands;
-using StructureMap;
+using Symbiote.Core;
 
 namespace Relax.Tests.Commands
 {
@@ -10,7 +10,7 @@ namespace Relax.Tests.Commands
 
         private Establish context = () =>
                                         {
-                                            factory = ObjectFactory.GetInstance<CouchCommandFactory>();
+                                            factory = Assimilate.GetInstanceOf<CouchCommandFactory>();
                                         };
     }
 }

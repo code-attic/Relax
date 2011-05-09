@@ -1,123 +1,126 @@
-﻿using System;
-using Microsoft.Practices.ServiceLocation;
+﻿// /* 
+// Copyright 2008-2011 Alex Robson
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// */
+using System;
+using Symbiote.Core;
 
 namespace Relax.Config
 {
     public class CouchConfigurator
     {
-        private CouchConfiguration _config = new CouchConfiguration();
+        public CouchConfiguration Configuration { get; internal set; }
 
-        public CouchConfigurator BreakDocumentGraphsIntoSeperateDocuments()
-        {
-            _config.BreakDownDocumentGraphs = true;
-            return this;
-        }
-        
         public CouchConfigurator Cache()
         {
-            _config.Cache = true;
-            _config.CacheExpiration = DateTime.MaxValue;
+            Configuration.Cache = true;
+            Configuration.CacheExpiration = DateTime.MaxValue;
             return this;
         }
 
-        public CouchConfigurator Cache(DateTime expiration)
+        public CouchConfigurator Cache( DateTime expiration )
         {
-            _config.Cache = true;
-            _config.CacheExpiration = expiration;
+            Configuration.Cache = true;
+            Configuration.CacheExpiration = expiration;
             return this;
         }
 
-        public CouchConfigurator Cache(TimeSpan timeLimit)
+        public CouchConfigurator Cache( TimeSpan timeLimit )
         {
-            _config.Cache = true;
-            _config.CacheLimit = timeLimit;
+            Configuration.Cache = true;
+            Configuration.CacheLimit = timeLimit;
             return this;
         }
 
         public CouchConfigurator ExcludeTypeSpecificationFromJson()
         {
-            _config.IncludeTypeSpecification = false;
+            Configuration.IncludeTypeSpecification = false;
             return this;
         }
 
         public CouchConfigurator FailedGetShouldThrowException()
         {
-            _config.Throw404Exceptions = true;
+            Configuration.Throw404Exceptions = true;
             return this;
         }
 
         public CouchConfigurator Https()
         {
-            _config.Protocol = "https";
+            Configuration.Protocol = "https";
             return this;
         }
 
-        public CouchConfigurator Port(int port)
+        public CouchConfigurator LimitMetadataCachingTo( int itemCount )
         {
-            _config.Port = port;
+            Configuration.MetadataCacheLimit = itemCount;
             return this;
         }
 
-        public CouchConfigurator Preauthorize(string username, string password)
+        public CouchConfigurator Port( int port )
         {
-            _config.Preauthorize = true;
-            _config.User = username;
-            _config.Password = password;
+            Configuration.Port = port;
             return this;
         }
 
-        public CouchConfigurator RelaxQueryServiceUrl(string url)
+        public CouchConfigurator Preauthorize( string username, string password )
         {
-            _config.RelaxQueryServiceUrl = url;
+            Configuration.Preauthorize = true;
+            Configuration.User = username;
+            Configuration.Password = password;
             return this;
         }
 
-        public CouchConfigurator Server(string server)
+        public CouchConfigurator CouchQueryServiceUrl( string url )
         {
-            _config.Server = server;
+            Configuration.CouchQueryServiceUrl = url;
             return this;
         }
 
-        public CouchConfigurator TimeOut(int timeOut)
+        public CouchConfigurator Server( string server )
         {
-            _config.TimeOut = timeOut;
+            Configuration.Server = server;
             return this;
         }
 
-        public CouchConfigurator UseDefaults()
+        public CouchConfigurator TimeOut( int timeOut )
         {
+            Configuration.TimeOut = timeOut;
             return this;
         }
 
-        public CouchConfigurator DefaultDatabase(string databaseName)
+        public CouchConfigurator DefaultDatabase( string databaseName )
         {
-            _config.DefaultDatabaseName = databaseName;
+            Configuration.DefaultDatabaseName = databaseName;
             return this;
         }
 
-        public CouchConfigurator AssignDatabaseToType<T>(string databaseName)
+        public CouchConfigurator AssignDatabaseToType<T>( string databaseName )
         {
-            _config.SetDatabaseNameForType<T>(databaseName);
+            Configuration.SetDatabaseNameForType<T>( databaseName );
             return this;
         }
 
         public CouchConfigurator UseDatabaseTypeResolver<T>()
             where T : IResolveDatabaseNames
         {
-            _config.DatabaseResolver = ServiceLocator.Current.GetInstance<T>();
+            Configuration.DatabaseResolver = Assimilate.GetInstanceOf<T>();
             return this;
         }
 
-        public CouchConfigurator WithConventions(string idProperty, string revisionProperty)
+        public CouchConfigurator()
         {
-            _config.Conventions.IdPropertyName = idProperty;
-            _config.Conventions.RevisionPropertyName = revisionProperty;
-            return this;
-        }
-
-        public ICouchConfiguration GetConfiguration()
-        {
-            return _config;
+            Configuration = new CouchConfiguration();
         }
     }
 }

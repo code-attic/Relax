@@ -14,6 +14,6 @@ namespace Relax.Tests.Server
                                  };
 
         private It should_create_database_without_exception = () => exception.ShouldBeNull();
-        private It should_call_put_correctly = () => commandMock.Verify(x => x.Put(couchUri));
+        private It should_call_put_correctly = () => commandMock.VerifyAll();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Machine.Specifications;
 
-namespace Relax.Tests.Commands.SaveAttachmentCommand
+namespace Relax.Tests.Commands.SavingAttachments
 {
     public class when_saving_document_attachment : with_save_attachment_command
     {

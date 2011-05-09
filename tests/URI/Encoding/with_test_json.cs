@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Machine.Specifications;
-using Symbiote.Core.Extensions;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.URI.Encoding
 {

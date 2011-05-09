@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Machine.Specifications;
+﻿using Machine.Specifications;
 using Relax.Impl.Commands;
 using Relax.Impl.Http;
 

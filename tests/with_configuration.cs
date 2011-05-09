@@ -1,10 +1,7 @@
 ﻿using Machine.Specifications;
 using Relax.Config;
-using Relax.Impl;
 using Relax.Impl.Http;
-using StructureMap;
 using Symbiote.Core;
-using Symbiote.StructureMap;
 
 namespace Relax.Tests
 {
@@ -13,12 +10,15 @@ namespace Relax.Tests
         protected static ICouchConfiguration configuration;
         private Establish context = () =>
                                         {
-                                            Assimilate.Core<StructureMapAdapter>().Relax(x => x.UseDefaults());
+                                            Assimilate.Initialize();
                                             configuration = new CouchConfiguration();
                                         };
+
         protected static void WireUpCommandMock(IHttpAction commandMock)
         {
-            ObjectFactory.Configure(x => x.For<IHttpAction>().Use(commandMock));
+            var mock = Assimilate.GetAllInstancesOf<IHttpAction>();
+            
+            Assimilate.Dependencies( x => x.For<IHttpAction>().Use( commandMock ) );
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Machine.Specifications;
-using Symbiote.Core.Extensions;
 
 namespace Relax.Tests.URI
 {

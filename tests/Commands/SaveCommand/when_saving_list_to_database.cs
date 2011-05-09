@@ -19,7 +19,7 @@ namespace Relax.Tests.Commands.SaveCommand
                                          .Returns(response)
                                          .AtMostOnce();
                                      command = factory.CreateSaveDocumentsCommand();
-                                     command.SaveAll("relax", new object[] {testDoc});
+                                     command.SaveAll("Couch", new object[] {testDoc});
                                  };
         
         private It should_call_action = () => mockAction.Verify();

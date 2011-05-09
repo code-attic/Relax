@@ -1,4 +1,18 @@
-﻿using System;
+﻿// /* 
+// Copyright 2008-2011 Alex Robson
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//    http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// */
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -7,21 +21,16 @@ namespace Relax.Impl.Cache
     public class DefaultKeyAssociationManager : IKeyAssociationManager
     {
         protected ConcurrentDictionary<string, ConcurrentStack<string>> KeyAssociations { get; set; }
-        
-        public DefaultKeyAssociationManager()
-        {
-            KeyAssociations = new ConcurrentDictionary<string, ConcurrentStack<string>>();
-        }
 
-        public void AddKeyAssociation(string key, string cacheKey)
+        public void AddKeyAssociation( string key, string cacheKey )
         {
             ConcurrentStack<string> associations = null;
-            if (!KeyAssociations.TryGetValue(key, out associations))
+            if ( !KeyAssociations.TryGetValue( key, out associations ) )
             {
                 associations = new ConcurrentStack<string>();
                 KeyAssociations[key] = associations;
             }
-            associations.Push(cacheKey);
+            associations.Push( cacheKey );
         }
 
         public IEnumerable<string> GetAllKeys()
@@ -29,18 +38,23 @@ namespace Relax.Impl.Cache
             return KeyAssociations.Keys;
         }
 
-        public IEnumerable<string> GetAssociations(string key)
+        public IEnumerable<string> GetAssociations( string key )
         {
             ConcurrentStack<string> associations = null;
-            if (KeyAssociations.TryGetValue(key, out associations))
+            if ( KeyAssociations.TryGetValue( key, out associations ) )
             {
                 string associatedKey = null;
-                while (associations.TryPop(out associatedKey))
+                while ( associations.TryPop( out associatedKey ) )
                 {
                     yield return associatedKey;
                 }
             }
             yield break;
+        }
+
+        public DefaultKeyAssociationManager()
+        {
+            KeyAssociations = new ConcurrentDictionary<string, ConcurrentStack<string>>();
         }
     }
 }

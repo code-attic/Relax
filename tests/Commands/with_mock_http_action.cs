@@ -1,7 +1,8 @@
 ﻿using Machine.Specifications;
 using Moq;
 using Relax.Impl.Http;
-using StructureMap;
+using Symbiote.Core;
+using It = Machine.Specifications.It;
 
 namespace Relax.Tests.Commands
 {
@@ -13,7 +14,12 @@ namespace Relax.Tests.Commands
         private Establish context = () =>
                                         {
                                             mockAction = new Mock<IHttpAction>();
-                                            ObjectFactory.Configure(x => x.For<IHttpAction>().Use(y => action));
+                                            Assimilate.Dependencies( x => x.For<IHttpAction>().CreateWith( c => action ) );
                                         };
+    }
+
+    public class when_testing_blank_action : with_mock_http_action
+    {
+        It should_not_be_null = () => { mockAction.ShouldNotBeNull(); };
     }
 }

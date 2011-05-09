@@ -1,6 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using Machine.Specifications;
-using Symbiote.Core.Extensions;
+﻿using Machine.Specifications;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.Document
 {

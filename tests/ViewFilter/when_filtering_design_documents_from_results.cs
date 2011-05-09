@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Machine.Specifications;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Relax.Impl.Json;
-using Symbiote.Core.Extensions;
-using IEnumerableExtenders = Symbiote.Core.Extensions.IEnumerableExtenders;
+using Symbiote.Core.Serialization;
 
 namespace Relax.Tests.ViewFilter
 {

@@ -1,6 +1,4 @@
-﻿
-using Relax.Impl;
-using Relax.Impl.Model;
+﻿using Relax.Impl.Model;
 
 namespace Relax.Tests.Document
 {

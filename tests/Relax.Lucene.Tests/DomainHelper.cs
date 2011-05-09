@@ -42,6 +42,26 @@ namespace Relax.Lucene.Tests
                                                   new Car() {Make="Honda",Model="Civic",Year=2008}
                                               }
                                },
+                           new Person()
+                               {
+                                   FirstName = "Sean",
+                                   LastName = "Robson",
+                                   Age = 28,
+                                   Cars = new List<Car>()
+                                              {
+                                                  new Car() {Make="Honda",Model="Accord",Year=1999}
+                                              }
+                               },
+                           new Person()
+                               {
+                                   FirstName = "Rebekah",
+                                   LastName = "Robson",
+                                   Age = 28,
+                                   Cars = new List<Car>()
+                                              {
+                                                  new Car() {Make="Honda",Model="Civic",Year=2008}
+                                              }
+                               },
                        };
         }
     }

@@ -1,6 +1,5 @@
 ﻿using Machine.Specifications;
 using Relax.Impl.Cache;
-using It = Machine.Specifications.It;
 
 namespace Relax.Tests.Caching
 {
