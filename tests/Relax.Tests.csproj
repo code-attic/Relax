@@ -39,7 +39,7 @@
       <HintPath>..\lib\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Symbiote.Core">
-      <HintPath>..\lib\Symbiote.Core\Symbiote.Core.dll</HintPath>
+      <HintPath>..\lib\Symbiote.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
