@@ -48,6 +48,9 @@ namespace Relax.Impl.Serialization
 
         public T Deserialize<T>( string json )
         {
+            if( string.IsNullOrEmpty( json ) )
+                return default( T );
+
             var type = typeof(T);
             object document = null;
             using ( var reader = new StringReader( json ) )
@@ -65,6 +68,9 @@ namespace Relax.Impl.Serialization
 
         public ViewResult<T> DeserializeList<T>( string json )
         {
+            if( string.IsNullOrEmpty( json ) )
+                return new ViewResult<T>();
+
             var type = typeof( T );
             var viewType = typeof( ViewResult<T> );
             ViewResult<T> viewResult = null;

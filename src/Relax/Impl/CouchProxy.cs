@@ -47,5 +47,11 @@ namespace Relax.Impl {
         {
             return Repository.Save( KeyAccessor.GetId(instance), instance );
         }
+
+        public CouchProxy( IKeyAccessor keyAccessor, IDocumentRepository repository )
+        {
+            KeyAccessor = keyAccessor;
+            Repository = repository;
+        }
     }
 }
